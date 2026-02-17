@@ -2,20 +2,27 @@
 
 'use client';
 
-
+import { useSession, signIn, signOut } from "next-auth/react"
 
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
 
+type ProfileType = {
+    name: string;
+    username: string;
+    image: string;
+}
+
+
 /* 1. Define the shape of the context */
-type ThemeContextType = {
-    theme: string | null;
-    setTheme: (theme: string | null) => void;
+type AuthContextType = {
+    myProfile: ProfileType | null;
+    
 };
 
 
 /* 2. Create context (undefined by default) */
-const ThemeContext = createContext<ThemeContextType | undefined>(undefined);
+const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 
 /* 3. Provider props */
@@ -26,19 +33,25 @@ type AppProviderProps = {
 
 
 /* 4. Context Provider */
-export function ThemeProvider({ children }: AppProviderProps) {
-    const [theme, setTheme] = useState<string | null>(null);
+export function AuthProvider({ children }: AppProviderProps) {
+    const [myProfile, setMyProfile] = useState<ProfileType | null>(null);
+    const { data: session } = useSession();
 
     useEffect(() => {
-        // document is available ONLY on the client
-        const color = document.documentElement.getAttribute('color-theme');
-        setTheme(color);
-    }, []);
+        if (session) {
+            const { name, image } = session.user || {};
+            const username = session.user?.email?.split('@')[0] || '';
+            setMyProfile({ name: name || '', username, image: image || '' });
+        } else {
+            setMyProfile(null);
+        }
+    }, [session]);
+    
 
     return (
-        <ThemeContext.Provider value={{ theme, setTheme }}>
+        <AuthContext.Provider value={{ myProfile }}>
             {children}
-        </ThemeContext.Provider>
+        </AuthContext.Provider>
     );
 }
 
