@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { useState } from 'react';
+import { ThemeButton } from '../theme/theme1';
 
 type NavItem = {
     label: string;
@@ -15,6 +16,8 @@ const navItems: NavItem[] = [
     { label: 'Contact', href: '/contact' },
 ];
 
+
+
 export function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
 
@@ -25,6 +28,8 @@ export function Navbar() {
                 <Link href="/" className="text-xl font-bold">
                     MyApp
                 </Link>
+
+                <ThemeButton />
 
                 {/* Desktop Menu */}
                 <div className="hidden space-x-6 md:flex">
