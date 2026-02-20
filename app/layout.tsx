@@ -5,6 +5,8 @@ import "@/library/theme/theme.tsx";
 import { Navbar } from "@/library/nav/nav";
 import { Providers } from "./providers";
 import { ThemeProvider } from "@/library/theme/theme.tsx";
+import { AuthProvider } from "@/library/auth/context.tsx";
+
 
 
 const geistSans = Geist({
@@ -32,16 +34,20 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="en" color-theme="light" className="bg-(--color1) text-(--color2)" >
-			<ThemeProvider>
-			<Providers>
-				<body
-					className={`${geistSans.variable} ${geistMono.variable} antialiased bg-(--color1) text-(--color2)`}
-				>
-					<Navbar />
-					{children}
-				</body>
-			</Providers>
-			</ThemeProvider>
+			<body
+				className={`${geistSans.variable} ${geistMono.variable} antialiased bg-(--color1) text-(--color2)`}
+			>
+				<ThemeProvider>
+					<Providers>
+						<AuthProvider>
+
+							<Navbar />
+							{children}
+
+						</AuthProvider>
+					</Providers>
+				</ThemeProvider>
+			</body>
 		</html>
 	);
 }

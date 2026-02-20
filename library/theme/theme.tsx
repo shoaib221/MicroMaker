@@ -44,7 +44,7 @@ export function ThemeProvider({ children }: AppProviderProps) {
 /* 5. Custom hook (IMPORTANT) */
 export function useThemeContext() {
     const context = useContext(ThemeContext);
-
+    
     if (!context) {
         throw new Error('useThemeContext must be used inside AppProvider');
     }

@@ -1,13 +1,17 @@
+
 'use client';
 
 import Link from 'next/link';
 import { useState } from 'react';
 import { ThemeButton } from '../theme/theme1';
+import { useAuthContext } from '../auth/context';
+
 
 type NavItem = {
     label: string;
     href: string;
 };
+
 
 const navItems: NavItem[] = [
     { label: 'Home', href: '/' },
@@ -20,6 +24,7 @@ const navItems: NavItem[] = [
 
 export function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
+    const { myProfile } = useAuthContext();
 
     return (
         <nav className="w-full border-b">
@@ -69,6 +74,20 @@ export function Navbar() {
                     ))}
                 </div>
             )}
+
+
+            {myProfile ? (
+                <div className="absolute right-4 top-4 flex items-center space-x-2">
+                    <img src={myProfile.avatar} alt="Profile" className="w-8 h-8 rounded-full" />
+                </div>
+            ) : 
+            (<div className="absolute right-4 top-4">
+                <Link href="/register" className="text-sm text-gray-700 hover:text-black">
+                    Register
+                </Link>
+            </div>)
+            }
+
         </nav>
     );
 }

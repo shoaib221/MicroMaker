@@ -2,7 +2,7 @@
 
 'use client';
 
-import { useSession, signIn, signOut } from "next-auth/react"
+import { useSession, signIn, signOut } from "next-auth/react";
 
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
@@ -17,7 +17,6 @@ type ProfileType = {
 /* 1. Define the shape of the context */
 type AuthContextType = {
     myProfile: ProfileType | null;
-    
 };
 
 
@@ -35,12 +34,12 @@ type AppProviderProps = {
 /* 4. Context Provider */
 export function AuthProvider({ children }: AppProviderProps) {
     const [myProfile, setMyProfile] = useState<ProfileType | null>(null);
-    const { data: session } = useSession();
+    const { data: session, status } = useSession();
 
     useEffect(() => {
         if (session) {
             const { name, image } = session.user || {};
-            const username = session.user?.email?.split('@')[0] || '';
+            const username = session.user?.email || '';
             setMyProfile({ name: name || '', username, image: image || '' });
         } else {
             setMyProfile(null);
@@ -57,11 +56,11 @@ export function AuthProvider({ children }: AppProviderProps) {
 
 
 /* 5. Custom hook (IMPORTANT) */
-export function useThemeContext() {
-    const context = useContext(ThemeContext);
+export function useAuthContext() {
+    const context = useContext(AuthContext);
 
     if (!context) {
-        throw new Error('useThemeContext must be used inside AppProvider');
+        throw new Error('useAuthContext must be used inside AuthProvider');
     }
 
     return context;
