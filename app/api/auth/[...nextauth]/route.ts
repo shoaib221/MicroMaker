@@ -2,6 +2,8 @@ import NextAuth from "next-auth";
 import GitHubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
 import CredentialsProvider from "next-auth/providers/credentials";
+import { prisma } from "@/prisma/client";
+import bcrypt from "bcrypt";
 
 
 const handler = NextAuth({
@@ -18,24 +20,21 @@ const handler = NextAuth({
                     return null;
                 }
 
-                // 🔹 Example: Replace with your DB logic
-                const user = {
-                    id: "1",
-                    email: "test@example.com",
-                    name: "Test User",
-                    password: "123456",
-                };
+                const user = await prisma.user.findUnique({
+                    where: { email: credentials.email },
+                });
 
-                // 🔹 Compare with database user
-                if (
-                    credentials.email === user.email &&
-                    credentials.password === user.password
-                ) {
-                    return {
-                        id: user.id,
-                        email: user.email,
-                        name: user.name,
-                    };
+                if (!user || !user.password) {
+                    return null;
+                }
+
+                const isValidPassword = await bcrypt.compare(
+                    credentials.password,   
+                    user.password           
+                );
+
+                if (credentials.email === user.email && isValidPassword) {
+                    return user;
                 }
 
                 return null;

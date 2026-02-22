@@ -9,7 +9,7 @@ import { createContext, useContext, useState, ReactNode, useEffect } from 'react
 
 type ProfileType = {
     name: string;
-    username: string;
+    email: string;
     image: string;
 }
 
@@ -37,10 +37,8 @@ export function AuthProvider({ children }: AppProviderProps) {
     const { data: session, status } = useSession();
 
     useEffect(() => {
-        if (session) {
-            const { name, image } = session.user || {};
-            const username = session.user?.email || '';
-            setMyProfile({ name: name || '', username, image: image || '' });
+        if (session && session.user)  {
+            setMyProfile(session.user as ProfileType);
         } else {
             setMyProfile(null);
         }

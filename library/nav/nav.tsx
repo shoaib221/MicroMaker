@@ -1,6 +1,7 @@
 
 'use client';
 
+import { useRouter } from "next/navigation";
 import Link from 'next/link';
 import { useState } from 'react';
 import { ThemeButton } from '../theme/theme1';
@@ -25,6 +26,7 @@ const navItems: NavItem[] = [
 export function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const { myProfile } = useAuthContext();
+    const router = useRouter();
 
     return (
         <nav className="w-full border-b">
@@ -77,7 +79,7 @@ export function Navbar() {
 
 
             {myProfile ? (
-                <div className="absolute right-4 top-4 flex items-center space-x-2">
+                <div className="absolute right-4 top-4 flex items-center space-x-2" onClick={ () => router.push('/profile') } >
                     <img src={myProfile.avatar} alt="Profile" className="w-8 h-8 rounded-full" />
                 </div>
             ) : 

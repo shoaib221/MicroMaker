@@ -4,8 +4,8 @@ import "./globals.css";
 import "@/library/theme/theme.tsx";
 import { Navbar } from "@/library/nav/nav";
 import { Providers } from "./providers";
-import { ThemeProvider } from "@/library/theme/theme.tsx";
-import { AuthProvider } from "@/library/auth/context.tsx";
+import { ThemeProvider } from "@/library/theme/theme";
+import { AuthProvider } from "@/library/auth/context";
 
 
 
