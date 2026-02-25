@@ -12,9 +12,9 @@ export const useMyImage = ({ url = "https://i.ibb.co.com/7tmkDpb6/Screenshot-202
     
     
     const [photo, setPhoto] = useState(url);
-    const [imageFile, setImageFile] = useState(null);
+    const [imageFile, setImageFile] = useState<File | null>(null);
 
-    function resetPhoto ( var1 ) {
+    function resetPhoto ( var1: string | null ) {
         setImageFile(null);
         setPhoto( var1 ?? "https://i.ibb.co.com/7tmkDpb6/Screenshot-2026-01-04-224203.png" );
     }
@@ -34,12 +34,15 @@ export const useMyImage = ({ url = "https://i.ibb.co.com/7tmkDpb6/Screenshot-202
     }
     
 
-    const imageChange = (event) => {
-        let file = event.target.files[0];
+    const imageChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        if( !event.target.files || event.target.files.length === 0 ) {
+            return;
+        }
+        const file = event.target.files[0];
 
         if (file) {
             setImageFile(file)
-            let url = URL.createObjectURL(file)
+            const url = URL.createObjectURL(file)
             setPhoto(url)
         }
     }

@@ -17,9 +17,8 @@ type NavItem = {
 
 const navItems: NavItem[] = [
     { label: 'Home', href: '/' },
-    { label: 'About', href: '/about' },
-    { label: 'Blog', href: '/blog' },
-    { label: 'Contact', href: '/contact' },
+    { label: 'Dashboard', href: '/dashboard' },
+
 ];
 
 
@@ -46,7 +45,9 @@ export function Navbar() {
                 {/* Logo */}
                 <AppLogo />
 
+
                 <ThemeButton1 />
+
 
                 {/* Desktop Menu */}
                 <div className="hidden space-x-6 md:flex">
@@ -60,6 +61,8 @@ export function Navbar() {
                         </Link>
                     ))}
                 </div>
+
+
 
                 {/* Mobile Menu Button */}
                 <button
