@@ -1,0 +1,13 @@
+
+
+
+.button-1 {
+    background-color: var(--color3);
+    color: var(--color1);
+    padding: 0.5rem;
+    border-radius: 0.5rem;
+}
+
+.button-1:hover {
+    opacity: 0.8;
+}

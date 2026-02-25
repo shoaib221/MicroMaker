@@ -6,6 +6,7 @@ import { useSession, signIn, signOut } from "next-auth/react";
 
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 
+import axios from "axios";
 
 type ProfileType = {
     name: string;
@@ -37,11 +38,19 @@ export function AuthProvider({ children }: AppProviderProps) {
     const { data: session, status } = useSession();
 
     useEffect(() => {
-        if (session && session.user)  {
-            setMyProfile(session.user as ProfileType);
-        } else {
-            setMyProfile(null);
+        if (!session || !session.user)  return;
+        
+        async function fetchProfile() {
+            try {
+                const response = await axios.get("/api/profile");
+                setMyProfile(response.data.profile);
+            } catch (error) {
+                console.error("Error fetching profile:", error);
+            }
         }
+
+        fetchProfile();
+
     }, [session]);
     
 

@@ -7,6 +7,8 @@ import { useMyImage } from "@/library/Media/image";
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { Button1 } from "@/library/button/button1";
+import "@/library/button/button1.css"
 
 
 export default function UpdateProfile() {
@@ -15,20 +17,43 @@ export default function UpdateProfile() {
         register,
         handleSubmit,
         watch,
+        reset,
         formState: { errors, isSubmitting },
     } = useForm();
 
-    const [name, setName] = useState("");
-    const { PhotoTag, uploadPhoto, resetPhoto } = useMyImage({ url: myProfile?.image || "" })
+    const { PhotoTag, uploadPhoto, resetPhoto } = useMyImage({ url: myProfile?.image || "" });
 
+    async function UpdateProfile(data: any) {
+        try {
+            let image = await uploadPhoto();
+            const response = await axios.post("/api/profile", {
+                name: data.name,
+                image: image || myProfile?.image || "",
+            });
+            console.log("Profile updated:", response.data);
+            alert("Profile updated successfully!");
+        } catch (error) {
+            console.error("Error updating profile:", error);
+        }
+    }
+
+    useEffect(() => {
+        if (myProfile) {
+            reset({
+                email: myProfile.email,
+                name: myProfile.name,
+            });
+
+            resetPhoto(myProfile.image);
+        }
+    }, [myProfile]);
 
     return (
-
-        <div className="cen-ver grow relative border-2 border-(--color2) max-w-150 mx-auto" >
+        <div className="cen-ver grow relative  max-w-150 mx-auto" >
             <div className="text-center" > {myProfile?.email} </div>
             <PhotoTag />
 
-            <button onClick={() => signOut()} > Sign Out </button>
+            <button className="button-1" onClick={() => signOut()} > Sign Out </button>
 
             {/* Name */}
             <div>
@@ -49,7 +74,7 @@ export default function UpdateProfile() {
                 )}
             </div>
 
-            <button>
+            <button className="button-1" onClick={handleSubmit(UpdateProfile)}  >
                 Update
             </button>
 

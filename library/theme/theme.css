@@ -1,11 +1,16 @@
 :root {
     --color1: #ffffff;
     --color2: #ffffff;
+    --color3: #ffffff;
+    --color4: #ffffff;
+    --color5: #ffffff;
 }
 
 [color-theme="light"] {
     --color1: #ffffff;
     --color2: #000000;
+    --color3: rgb(1, 1, 104);
+    --color4: rgb(56, 56, 251);
 }
 
 

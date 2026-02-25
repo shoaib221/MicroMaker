@@ -4,8 +4,9 @@
 import { useRouter } from "next/navigation";
 import Link from 'next/link';
 import { useState } from 'react';
-import { ThemeButton } from '../theme/theme1';
+import { ThemeButton, ThemeButton1 } from '@/library/theme/theme1';
 import { useAuthContext } from '../auth/context';
+import { SiTask } from "react-icons/si";
 
 
 type NavItem = {
@@ -23,6 +24,17 @@ const navItems: NavItem[] = [
 
 
 
+export function AppLogo() {
+    return (
+        <Link href="/" className="text-xl font-bold flex items-center gap-2">
+            <SiTask className="text-(--color4)" size={24} />
+            MicroMaker
+        </Link>
+    );
+}
+
+
+
 export function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const { myProfile } = useAuthContext();
@@ -32,11 +44,9 @@ export function Navbar() {
         <nav className="w-full border-b">
             <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
                 {/* Logo */}
-                <Link href="/" className="text-xl font-bold">
-                    MyApp
-                </Link>
+                <AppLogo />
 
-                <ThemeButton />
+                <ThemeButton1 />
 
                 {/* Desktop Menu */}
                 <div className="hidden space-x-6 md:flex">
@@ -79,8 +89,7 @@ export function Navbar() {
 
 
             {myProfile ? (
-                <div className="absolute right-4 top-4 flex items-center space-x-2" onClick={ () => router.push('/profile') } >
-                    <img src={myProfile.avatar} alt="Profile" className="w-8 h-8 rounded-full" />
+                <div className="cursor-pointer absolute h-8 w-8 rounded-full right-4 top-4 flex items-center space-x-2 bg-cover bg-top" style={{ backgroundImage: `url(${ myProfile.image })` }} onClick={ () => router.push('/profile') } >
                 </div>
             ) : 
             (<div className="absolute right-4 top-4">
