@@ -5,13 +5,19 @@ import type { NextRequest } from "next/server";
 
 const privateRoutes = ["/dashboard", "/profile"];
 
-const UnauthorizedRoutes = ["/register", "/login"];
+const UnauthorizedRoutes = ["/register", "/api/auth/signin"];
 
 export async function proxy(req: NextRequest) {
     const token = await getToken({
         req,
         secret: process.env.NEXTAUTH_SECRET,
     });
+
+    if(!token) {
+        console.log("No token found.", token, process.env.NEXTAUTH_SECRET);
+    } else {
+        console.log("Token found. ", token, process.env.NEXTAUTH_SECRET);
+    }
 
     const { pathname } = req.nextUrl;
 
@@ -29,6 +35,6 @@ export async function proxy(req: NextRequest) {
 
 
 export const config = {
-    matcher: ["/dashboard/:path*", "/profile/:path*", "/register/:path*"],
+    matcher: ["/dashboard/:path*", "/profile/:path*", "/register/:path*", "/api/auth/signin/:path*" ],
 };
 

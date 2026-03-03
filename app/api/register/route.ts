@@ -27,8 +27,21 @@ export async function POST(req: Request) {
                 name: body.name,
                 email: body.email,
                 password: hashedPassword,
+                image: body.image || null,
+                role: body.role,
             },
         });
+
+        
+        await prisma.user.update({
+            where: {
+                id: newUser.id
+            },  
+            data: {
+                coins: (  newUser.role === "worker" ? 10 : 50)
+            }
+        })
+    
 
         return NextResponse.json(
             {

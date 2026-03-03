@@ -13,7 +13,9 @@ model User {
     email         String    @unique
     emailVerified DateTime?
     image         String?
-    password      String?
+    password      String
+    role          String    @default("worker")
+    coins         Int       @default(0)
     accounts      Account[]
     sessions      Session[]
 }
