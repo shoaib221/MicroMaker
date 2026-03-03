@@ -57,7 +57,7 @@ export  function Slide11() {
         setCurrentIndex((prev) => (prev - 1 + slides.length) % slides.length);
     }, []);
 
-    const goToSlide = (index) => {
+    const goToSlide = (index: number) => {
         setDirection(index > currentIndex ? 1 : -1);
         setCurrentIndex(index);
     };
@@ -70,7 +70,7 @@ export  function Slide11() {
     }, [nextSlide]);
 
     const variants = {
-        enter: (direction) => ({
+        enter: (direction: number) => ({
             x: direction > 0 ? "100%" : "-100%",
             opacity: 0,
         }),
@@ -79,7 +79,7 @@ export  function Slide11() {
             x: 0,
             opacity: 1,
         },
-        exit: (direction) => ({
+        exit: (direction: number) => ({
             zIndex: 0,
             x: direction < 0 ? "100%" : "-100%",
             opacity: 0,

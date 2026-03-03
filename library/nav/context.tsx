@@ -12,7 +12,8 @@ const NavContext = createContext({
 });
 
 
-export const NavProvider = ({ children }) => {
+export const NavProvider = ({ children } : { children: React.ReactNode
+ }  ) => {
     const [ screen, setSize] = useState({
         width: window.innerWidth,
         height: window.innerHeight,
