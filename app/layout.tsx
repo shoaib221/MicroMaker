@@ -6,6 +6,8 @@ import { Navbar } from "@/library/nav/nav";
 import { Providers } from "./providers";
 import { ThemeProvider } from "@/library/theme/theme";
 import { AuthProvider } from "@/library/auth/context";
+import { Footer } from "@/library/nav/footer";
+import { NavProvider } from "@/library/nav/context";
 
 
 
@@ -35,14 +37,18 @@ export default function RootLayout({
 	return (
 		<html lang="en" color-theme="light" className="bg-(--color1) text-(--color2)" >
 			<body
-				className={`${geistSans.variable} ${geistMono.variable} antialiased bg-(--color1) text-(--color2)`}
+				className={`${ geistSans.variable } ${geistMono.variable} antialiased bg-(--color1) text-(--color2)`}
 			>
 				<ThemeProvider>
 					<Providers>
 						<AuthProvider>
+							<NavProvider>
 
 							<Navbar />
 							{children}
+							<Footer />
+
+							</NavProvider>
 
 						</AuthProvider>
 					</Providers>

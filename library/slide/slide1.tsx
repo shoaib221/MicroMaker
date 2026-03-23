@@ -8,40 +8,36 @@ const slides = [
     {
         id: 1,
         title: "Exploring the Peaks",
-        image:
-            "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&h=900&fit=crop",
+        image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&h=900&fit=crop",
         description: "Discover the breathtaking majesty of the mountain ranges.",
     },
     {
         id: 2,
         title: "Serene Ocean Views",
-        image:
-            "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&h=900&fit=crop",
+        image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&h=900&fit=crop",
         description: "Relax by the crystal clear waters of the tropical islands.",
     },
     {
         id: 3,
         title: "Urban Nightlife",
-        image:
-            "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1600&h=900&fit=crop",
-        description:
-            "Experience the vibrant energy of the world's greatest cities.",
+        image: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1600&h=900&fit=crop",
+        description: "Experience the vibrant energy of the world's greatest cities.",
     },
     {
         id: 4,
         title: "Enchanted Forests",
-        image:
-            "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1600&h=900&fit=crop",
+        image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1600&h=900&fit=crop",
         description: "Lose yourself in the lush greenery of the ancient woodlands.",
     },
     {
         id: 5,
         title: "Golden Desert",
-        image:
-            "https://images.unsplash.com/photo-1473580044384-7ba9967e16a0?w=1600&h=900&fit=crop",
+        image: "https://images.unsplash.com/photo-1473580044384-7ba9967e16a0?w=1600&h=900&fit=crop",
         description: "Traverse the vast expanse of the sun-drenched dunes.",
     },
 ];
+
+
 
 export  function Slide11() {
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -87,14 +83,8 @@ export  function Slide11() {
     };
 
     return (
-        <div className="h-100 w-full bg-black text-white overflow-hidden font-urbanist">
-            <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Rethink+Sans:wght@400;600;700;800&display=swap');
-        @import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@300;400;500;600;700&display=swap');
-        
-        .font-rethink { font-family: 'Rethink Sans', sans-serif; }
-        .font-urbanist { font-family: 'Urbanist', sans-serif; }
-      `}</style>
+        <div className="h-[50vh] w-full bg-black text-white overflow-hidden font-urbanist">
+            
 
             {/* Main Carousel Container */}
             <div className="relative w-full h-screen flex items-center justify-center">
@@ -126,8 +116,8 @@ export  function Slide11() {
                         {/* Content */}
                         <div className="relative h-full flex flex-col items-center justify-center text-center px-6">
                             <motion.h1
-                                initial={{ y: 20, opacity: 0 }}
-                                animate={{ y: 0, opacity: 1 }}
+                                initial={{ y: 40, opacity: 0 }}
+                                animate={{ y: -10, opacity: 1 }}
                                 transition={{ delay: 0.2, duration: 0.6 }}
                                 className="font-rethink font-bold text-5xl md:text-8xl mb-4 tracking-tighter"
                             >
@@ -148,14 +138,14 @@ export  function Slide11() {
                 {/* Navigation Arrows */}
                 <button
                     onClick={prevSlide}
-                    className="absolute left-8 z-20 p-4 rounded-full bg-white/10 backdrop-blur-md hover:bg-white/20 transition-all group"
+                    className="absolute left-8 top-40 z-20 p-4 rounded-full bg-white/10 backdrop-blur-md hover:bg-white/20 transition-all group"
                     aria-label="Previous slide"
                 >
                     <ChevronLeft className="w-8 h-8 group-hover:scale-110 transition-transform" />
                 </button>
                 <button
                     onClick={nextSlide}
-                    className="absolute right-8 z-20 p-4 rounded-full bg-white/10 backdrop-blur-md hover:bg-white/20 transition-all group"
+                    className="absolute right-8 top-40 z-20 p-4 rounded-full bg-white/10 backdrop-blur-md hover:bg-white/20 transition-all group"
                     aria-label="Next slide"
                 >
                     <ChevronRight className="w-8 h-8 group-hover:scale-110 transition-transform" />

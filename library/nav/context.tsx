@@ -1,8 +1,6 @@
 "use client"
 
-import { createContext, useEffect, useState } from "react";
-
-
+import { createContext, useContext, useEffect, useState } from "react";
 
 const NavContext = createContext({
     screen: {
@@ -14,7 +12,7 @@ const NavContext = createContext({
 
 export const NavProvider = ({ children } : { children: React.ReactNode
  }  ) => {
-    const [ screen, setSize] = useState({
+    const [screen, setSize] = useState({
         width: window.innerWidth,
         height: window.innerHeight,
     });
@@ -41,3 +39,4 @@ export const NavProvider = ({ children } : { children: React.ReactNode
 }
 
     
+export const useNavContext = () => useContext( NavContext );

@@ -55,7 +55,9 @@ export const ModelName = {
   Account: 'Account',
   Session: 'Session',
   VerificationToken: 'VerificationToken',
-  Test: 'Test'
+  Test: 'Test',
+  JobType: 'JobType',
+  Job: 'Job'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -131,6 +133,29 @@ export const TestScalarFieldEnum = {
 } as const
 
 export type TestScalarFieldEnum = (typeof TestScalarFieldEnum)[keyof typeof TestScalarFieldEnum]
+
+
+export const JobTypeScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type JobTypeScalarFieldEnum = (typeof JobTypeScalarFieldEnum)[keyof typeof JobTypeScalarFieldEnum]
+
+
+export const JobScalarFieldEnum = {
+  id: 'id',
+  title: 'title',
+  description: 'description',
+  status: 'status',
+  userId: 'userId',
+  salary: 'salary',
+  emplyerId: 'emplyerId',
+  jobTypeId: 'jobTypeId',
+  employeeId: 'employeeId'
+} as const
+
+export type JobScalarFieldEnum = (typeof JobScalarFieldEnum)[keyof typeof JobScalarFieldEnum]
 
 
 export const SortOrder = {

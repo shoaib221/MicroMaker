@@ -8,16 +8,18 @@ datasource db {
 }
 
 model User {
-    id            String    @id @default(cuid())
-    name          String?
-    email         String    @unique
-    emailVerified DateTime?
-    image         String?
-    password      String
-    role          String    @default("worker")
-    coins         Int       @default(0)
-    accounts      Account[]
-    sessions      Session[]
+    id             String    @id @default(cuid())
+    name           String?
+    email          String    @unique
+    emailVerified  DateTime?
+    image          String?
+    password       String
+    role           String    @default("worker")
+    coins          Int       @default(0)
+    accounts       Account[]
+    sessions       Session[]
+    jobs           Job[]     @relation("employer")
+    jobsAsEmployee Job[]     @relation("JobEmployee")
 }
 
 model Account {
@@ -57,4 +59,25 @@ model VerificationToken {
 model Test {
     id   String @id @default(cuid())
     desc String
+}
+
+model JobType {
+    id   String @id @default(cuid())
+    name String
+    jobs Job[]
+}
+
+model Job {
+    id          String  @id @default(cuid())
+    title       String
+    description String?
+    status      String  @default("pending")
+    userId      String
+    salary      Int
+    emplyerId   String
+    employer    User    @relation("employer", fields: [userId], references: [id], onDelete: Cascade)
+    jobTypeId   String
+    jobType     JobType @relation(fields: [jobTypeId], references: [id], onDelete: Cascade)
+    employeeId  String?
+    employee    User?   @relation("JobEmployee", fields: [employeeId], references: [id], onDelete: Cascade)
 }
