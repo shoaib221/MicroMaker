@@ -39,6 +39,7 @@ export function AuthProvider({ children }: AppProviderProps) {
 
     useEffect(() => {
         if (!session || !session.user)  return;
+        console.log(session);
         
         async function fetchProfile() {
             try {

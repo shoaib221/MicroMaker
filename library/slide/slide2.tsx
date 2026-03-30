@@ -6,6 +6,8 @@ import { prisma } from "@/prisma/client";
 import axios from "axios";
 import { set } from "react-hook-form";
 import { User } from "@/app/types";
+import Image from "next/image";
+import { useNavContext } from "../nav/context";
 
 
 type InfiniteCarouselProps = {
@@ -28,48 +30,81 @@ const dummyItems = [
 ];
 
 
+
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, FreeMode } from "swiper/modules";
+
+import "swiper/css";
+
 export function Slide2() {
-    // Duplicate items for seamless infinite loop
-    const [items, setItems] = React.useState<User[] | null>(null);
-    const speed = 20; // Adjust this value to change the speed of the carousel
-
-    useEffect(() => {
-        // This effect is just to trigger a re-render when the component mounts
-
-        async function fetchData() {
-            const response = await axios.get("/api/best-workers");
-            setItems([...response.data.workers, ...response.data.workers]);
-            //console.log(response.data);
-        }
-        fetchData();
-    }, []);
-
     return (
-        <div className="overflow-hidden w-full">
-            <motion.div
-                className="flex"
-                animate={{ x: ["0%", "-200%"] }}
-                transition={{
-                    ease: "linear",
-                    duration: speed,
-                    repeat: Infinity,
-                }}
-            >
-                {items && items.map((item, index) => (
-                    <div
-                        key={index}
-                        className="w-1/5 shrink-0 p-4"
-                    >
-                        <div className="bg-blue-500 text-white p-10 text-center rounded-xl">
-                            <h3 className="text-lg font-bold">{item.name}</h3>
-                            <p className="text-sm">Coins: {item.coins}</p>
-                        </div>
+        <Swiper
+            modules={[Autoplay, FreeMode]}
+            loop={true}
+            spaceBetween={20}
+            freeMode={true}
+            autoplay={{
+                delay: 0,
+                disableOnInteraction: false,
+            }}
+
+            breakpoints={{
+                200: { slidesPerView: 1 },
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 4 },
+            }}
+
+            speed={5000}
+        >
+            {[1, 2, 3, 4, 5, 6].map((item) => (
+                <SwiperSlide key={item}>
+                    <div className="bg-blue-500 text-white h-40 flex items-center justify-center rounded">
+                        Slide {item}
                     </div>
-                ))}
-            </motion.div>
-        </div>
+                </SwiperSlide>
+            ))}
+        </Swiper>
     );
 }
+
+
+export function Slide20() {
+    return (
+        <Swiper
+            modules={[Autoplay, FreeMode]}
+            loop={true}
+            spaceBetween={20}
+            freeMode={true}
+            autoplay={{
+                delay: 0,
+                disableOnInteraction: false,
+                reverseDirection: true,
+            }}
+
+            breakpoints={{
+                200: { slidesPerView: 1 },
+                640: { slidesPerView: 2 },
+                1024: { slidesPerView: 4 },
+            }}
+
+            speed={5000}
+        >
+            {[1, 2, 3, 4, 5, 6].map((item) => (
+                <SwiperSlide key={item}>
+                    <div className="bg-blue-500 text-white h-40 flex items-center justify-center rounded">
+                        Slide {item}
+                    </div>
+                </SwiperSlide>
+            ))}
+        </Swiper>
+    );
+}
+
+
+
+
+
+
 
 const items = [
     "AI Services",
@@ -85,11 +120,13 @@ const items = [
 ];
 
 
-export  function Slide21() {
+export function Slide21() {
     const [currentIndex, setCurrentIndex] = useState(0);
+    const { screen } = useNavContext();
 
-    const visibleCount = 3; // show 3 at a time
-    const maxIndex = items.length - visibleCount;
+    const [visibleCount, setVisibleCount] = useState(3);
+    const [maxIndex, setMaxIndex] = useState(items.length - visibleCount);
+
 
     const handleNext = () => {
         setCurrentIndex((prev) =>
@@ -102,6 +139,20 @@ export  function Slide21() {
             prev <= 0 ? maxIndex : prev - 1
         );
     };
+
+    useEffect(() => {
+        if (screen.width < 640) {
+            setVisibleCount(1);
+            setMaxIndex(items.length - 1);
+        } else if (screen.width < 1024) {
+            setVisibleCount(2);
+            setMaxIndex(items.length - 2);
+        } else {
+            setVisibleCount(4);
+            setMaxIndex(items.length - 4);
+        }
+
+    }, [screen.width]);
 
     return (
         <div className="relative w-full overflow-hidden">
@@ -133,7 +184,8 @@ export  function Slide21() {
                     {items.map((item, index) => (
                         <div
                             key={index}
-                            className="w-1/3 shrink-0 p-4"
+                            className="shrink-0 p-4"
+                            style={{ width: `${100 / visibleCount}%` }}
                         >
                             <div className="bg-blue-500 text-white p-10 text-center rounded-xl">
                                 {item}

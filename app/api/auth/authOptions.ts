@@ -30,12 +30,17 @@ export const authOptions: NextAuthOptions = {
                 }
 
                 const isValidPassword = await bcrypt.compare(
-                    credentials.password,   
-                    user.password           
+                    credentials.password,
+                    user.password
                 );
 
                 if (credentials.email === user.email && isValidPassword) {
-                    return user;
+                    return {
+                        id: user.id,
+                        email: user.email,
+                        name: user.name,
+                        role: user.role,
+                    };
                 }
 
                 return null;
@@ -62,4 +67,66 @@ export const authOptions: NextAuthOptions = {
     secret: process.env.NEXTAUTH_SECRET,
 
 
+    callbacks: {
+        async signIn({ user, account }) {
+            // Only run for OAuth providers
+
+            if (account?.provider === "google" || account?.provider === "github") {
+
+                console.log("signin callback ###")
+
+                if (!user.email) {
+                    console.log(user, "No email from provider");
+                    user.email = `${user.name?.replace(/\s+/g, '.').toLowerCase()}${user.id}@oauth.com`;
+                }
+
+                const existingUser = await prisma.user.findUnique({
+                    where: { email: user.email! },
+                });
+
+                console.log("signin callback *****");
+
+                console.log(existingUser)
+
+                if (!existingUser) {
+                    await prisma.user.create({
+                        data: {
+                            email: user.email!,
+                            name: user.name,
+                            image: user.image,
+                            password: "", // OAuth users won't have a password
+                            role: "user", // default role
+                        },
+                    });
+                }
+
+                
+            }
+
+            return true; // allow login
+        },
+
+
+        // Runs when token is created / updated
+        async jwt({ token, user }) {
+            if (user) {
+                token.id = user.id;
+                token.email = user.email;
+                token.name = user.name;
+                //token.role = user.role; // if you have role
+            }
+            return token;
+        },
+
+        // Runs when session is returned to frontend
+        async session({ session, token }) {
+            if (session.user) {
+                //session.user.id = token.id;
+                session.user.email = token.email;
+                session.user.name = token.name;
+                //session.user.role = token.role;
+            }
+            return session;
+        },
+    }
 }

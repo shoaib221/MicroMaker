@@ -83,11 +83,11 @@ export  function Slide11() {
     };
 
     return (
-        <div className="h-[50vh] w-full bg-black text-white overflow-hidden font-urbanist">
+        <div className="h-[60vh] w-full bg-black text-white overflow-hidden font-urbanist">
             
 
             {/* Main Carousel Container */}
-            <div className="relative w-full h-screen flex items-center justify-center">
+            <div className="relative w-full h-full flex items-center justify-center">
                 <AnimatePresence initial={false} custom={direction}>
                     <motion.div
                         key={currentIndex}

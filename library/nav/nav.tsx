@@ -25,10 +25,13 @@ const navItems: NavItem[] = [
 
 export function AppLogo() {
     return (
-        <Link href="/" className="text-xl font-bold flex items-center gap-2">
-            <SiTask className="text-(--color4)" size={24} />
-            MicroMaker
-        </Link>
+        <div className="flex items-center gap-2">
+            <ThemeButton1 />
+            <Link href="/" className="text-xl font-bold flex items-center gap-2">
+                <SiTask className="text-(--color4)" size={24} />
+                MicroMaker
+            </Link>
+        </div>
     );
 }
 
@@ -43,10 +46,19 @@ export function Navbar() {
         <nav className="w-full border-b">
             <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3">
                 {/* Logo */}
+
+                <button
+                    onClick={() => setIsOpen(!isOpen)}
+                    className="md:hidden text-gray-700"
+                    aria-label="Toggle menu"
+                >
+                    ☰
+                </button>
+
                 <AppLogo />
 
 
-                <ThemeButton1 />
+
 
 
                 {/* Desktop Menu */}
@@ -62,16 +74,18 @@ export function Navbar() {
                     ))}
                 </div>
 
+                {myProfile ? (
+                    <div className="cursor-pointer  h-8 w-8 rounded-full right-4 top-4 flex items-center space-x-2 bg-cover bg-top" style={{ backgroundImage: `url(${myProfile.image})` }} onClick={() => router.push('/profile')} >
+                    </div>
+                ) :
+                    (<div className="right-4 top-4">
+                        <Link href="/register" className="text-sm text-gray-700 hover:text-black">
+                            Register
+                        </Link>
+                    </div>)
+                }
 
 
-                {/* Mobile Menu Button */}
-                <button
-                    onClick={() => setIsOpen(!isOpen)}
-                    className="md:hidden text-gray-700"
-                    aria-label="Toggle menu"
-                >
-                    ☰
-                </button>
             </div>
 
             {/* Mobile Menu */}
@@ -91,16 +105,7 @@ export function Navbar() {
             )}
 
 
-            {myProfile ? (
-                <div className="cursor-pointer absolute h-8 w-8 rounded-full right-4 top-4 flex items-center space-x-2 bg-cover bg-top" style={{ backgroundImage: `url(${ myProfile.image })` }} onClick={ () => router.push('/profile') } >
-                </div>
-            ) : 
-            (<div className="absolute right-4 top-4">
-                <Link href="/register" className="text-sm text-gray-700 hover:text-black">
-                    Register
-                </Link>
-            </div>)
-            }
+
 
         </nav>
     );
