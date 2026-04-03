@@ -1,0 +1,15 @@
+
+.path-1 {
+    cursor: pointer;
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);
+    padding: .5rem;
+}
+
+.path-1:hover {
+    opacity: 0.8;
+}
+
+.path-1.active {
+    background-color: var(--color3);
+    color: var(--color1);
+}

@@ -8,7 +8,7 @@ import { signIn, signOut, useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Button1 } from "@/library/button/button1";
-import "@/library/button/button1.css"
+import "@/library/button/button1.css";
 
 
 export default function UpdateProfile() {
@@ -49,34 +49,42 @@ export default function UpdateProfile() {
     }, [myProfile]);
 
     return (
-        <div className="cen-ver grow relative  max-w-150 mx-auto" >
-            <div className="text-center" > {myProfile?.email} </div>
-            <PhotoTag />
-
-            <button className="button-1" onClick={() => signOut()} > Sign Out </button>
-
-            {/* Name */}
+        <div className="flex flex-col lg:flex-row grow relative mx-auto gap-16 p-8" >
             <div>
-                <label className="block mb-1">Name</label>
-                <input
-                    type="text"
-                    {...register("name", {
-                        required: "Name is required",
-                        minLength: {
-                            value: 3,
-                            message: "Name must be at least 3 characters",
-                        },
-                    })}
-                    className="w-full border p-2 rounded"
-                />
-                {errors.name && (
-                    <p className="text-red-500 text-sm">{errors.name?.message?.toString()}</p>
-                )}
+                <div className="text-center" > {myProfile?.email} </div>
+                <br/>
+                <PhotoTag />
+                <br/>
+                <div className="button-1 mx-auto" onClick={() => signOut()} > Sign Out </div>
             </div>
 
-            <button className="button-1" onClick={handleSubmit(UpdateProfile)}  >
-                Update
-            </button>
+            <div>
+                {/* Name */}
+                <div>
+                    <label className="block mb-1">Name</label>
+                    <input
+                        type="text"
+                        {...register("name", {
+                            required: "Name is required",
+                            minLength: {
+                                value: 3,
+                                message: "Name must be at least 3 characters",
+                            },
+                        })}
+                        className="w-full border p-2 rounded"
+                    />
+                    {errors.name && (
+                        <p className="text-red-500 text-sm">{errors.name?.message?.toString()}</p>
+                    )}
+                </div>
+
+                <br/>
+
+                <button className="button-1" onClick={handleSubmit(UpdateProfile)}  >
+                    Update
+                </button>
+
+            </div>
 
         </div>
 
