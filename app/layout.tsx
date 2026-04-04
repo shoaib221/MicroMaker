@@ -8,19 +8,27 @@ import { ThemeProvider } from "@/library/theme/theme";
 import { AuthProvider } from "@/library/auth/context";
 import { Footer } from "@/library/nav/footer";
 import { NavProvider } from "@/library/nav/context";
+import { Inter, Berkshire_Swash, Google_Sans_Code, Merienda } from "next/font/google";
 
+const merienda = Merienda({
+	variable: "--font-merienda",
+	subsets: ["latin"],
+	weight: "400",
+});
 
+const googleSansCode = Google_Sans_Code({
+	variable: "--font-google-sans-code",
+	subsets: ["latin"],
+	weight: "400",
+});
 
-const geistSans = Geist({
-	variable: "--font-geist-sans",
+const berkshireSwash = Berkshire_Swash({
+	variable: "--font-berkshire-swash",
+	weight: "400",
 	subsets: ["latin"],
 });
 
 
-const geistMono = Geist_Mono({
-	variable: "--font-geist-mono",
-	subsets: ["latin"],
-});
 
 
 export const metadata: Metadata = {
@@ -37,7 +45,7 @@ export default function RootLayout({
 	return (
 		<html lang="en" color-theme="light" className="bg-(--color1) text-(--color2)" >
 			<body
-				className={`${ geistSans.variable } ${geistMono.variable} antialiased bg-(--color1) text-(--color2)`}
+				className={`${ merienda.className } antialiased bg-(--color1) text-(--color2)`}
 			>
 				<ThemeProvider>
 					<Providers>

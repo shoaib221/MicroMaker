@@ -52,3 +52,8 @@ export type JobType = Prisma.JobTypeModel
  * 
  */
 export type Job = Prisma.JobModel
+/**
+ * Model JobEmployee
+ * 
+ */
+export type JobEmployee = Prisma.JobEmployeeModel

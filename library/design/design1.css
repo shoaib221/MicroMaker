@@ -2,3 +2,41 @@
 .shadow1 {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
 }
+
+.input1 {
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 100%;
+}
+
+.input1:focus {
+    border-color: var(--color2);
+    outline: none;
+}
+
+.button-1 {
+    
+    color: var(--color3);
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    
+}
+
+.button-1:hover {
+    opacity: .8;
+}
+
+.button-2 {
+    background-color: var(--color3);
+    color: var(--color1);
+    padding: 0.5rem 4rem;
+    border: none;
+    border-radius: .5rem;
+    
+}
+
+.button-2:hover {
+    opacity: .8;
+}

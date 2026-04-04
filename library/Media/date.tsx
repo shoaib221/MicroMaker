@@ -3,30 +3,40 @@ import { format } from "date-fns";
 import { Calendar } from "@/components/ui/calendar";
 import { Button } from "@/components/ui/button";
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
+	Popover,
+	PopoverContent,
+	PopoverTrigger,
 } from "@/components/ui/popover";
+import { useState } from "react";
 
-export function DatePicker() {
-  const [date, setDate] = React.useState();
+export function useDatePicker() {
+	const [date, setDate] = useState<Date | undefined>();
 
-  return (
-    <Popover>
-      <PopoverTrigger asChild>
-        <Button variant="outline">
-          {date ? format(date, "PPP") : "Pick a date"}
-        </Button>
-      </PopoverTrigger>
+	const Tag = () => {
 
-      <PopoverContent className="w-auto p-0">
-        <Calendar
-          mode="single"
-          selected={date}
-          onSelect={setDate}
-          initialFocus
-        />
-      </PopoverContent>
-    </Popover>
-  );
+
+		return (
+			<div className="w-max">
+				<Popover>
+					<PopoverTrigger asChild>
+						<Button variant="outline">
+							{date ? format(date, "PPP") : "Pick a date"}
+						</Button>
+					</PopoverTrigger>
+
+					<PopoverContent className="w-auto p-0 bg-(--color1) border shadow-md rounded-md">
+						<Calendar
+							mode="single"
+							selected={date}
+							onSelect={setDate}
+
+						/>
+					</PopoverContent>
+				</Popover>
+			</div>
+		);
+
+	}
+
+	return { date, DatePicker: Tag };
 }

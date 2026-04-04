@@ -1,0 +1,64 @@
+import { NextResponse } from "next/server";
+import { prisma } from "@/prisma/client";
+import { getServerSession } from "next-auth";
+import { authOptions } from "../auth/authOptions";
+
+export async function POST(req: Request) {
+    try {
+        const session = await getServerSession(authOptions);
+
+        if (!session || !session.user || !session.user.email) {
+            return NextResponse.json(
+                { message: "Unauthorized" },
+                { status: 401 }
+            );
+        }
+
+        const body = await req.json();
+
+        console.log("Received job creation request:", body);
+
+        const new_job = await prisma.job.create({
+            data: {
+                title: body.title,
+                description: body.description,
+                salary: body.salary,
+                required_employees: body.required_employees,
+                deadline: body.deadline,
+            },
+        });
+
+
+        return NextResponse.json(
+            {
+                success: true,
+                message: "User updated successfully",
+                
+            },
+            { status: 201 }
+        );
+
+    } catch (error: any) {
+        console.error("REGISTER ERROR:", error);
+
+        // Prisma unique constraint error
+        if (error.code === "P2002") {
+            return NextResponse.json(
+                {
+                    success: false,
+                    message: "Email already exists",
+                },
+                { status: 400 }
+            );
+        }
+
+        return NextResponse.json(
+            {
+                success: false,
+                message: "Internal server error",
+            },
+            { status: 500 }
+        );
+    }
+}
+

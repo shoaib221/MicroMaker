@@ -73,8 +73,8 @@ model Job {
     description        String?
     status             String        @default("pending")
     salary             Int
-    emplyerId          String
-    employer           User          @relation("employer", fields: [userId], references: [id], onDelete: Cascade)
+    employerId          String
+    employer           User          @relation("employer", fields: [employerId], references: [id], onDelete: Cascade)
     jobTypeId          String
     jobType            JobType       @relation(fields: [jobTypeId], references: [id], onDelete: Cascade)
     employees          JobEmployee[]
