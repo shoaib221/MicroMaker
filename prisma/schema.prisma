@@ -1,95 +1,90 @@
 generator client {
-    provider = "prisma-client"
-    output   = "./generated"
+  provider = "prisma-client"
+  output   = "./generated"
 }
 
 datasource db {
-    provider = "postgresql"
+  provider = "postgresql"
 }
 
 model User {
-    id             String        @id @default(cuid())
-    name           String?
-    email          String        @unique
-    emailVerified  DateTime?
-    image          String?
-    password       String
-    role           String        @default("worker")
-    coins          Int           @default(0)
-    accounts       Account[]
-    sessions       Session[]
-    jobs           Job[]         @relation("employer")
-    jobsAsEmployee JobEmployee[] @relation("JobEmployee")
+  id             String    @id @default(cuid())
+  name           String?
+  email          String    @unique
+  emailVerified  DateTime?
+  image          String?
+  password       String
+  role           String    @default("worker")
+  coins          Int       @default(0)
+  accounts       Account[]
+  sessions       Session[]
+  jobs           Job[]     @relation("employer")
+  jobsAsEmployee Job[]     @relation("JobAsEmployee")
+
+  transactions Transaction[]
 }
 
 model Account {
-    id                String  @id @default(cuid())
-    userId            String
-    type              String
-    provider          String
-    providerAccountId String
-    refresh_token     String?
-    access_token      String?
-    expires_at        Int?
-    token_type        String?
-    scope             String?
-    id_token          String?
-    session_state     String?
-    user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-    @@unique([provider, providerAccountId])
+  @@unique([provider, providerAccountId])
 }
 
 model Session {
-    id           String   @id @default(cuid())
-    sessionToken String   @unique
-    userId       String
-    expires      DateTime
-    user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  id           String   @id @default(cuid())
+  sessionToken String   @unique
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }
 
 model VerificationToken {
-    identifier String
-    token      String   @unique
-    expires    DateTime
+  identifier String
+  token      String   @unique
+  expires    DateTime
 
-    @@unique([identifier, token])
+  @@unique([identifier, token])
 }
 
 model Test {
-    id   String @id @default(cuid())
-    desc String
-}
-
-model JobType {
-    id   String @id @default(cuid())
-    name String
-    jobs Job[]
+  id   String @id @default(cuid())
+  desc String
 }
 
 model Job {
-    id                 String        @id @default(cuid())
-    title              String
-    description        String?
-    status             String        @default("pending")
-    salary             Int
-    employerId          String
-    employer           User          @relation("employer", fields: [employerId], references: [id], onDelete: Cascade)
-    jobTypeId          String
-    jobType            JobType       @relation(fields: [jobTypeId], references: [id], onDelete: Cascade)
-    employees          JobEmployee[]
-    required_employees Int           @default(1)
-    deadline           DateTime
-    submission_info    String?
-    imageUrl           String?
+  id          String  @id @default(cuid())
+  title       String
+  description String?
+  status      String  @default("pending")
+  salary      Int
+  employerId  String
+  employer    User    @relation("employer", fields: [employerId], references: [id], onDelete: Cascade)
+
+  employees          User[]   @relation("JobAsEmployee")
+  required_employees Int      @default(1)
+  deadline           DateTime
+  submission_info    String?
+  imageUrl           String?
 }
 
-model JobEmployee {
-    id         String @id @default(cuid())
-    jobId      String
-    employeeId String
-    job        Job    @relation(fields: [jobId], references: [id], onDelete: Cascade)
-    employee   User   @relation("JobEmployee", fields: [employeeId], references: [id], onDelete: Cascade)
-
-    @@unique([jobId, employeeId])
+model Transaction {
+  id                String  @id @default(cuid())
+  amount            Int
+  userId            String
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type              String  @default("cashin")
+  stripe_session_id String? @default(cuid())
+  createdAt       DateTime @default(now())
 }

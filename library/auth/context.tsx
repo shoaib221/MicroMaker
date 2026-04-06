@@ -1,5 +1,3 @@
-
-
 'use client';
 
 import { useSession, signIn, signOut } from "next-auth/react";
@@ -8,11 +6,13 @@ import { createContext, useContext, useState, ReactNode, useEffect } from 'react
 
 import axios from "axios";
 
+
 type ProfileType = {
     name: string;
     email: string;
     image: string;
     role: string;
+    coins: number;
 }
 
 
@@ -39,9 +39,9 @@ export function AuthProvider({ children }: AppProviderProps) {
     const { data: session, status } = useSession();
 
     useEffect(() => {
-        if (!session || !session.user)  return;
-        console.log(session);
-        
+        if (!session || !session.user) return;
+        //console.log(session);
+
         async function fetchProfile() {
             try {
                 const response = await axios.get("/api/profile");
@@ -54,7 +54,7 @@ export function AuthProvider({ children }: AppProviderProps) {
         fetchProfile();
 
     }, [session]);
-    
+
 
     return (
         <AuthContext.Provider value={{ myProfile }}>

@@ -56,9 +56,8 @@ export const ModelName = {
   Session: 'Session',
   VerificationToken: 'VerificationToken',
   Test: 'Test',
-  JobType: 'JobType',
   Job: 'Job',
-  JobEmployee: 'JobEmployee'
+  Transaction: 'Transaction'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -136,14 +135,6 @@ export const TestScalarFieldEnum = {
 export type TestScalarFieldEnum = (typeof TestScalarFieldEnum)[keyof typeof TestScalarFieldEnum]
 
 
-export const JobTypeScalarFieldEnum = {
-  id: 'id',
-  name: 'name'
-} as const
-
-export type JobTypeScalarFieldEnum = (typeof JobTypeScalarFieldEnum)[keyof typeof JobTypeScalarFieldEnum]
-
-
 export const JobScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -151,7 +142,6 @@ export const JobScalarFieldEnum = {
   status: 'status',
   salary: 'salary',
   employerId: 'employerId',
-  jobTypeId: 'jobTypeId',
   required_employees: 'required_employees',
   deadline: 'deadline',
   submission_info: 'submission_info',
@@ -161,13 +151,16 @@ export const JobScalarFieldEnum = {
 export type JobScalarFieldEnum = (typeof JobScalarFieldEnum)[keyof typeof JobScalarFieldEnum]
 
 
-export const JobEmployeeScalarFieldEnum = {
+export const TransactionScalarFieldEnum = {
   id: 'id',
-  jobId: 'jobId',
-  employeeId: 'employeeId'
+  amount: 'amount',
+  userId: 'userId',
+  type: 'type',
+  stripe_session_id: 'stripe_session_id',
+  createdAt: 'createdAt'
 } as const
 
-export type JobEmployeeScalarFieldEnum = (typeof JobEmployeeScalarFieldEnum)[keyof typeof JobEmployeeScalarFieldEnum]
+export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
 
 
 export const SortOrder = {

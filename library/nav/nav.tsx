@@ -18,7 +18,6 @@ type NavItem = {
 const navItems: NavItem[] = [
     { label: 'Home', href: '/' },
     { label: 'Dashboard', href: '/dashboard' },
-
 ];
 
 
@@ -76,6 +75,7 @@ export function Navbar() {
 
                 {myProfile ? (
                     <div className="cursor-pointer  h-8 w-8 rounded-full right-4 top-4 flex items-center space-x-2 bg-cover bg-top" style={{ backgroundImage: `url(${myProfile.image})` }} onClick={() => router.push('/profile')} >
+                        
                     </div>
                 ) :
                     (<div className="right-4 top-4">
@@ -84,8 +84,6 @@ export function Navbar() {
                         </Link>
                     </div>)
                 }
-
-
             </div>
 
             {/* Mobile Menu */}
@@ -103,9 +101,6 @@ export function Navbar() {
                     ))}
                 </div>
             )}
-
-
-
 
         </nav>
     );

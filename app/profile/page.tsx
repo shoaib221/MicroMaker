@@ -56,6 +56,8 @@ export default function UpdateProfile() {
                 <PhotoTag />
                 <br/>
                 <div className="button-1 mx-auto" onClick={() => signOut()} > Sign Out </div>
+                <br />
+                { myProfile?.coins } Coins Available
             </div>
 
             <div>

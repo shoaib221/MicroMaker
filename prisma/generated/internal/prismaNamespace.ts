@@ -389,9 +389,8 @@ export const ModelName = {
   Session: 'Session',
   VerificationToken: 'VerificationToken',
   Test: 'Test',
-  JobType: 'JobType',
   Job: 'Job',
-  JobEmployee: 'JobEmployee'
+  Transaction: 'Transaction'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -407,7 +406,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "account" | "session" | "verificationToken" | "test" | "jobType" | "job" | "jobEmployee"
+    modelProps: "user" | "account" | "session" | "verificationToken" | "test" | "job" | "transaction"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -781,80 +780,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    JobType: {
-      payload: Prisma.$JobTypePayload<ExtArgs>
-      fields: Prisma.JobTypeFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.JobTypeFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobTypePayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.JobTypeFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobTypePayload>
-        }
-        findFirst: {
-          args: Prisma.JobTypeFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobTypePayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.JobTypeFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobTypePayload>
-        }
-        findMany: {
-          args: Prisma.JobTypeFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobTypePayload>[]
-        }
-        create: {
-          args: Prisma.JobTypeCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobTypePayload>
-        }
-        createMany: {
-          args: Prisma.JobTypeCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.JobTypeCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobTypePayload>[]
-        }
-        delete: {
-          args: Prisma.JobTypeDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobTypePayload>
-        }
-        update: {
-          args: Prisma.JobTypeUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobTypePayload>
-        }
-        deleteMany: {
-          args: Prisma.JobTypeDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.JobTypeUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.JobTypeUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobTypePayload>[]
-        }
-        upsert: {
-          args: Prisma.JobTypeUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobTypePayload>
-        }
-        aggregate: {
-          args: Prisma.JobTypeAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateJobType>
-        }
-        groupBy: {
-          args: Prisma.JobTypeGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.JobTypeGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.JobTypeCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.JobTypeCountAggregateOutputType> | number
-        }
-      }
-    }
     Job: {
       payload: Prisma.$JobPayload<ExtArgs>
       fields: Prisma.JobFieldRefs
@@ -929,77 +854,77 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    JobEmployee: {
-      payload: Prisma.$JobEmployeePayload<ExtArgs>
-      fields: Prisma.JobEmployeeFieldRefs
+    Transaction: {
+      payload: Prisma.$TransactionPayload<ExtArgs>
+      fields: Prisma.TransactionFieldRefs
       operations: {
         findUnique: {
-          args: Prisma.JobEmployeeFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEmployeePayload> | null
+          args: Prisma.TransactionFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransactionPayload> | null
         }
         findUniqueOrThrow: {
-          args: Prisma.JobEmployeeFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEmployeePayload>
+          args: Prisma.TransactionFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransactionPayload>
         }
         findFirst: {
-          args: Prisma.JobEmployeeFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEmployeePayload> | null
+          args: Prisma.TransactionFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransactionPayload> | null
         }
         findFirstOrThrow: {
-          args: Prisma.JobEmployeeFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEmployeePayload>
+          args: Prisma.TransactionFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransactionPayload>
         }
         findMany: {
-          args: Prisma.JobEmployeeFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEmployeePayload>[]
+          args: Prisma.TransactionFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransactionPayload>[]
         }
         create: {
-          args: Prisma.JobEmployeeCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEmployeePayload>
+          args: Prisma.TransactionCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransactionPayload>
         }
         createMany: {
-          args: Prisma.JobEmployeeCreateManyArgs<ExtArgs>
+          args: Prisma.TransactionCreateManyArgs<ExtArgs>
           result: BatchPayload
         }
         createManyAndReturn: {
-          args: Prisma.JobEmployeeCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEmployeePayload>[]
+          args: Prisma.TransactionCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransactionPayload>[]
         }
         delete: {
-          args: Prisma.JobEmployeeDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEmployeePayload>
+          args: Prisma.TransactionDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransactionPayload>
         }
         update: {
-          args: Prisma.JobEmployeeUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEmployeePayload>
+          args: Prisma.TransactionUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransactionPayload>
         }
         deleteMany: {
-          args: Prisma.JobEmployeeDeleteManyArgs<ExtArgs>
+          args: Prisma.TransactionDeleteManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateMany: {
-          args: Prisma.JobEmployeeUpdateManyArgs<ExtArgs>
+          args: Prisma.TransactionUpdateManyArgs<ExtArgs>
           result: BatchPayload
         }
         updateManyAndReturn: {
-          args: Prisma.JobEmployeeUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEmployeePayload>[]
+          args: Prisma.TransactionUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransactionPayload>[]
         }
         upsert: {
-          args: Prisma.JobEmployeeUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobEmployeePayload>
+          args: Prisma.TransactionUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$TransactionPayload>
         }
         aggregate: {
-          args: Prisma.JobEmployeeAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateJobEmployee>
+          args: Prisma.TransactionAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateTransaction>
         }
         groupBy: {
-          args: Prisma.JobEmployeeGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.JobEmployeeGroupByOutputType>[]
+          args: Prisma.TransactionGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TransactionGroupByOutputType>[]
         }
         count: {
-          args: Prisma.JobEmployeeCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.JobEmployeeCountAggregateOutputType> | number
+          args: Prisma.TransactionCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.TransactionCountAggregateOutputType> | number
         }
       }
     }
@@ -1101,14 +1026,6 @@ export const TestScalarFieldEnum = {
 export type TestScalarFieldEnum = (typeof TestScalarFieldEnum)[keyof typeof TestScalarFieldEnum]
 
 
-export const JobTypeScalarFieldEnum = {
-  id: 'id',
-  name: 'name'
-} as const
-
-export type JobTypeScalarFieldEnum = (typeof JobTypeScalarFieldEnum)[keyof typeof JobTypeScalarFieldEnum]
-
-
 export const JobScalarFieldEnum = {
   id: 'id',
   title: 'title',
@@ -1116,7 +1033,6 @@ export const JobScalarFieldEnum = {
   status: 'status',
   salary: 'salary',
   employerId: 'employerId',
-  jobTypeId: 'jobTypeId',
   required_employees: 'required_employees',
   deadline: 'deadline',
   submission_info: 'submission_info',
@@ -1126,13 +1042,16 @@ export const JobScalarFieldEnum = {
 export type JobScalarFieldEnum = (typeof JobScalarFieldEnum)[keyof typeof JobScalarFieldEnum]
 
 
-export const JobEmployeeScalarFieldEnum = {
+export const TransactionScalarFieldEnum = {
   id: 'id',
-  jobId: 'jobId',
-  employeeId: 'employeeId'
+  amount: 'amount',
+  userId: 'userId',
+  type: 'type',
+  stripe_session_id: 'stripe_session_id',
+  createdAt: 'createdAt'
 } as const
 
-export type JobEmployeeScalarFieldEnum = (typeof JobEmployeeScalarFieldEnum)[keyof typeof JobEmployeeScalarFieldEnum]
+export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1320,9 +1239,8 @@ export type GlobalOmitConfig = {
   session?: Prisma.SessionOmit
   verificationToken?: Prisma.VerificationTokenOmit
   test?: Prisma.TestOmit
-  jobType?: Prisma.JobTypeOmit
   job?: Prisma.JobOmit
-  jobEmployee?: Prisma.JobEmployeeOmit
+  transaction?: Prisma.TransactionOmit
 }
 
 /* Types for Logging */

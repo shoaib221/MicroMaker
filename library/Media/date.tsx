@@ -38,5 +38,5 @@ export function useDatePicker() {
 
 	}
 
-	return { date, DatePicker: Tag };
+	return { date, DatePicker: Tag, setDate };
 }

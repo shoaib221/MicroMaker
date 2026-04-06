@@ -10,24 +10,20 @@ const NavContext = createContext({
 });
 
 
-export const NavProvider = ({ children } : { children: React.ReactNode
- }  ) => {
-    const [screen, setSize] = useState({
-        width: window.innerWidth,
-        height: window.innerHeight,
-    });
-
+export const NavProvider = ({ children } : { children: React.ReactNode }  ) => {
+    const [screen, setScreen] = useState( { width: 0, height: 0 } );
+    
 
     useEffect(() => {
         const handleResize = () => {
-            setSize({
-                width: window.innerWidth,
-                height: window.innerHeight,
-            });
+            setScreen( { width: window.innerWidth, height: window.innerHeight } );
         };
+
+        setScreen( { width: window.innerWidth, height: window.innerHeight } );
 
         window.addEventListener("resize", handleResize);
         return () => window.removeEventListener("resize", handleResize);
+        
     }, []);
 
     return (
@@ -35,8 +31,8 @@ export const NavProvider = ({ children } : { children: React.ReactNode
             {children}
         </NavContext.Provider>
     );
-
 }
 
-    
+
 export const useNavContext = () => useContext( NavContext );
+

@@ -1,14 +1,18 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
-import "@/library/theme/theme.tsx";
+import "@/library/theme/theme";
 import { Navbar } from "@/library/nav/nav";
-import { Providers } from "./providers";
+import { Providers, ToastProvider } from "./providers";
 import { ThemeProvider } from "@/library/theme/theme";
 import { AuthProvider } from "@/library/auth/context";
 import { Footer } from "@/library/nav/footer";
 import { NavProvider } from "@/library/nav/context";
 import { Inter, Berkshire_Swash, Google_Sans_Code, Merienda } from "next/font/google";
+
+
+
+
 
 const merienda = Merienda({
 	variable: "--font-merienda",
@@ -47,6 +51,8 @@ export default function RootLayout({
 			<body
 				className={`${ merienda.className } antialiased bg-(--color1) text-(--color2)`}
 			>
+				<ToastProvider />
+
 				<ThemeProvider>
 					<Providers>
 						<AuthProvider>

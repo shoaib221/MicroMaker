@@ -1,12 +1,15 @@
 "use client"
 
 import { useAuthContext } from "@/library/auth/context";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import './style1.css';
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import {  useMyImage } from "@/library/Media/image1";
 import { useDatePicker } from "@/library/Media/date";
+import { toast } from "react-toastify";
+import '@/library/box/box1.css';
+import { useRouter } from "next/navigation";
 
 
 function Home() {
@@ -25,22 +28,26 @@ function AddTask() {
         register,
         handleSubmit,
         formState: { errors },
+        reset,
     } = useForm();
 
     
     const { resetPhoto, uploadPhoto, PhotoTag } = useMyImage({ url: "" });
-    const { date, DatePicker } = useDatePicker();
+    const { date, DatePicker, setDate } = useDatePicker();
 
     async function onSubmit(data: any) {
         try {
             data.deadline = date;
             data.imageUrl = await uploadPhoto();
-            let res = await axios.post("/api/job", data);
+            console.log("Form data to submit:", data);
+            await axios.post("/api/job", data);
+            reset();
             resetPhoto(null);
-            alert("Task added successfully");
+            setDate(undefined);
+            toast.success("Task added successfully");
         } catch (err) {
             console.error("Error adding task:", err);
-            alert("Error adding task");
+            toast.error("Error adding task");
         }
 
     }
@@ -89,7 +96,7 @@ function AddTask() {
                 <input
                     type="number"
                     className="w-full input1"
-                    {...register("salary", { required: "Salary is required" })}
+                    {...register("salary", { required: "Salary is required", valueAsNumber: true })}
                     placeholder="in BDT"
                 />
                 {errors.salary && <p className="text-red-500" >{errors.salary?.message?.toString()}</p>}
@@ -103,7 +110,7 @@ function AddTask() {
                 <input
                     type="number"
                     className="w-full input1"
-                    {...register("required_employees", { required: "Required employees is required" })}
+                    {...register("required_employees", { required: "Required employees is required", valueAsNumber: true })}
                     placeholder="number of employees"
                 />
                 {errors.required_employees && <p className="text-red-500" >{errors.required_employees?.message?.toString()}</p>}
@@ -143,6 +150,100 @@ function AddTask() {
 }
 
 
+function MyTasks() {
+
+    const [jobs, setJobs] = useState([]);
+    const router = useRouter();
+
+    useEffect(() => {
+        async function fetchMyTasks() {
+            try {
+                const response = await axios.get("/api/job");
+                console.log("My Tasks:", response.data.jobs);
+                setJobs(response.data.jobs);
+            } catch (error) {
+                console.error("Error fetching my tasks:", error);
+            }
+        }
+
+        fetchMyTasks();
+
+    }, []);
+
+    return (
+        <div>
+            { jobs.length >0 ? jobs.map((job: any) => (
+                <div key={job.id} onClick={() => router.push(`/job/${job.id}`)} className="border p-4 rounded-md mb-4">
+                    <h2 className="text-xl font-bold">{job.title}</h2>
+                </div>
+            )) : <p>No jobs found.</p> }
+
+        </div>
+    )
+}
+
+
+function PurchaseCoin() {
+    const router = useRouter();
+
+    async function handlePurchase(amount: number) {
+        try {
+            const response = await axios.post("/api/payment", { amount });
+            router.push( response.data.url )
+        } catch (error) {
+            console.error("Error initiating purchase:", error);
+            toast.error("Error initiating purchase");
+        }
+    }
+
+    return (
+        <div className="grid grid-cols-3 gap-8" >
+            <div className="box-12" onClick={ () => handlePurchase(100) } >100 BDT</div>
+            <div className="box-12" onClick={ () => handlePurchase(200) } >200 BDT</div>
+            <div className="box-12" onClick={ () => handlePurchase(500) } >500 BDT</div>
+            <div className="box-12" onClick={ () => handlePurchase(1000) } >1000 BDT</div>
+            <div className="box-12" onClick={ () => handlePurchase(2000) } >2000 BDT</div>
+            <div className="box-12" onClick={ () => handlePurchase(5000) } >5000 BDT</div>
+            <div className="box-12" onClick={ () => handlePurchase(10000) } >10000 BDT</div>
+        </div>
+    )
+}
+
+
+function PaymentHistory() {
+
+    const [payments, setPayments] = useState([]);
+
+    useEffect(() => {
+        async function fetchPaymentHistory() {
+            try {
+                const response = await axios.get("/api/payment/history");
+                //console.log("Payment History:", response.data.payments);
+                setPayments(response.data.transactions);
+            } catch (error) {
+                console.error("Error fetching payment history:", error);
+            }
+        }
+
+        fetchPaymentHistory();
+    }, []);
+
+    return (
+        <div>
+            { payments && payments.length > 0 ? payments.map((payment: any) => (
+                <div key={payment.id} className="border p-4 rounded-md mb-4">
+                    <h2 className="text-xl font-bold"> {payment.type} </h2> 
+                    <h2 className="">Amount: {payment.amount} BDT</h2> 
+                    <p>Date: {new Date(payment.createdAt).toLocaleDateString()}</p>
+                </div>
+            )) : <p>No payment history found.</p> }
+        </div>
+    )
+}
+
+
+
+
 export function BuyerDashboard() {
     const [path, setPath] = useState("home");
 
@@ -160,10 +261,12 @@ export function BuyerDashboard() {
             <div className="grow" >
                 {path === "home" && <Home />}
                 {path === "add" && <AddTask />}
-                {path === "mytasks" && <div>My Task’s</div>}
-                {path === "purchase" && <div>Purchase Coin</div>}
-                {path === "payment" && <div>Payment history</div>}
+                {path === "mytasks" && <MyTasks /> }
+                {path === "purchase" && <PurchaseCoin /> }
+                {path === "payment" && <PaymentHistory /> }
             </div>
         </div>
     );
 }
+
+

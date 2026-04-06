@@ -14,6 +14,17 @@ export async function POST(req: Request) {
             );
         }
 
+        const user = await prisma.user.findUnique({
+            where: { email: session.user.email },
+        });
+
+        if (!user) {
+            return NextResponse.json(
+                { message: "Unauthorized" },
+                { status: 401 }
+            );
+        }
+
         const body = await req.json();
 
         console.log("Received job creation request:", body);
@@ -25,6 +36,11 @@ export async function POST(req: Request) {
                 salary: body.salary,
                 required_employees: body.required_employees,
                 deadline: body.deadline,
+                submission_info: body.submission_info,
+                imageUrl: body.imageUrl,
+                employer: {
+                    connect: { id: user.id },
+                },
             },
         });
 
@@ -32,8 +48,8 @@ export async function POST(req: Request) {
         return NextResponse.json(
             {
                 success: true,
-                message: "User updated successfully",
-                
+                message: "Job created successfully",
+                job: new_job,
             },
             { status: 201 }
         );
@@ -60,5 +76,53 @@ export async function POST(req: Request) {
             { status: 500 }
         );
     }
+}
+
+
+
+
+export async function GET(req: Request) {
+    try {
+
+        const session = await getServerSession(authOptions);
+
+        if (!session || !session.user || !session.user.email) {
+            return NextResponse.json(
+                { message: "Unauthorized" },
+                { status: 401 }
+            );
+        }
+
+        const user = await prisma.user.findUnique({
+            where: { email: session.user.email },
+        });
+
+        if (!user) {
+            return NextResponse.json(
+                { message: "Unauthorized" },
+                { status: 401 }
+            );
+        }
+
+
+        const jobs = await prisma.job.findMany({
+            where: {
+                employerId: user.id,
+            },
+            
+        });
+
+        return NextResponse.json({ jobs }, { status: 200 } );
+
+
+
+    } catch (error) {
+        console.error("Error fetching jobs:", error);
+        return NextResponse.json(
+            { message: "Internal server error" },
+            { status: 500 }
+        );
+    }
+
 }
 

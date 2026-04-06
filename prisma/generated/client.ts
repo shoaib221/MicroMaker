@@ -67,17 +67,12 @@ export type VerificationToken = Prisma.VerificationTokenModel
  */
 export type Test = Prisma.TestModel
 /**
- * Model JobType
- * 
- */
-export type JobType = Prisma.JobTypeModel
-/**
  * Model Job
  * 
  */
 export type Job = Prisma.JobModel
 /**
- * Model JobEmployee
+ * Model Transaction
  * 
  */
-export type JobEmployee = Prisma.JobEmployeeModel
+export type Transaction = Prisma.TransactionModel
