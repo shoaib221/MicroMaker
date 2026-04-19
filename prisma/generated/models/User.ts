@@ -43,6 +43,7 @@ export type UserMinAggregateOutputType = {
   password: string | null
   role: string | null
   coins: number | null
+  stripe_account_id: string | null
 }
 
 export type UserMaxAggregateOutputType = {
@@ -54,6 +55,7 @@ export type UserMaxAggregateOutputType = {
   password: string | null
   role: string | null
   coins: number | null
+  stripe_account_id: string | null
 }
 
 export type UserCountAggregateOutputType = {
@@ -65,6 +67,7 @@ export type UserCountAggregateOutputType = {
   password: number
   role: number
   coins: number
+  stripe_account_id: number
   _all: number
 }
 
@@ -86,6 +89,7 @@ export type UserMinAggregateInputType = {
   password?: true
   role?: true
   coins?: true
+  stripe_account_id?: true
 }
 
 export type UserMaxAggregateInputType = {
@@ -97,6 +101,7 @@ export type UserMaxAggregateInputType = {
   password?: true
   role?: true
   coins?: true
+  stripe_account_id?: true
 }
 
 export type UserCountAggregateInputType = {
@@ -108,6 +113,7 @@ export type UserCountAggregateInputType = {
   password?: true
   role?: true
   coins?: true
+  stripe_account_id?: true
   _all?: true
 }
 
@@ -206,6 +212,7 @@ export type UserGroupByOutputType = {
   password: string
   role: string
   coins: number
+  stripe_account_id: string | null
   _count: UserCountAggregateOutputType | null
   _avg: UserAvgAggregateOutputType | null
   _sum: UserSumAggregateOutputType | null
@@ -240,11 +247,15 @@ export type UserWhereInput = {
   password?: Prisma.StringFilter<"User"> | string
   role?: Prisma.StringFilter<"User"> | string
   coins?: Prisma.IntFilter<"User"> | number
+  stripe_account_id?: Prisma.StringNullableFilter<"User"> | string | null
   accounts?: Prisma.AccountListRelationFilter
   sessions?: Prisma.SessionListRelationFilter
   jobs?: Prisma.JobListRelationFilter
   jobsAsEmployee?: Prisma.JobListRelationFilter
   transactions?: Prisma.TransactionListRelationFilter
+  sentCoins?: Prisma.TransactionListRelationFilter
+  receivedCoins?: Prisma.TransactionListRelationFilter
+  jobSubmissions?: Prisma.JobSubmissionsListRelationFilter
 }
 
 export type UserOrderByWithRelationInput = {
@@ -256,16 +267,21 @@ export type UserOrderByWithRelationInput = {
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
   coins?: Prisma.SortOrder
+  stripe_account_id?: Prisma.SortOrderInput | Prisma.SortOrder
   accounts?: Prisma.AccountOrderByRelationAggregateInput
   sessions?: Prisma.SessionOrderByRelationAggregateInput
   jobs?: Prisma.JobOrderByRelationAggregateInput
   jobsAsEmployee?: Prisma.JobOrderByRelationAggregateInput
   transactions?: Prisma.TransactionOrderByRelationAggregateInput
+  sentCoins?: Prisma.TransactionOrderByRelationAggregateInput
+  receivedCoins?: Prisma.TransactionOrderByRelationAggregateInput
+  jobSubmissions?: Prisma.JobSubmissionsOrderByRelationAggregateInput
 }
 
 export type UserWhereUniqueInput = Prisma.AtLeast<{
   id?: string
   email?: string
+  stripe_account_id?: string
   AND?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
   OR?: Prisma.UserWhereInput[]
   NOT?: Prisma.UserWhereInput | Prisma.UserWhereInput[]
@@ -280,7 +296,10 @@ export type UserWhereUniqueInput = Prisma.AtLeast<{
   jobs?: Prisma.JobListRelationFilter
   jobsAsEmployee?: Prisma.JobListRelationFilter
   transactions?: Prisma.TransactionListRelationFilter
-}, "id" | "email">
+  sentCoins?: Prisma.TransactionListRelationFilter
+  receivedCoins?: Prisma.TransactionListRelationFilter
+  jobSubmissions?: Prisma.JobSubmissionsListRelationFilter
+}, "id" | "email" | "stripe_account_id">
 
 export type UserOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
@@ -291,6 +310,7 @@ export type UserOrderByWithAggregationInput = {
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
   coins?: Prisma.SortOrder
+  stripe_account_id?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.UserCountOrderByAggregateInput
   _avg?: Prisma.UserAvgOrderByAggregateInput
   _max?: Prisma.UserMaxOrderByAggregateInput
@@ -310,6 +330,7 @@ export type UserScalarWhereWithAggregatesInput = {
   password?: Prisma.StringWithAggregatesFilter<"User"> | string
   role?: Prisma.StringWithAggregatesFilter<"User"> | string
   coins?: Prisma.IntWithAggregatesFilter<"User"> | number
+  stripe_account_id?: Prisma.StringNullableWithAggregatesFilter<"User"> | string | null
 }
 
 export type UserCreateInput = {
@@ -321,11 +342,15 @@ export type UserCreateInput = {
   password: string
   role?: string
   coins?: number
+  stripe_account_id?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   jobs?: Prisma.JobCreateNestedManyWithoutEmployerInput
   jobsAsEmployee?: Prisma.JobCreateNestedManyWithoutEmployeesInput
   transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  sentCoins?: Prisma.TransactionCreateNestedManyWithoutSenderInput
+  receivedCoins?: Prisma.TransactionCreateNestedManyWithoutReceiverInput
+  jobSubmissions?: Prisma.JobSubmissionsCreateNestedManyWithoutEmployeeInput
 }
 
 export type UserUncheckedCreateInput = {
@@ -337,11 +362,15 @@ export type UserUncheckedCreateInput = {
   password: string
   role?: string
   coins?: number
+  stripe_account_id?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutEmployerInput
   jobsAsEmployee?: Prisma.JobUncheckedCreateNestedManyWithoutEmployeesInput
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  sentCoins?: Prisma.TransactionUncheckedCreateNestedManyWithoutSenderInput
+  receivedCoins?: Prisma.TransactionUncheckedCreateNestedManyWithoutReceiverInput
+  jobSubmissions?: Prisma.JobSubmissionsUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type UserUpdateInput = {
@@ -353,11 +382,15 @@ export type UserUpdateInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
+  stripe_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   jobs?: Prisma.JobUpdateManyWithoutEmployerNestedInput
   jobsAsEmployee?: Prisma.JobUpdateManyWithoutEmployeesNestedInput
   transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  sentCoins?: Prisma.TransactionUpdateManyWithoutSenderNestedInput
+  receivedCoins?: Prisma.TransactionUpdateManyWithoutReceiverNestedInput
+  jobSubmissions?: Prisma.JobSubmissionsUpdateManyWithoutEmployeeNestedInput
 }
 
 export type UserUncheckedUpdateInput = {
@@ -369,11 +402,15 @@ export type UserUncheckedUpdateInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
+  stripe_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutEmployerNestedInput
   jobsAsEmployee?: Prisma.JobUncheckedUpdateManyWithoutEmployeesNestedInput
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  sentCoins?: Prisma.TransactionUncheckedUpdateManyWithoutSenderNestedInput
+  receivedCoins?: Prisma.TransactionUncheckedUpdateManyWithoutReceiverNestedInput
+  jobSubmissions?: Prisma.JobSubmissionsUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type UserCreateManyInput = {
@@ -385,6 +422,7 @@ export type UserCreateManyInput = {
   password: string
   role?: string
   coins?: number
+  stripe_account_id?: string | null
 }
 
 export type UserUpdateManyMutationInput = {
@@ -396,6 +434,7 @@ export type UserUpdateManyMutationInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
+  stripe_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserUncheckedUpdateManyInput = {
@@ -407,6 +446,7 @@ export type UserUncheckedUpdateManyInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
+  stripe_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type UserCountOrderByAggregateInput = {
@@ -418,6 +458,7 @@ export type UserCountOrderByAggregateInput = {
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
   coins?: Prisma.SortOrder
+  stripe_account_id?: Prisma.SortOrder
 }
 
 export type UserAvgOrderByAggregateInput = {
@@ -433,6 +474,7 @@ export type UserMaxOrderByAggregateInput = {
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
   coins?: Prisma.SortOrder
+  stripe_account_id?: Prisma.SortOrder
 }
 
 export type UserMinOrderByAggregateInput = {
@@ -444,6 +486,7 @@ export type UserMinOrderByAggregateInput = {
   password?: Prisma.SortOrder
   role?: Prisma.SortOrder
   coins?: Prisma.SortOrder
+  stripe_account_id?: Prisma.SortOrder
 }
 
 export type UserSumOrderByAggregateInput = {
@@ -463,6 +506,11 @@ export type UserListRelationFilter = {
 
 export type UserOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder
+}
+
+export type UserNullableScalarRelationFilter = {
+  is?: Prisma.UserWhereInput | null
+  isNot?: Prisma.UserWhereInput | null
 }
 
 export type StringFieldUpdateOperationsInput = {
@@ -571,12 +619,60 @@ export type UserCreateNestedOneWithoutTransactionsInput = {
   connect?: Prisma.UserWhereUniqueInput
 }
 
-export type UserUpdateOneRequiredWithoutTransactionsNestedInput = {
+export type UserCreateNestedOneWithoutSentCoinsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSentCoinsInput, Prisma.UserUncheckedCreateWithoutSentCoinsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentCoinsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserCreateNestedOneWithoutReceivedCoinsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReceivedCoinsInput, Prisma.UserUncheckedCreateWithoutReceivedCoinsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReceivedCoinsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneWithoutTransactionsNestedInput = {
   create?: Prisma.XOR<Prisma.UserCreateWithoutTransactionsInput, Prisma.UserUncheckedCreateWithoutTransactionsInput>
   connectOrCreate?: Prisma.UserCreateOrConnectWithoutTransactionsInput
   upsert?: Prisma.UserUpsertWithoutTransactionsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
   connect?: Prisma.UserWhereUniqueInput
   update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutTransactionsInput, Prisma.UserUpdateWithoutTransactionsInput>, Prisma.UserUncheckedUpdateWithoutTransactionsInput>
+}
+
+export type UserUpdateOneWithoutSentCoinsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutSentCoinsInput, Prisma.UserUncheckedCreateWithoutSentCoinsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutSentCoinsInput
+  upsert?: Prisma.UserUpsertWithoutSentCoinsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutSentCoinsInput, Prisma.UserUpdateWithoutSentCoinsInput>, Prisma.UserUncheckedUpdateWithoutSentCoinsInput>
+}
+
+export type UserUpdateOneWithoutReceivedCoinsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutReceivedCoinsInput, Prisma.UserUncheckedCreateWithoutReceivedCoinsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutReceivedCoinsInput
+  upsert?: Prisma.UserUpsertWithoutReceivedCoinsInput
+  disconnect?: Prisma.UserWhereInput | boolean
+  delete?: Prisma.UserWhereInput | boolean
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutReceivedCoinsInput, Prisma.UserUpdateWithoutReceivedCoinsInput>, Prisma.UserUncheckedUpdateWithoutReceivedCoinsInput>
+}
+
+export type UserCreateNestedOneWithoutJobSubmissionsInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutJobSubmissionsInput, Prisma.UserUncheckedCreateWithoutJobSubmissionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutJobSubmissionsInput
+  connect?: Prisma.UserWhereUniqueInput
+}
+
+export type UserUpdateOneRequiredWithoutJobSubmissionsNestedInput = {
+  create?: Prisma.XOR<Prisma.UserCreateWithoutJobSubmissionsInput, Prisma.UserUncheckedCreateWithoutJobSubmissionsInput>
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutJobSubmissionsInput
+  upsert?: Prisma.UserUpsertWithoutJobSubmissionsInput
+  connect?: Prisma.UserWhereUniqueInput
+  update?: Prisma.XOR<Prisma.XOR<Prisma.UserUpdateToOneWithWhereWithoutJobSubmissionsInput, Prisma.UserUpdateWithoutJobSubmissionsInput>, Prisma.UserUncheckedUpdateWithoutJobSubmissionsInput>
 }
 
 export type UserCreateWithoutAccountsInput = {
@@ -588,10 +684,14 @@ export type UserCreateWithoutAccountsInput = {
   password: string
   role?: string
   coins?: number
+  stripe_account_id?: string | null
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   jobs?: Prisma.JobCreateNestedManyWithoutEmployerInput
   jobsAsEmployee?: Prisma.JobCreateNestedManyWithoutEmployeesInput
   transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  sentCoins?: Prisma.TransactionCreateNestedManyWithoutSenderInput
+  receivedCoins?: Prisma.TransactionCreateNestedManyWithoutReceiverInput
+  jobSubmissions?: Prisma.JobSubmissionsCreateNestedManyWithoutEmployeeInput
 }
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -603,10 +703,14 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   password: string
   role?: string
   coins?: number
+  stripe_account_id?: string | null
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutEmployerInput
   jobsAsEmployee?: Prisma.JobUncheckedCreateNestedManyWithoutEmployeesInput
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  sentCoins?: Prisma.TransactionUncheckedCreateNestedManyWithoutSenderInput
+  receivedCoins?: Prisma.TransactionUncheckedCreateNestedManyWithoutReceiverInput
+  jobSubmissions?: Prisma.JobSubmissionsUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -634,10 +738,14 @@ export type UserUpdateWithoutAccountsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
+  stripe_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   jobs?: Prisma.JobUpdateManyWithoutEmployerNestedInput
   jobsAsEmployee?: Prisma.JobUpdateManyWithoutEmployeesNestedInput
   transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  sentCoins?: Prisma.TransactionUpdateManyWithoutSenderNestedInput
+  receivedCoins?: Prisma.TransactionUpdateManyWithoutReceiverNestedInput
+  jobSubmissions?: Prisma.JobSubmissionsUpdateManyWithoutEmployeeNestedInput
 }
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -649,10 +757,14 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
+  stripe_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutEmployerNestedInput
   jobsAsEmployee?: Prisma.JobUncheckedUpdateManyWithoutEmployeesNestedInput
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  sentCoins?: Prisma.TransactionUncheckedUpdateManyWithoutSenderNestedInput
+  receivedCoins?: Prisma.TransactionUncheckedUpdateManyWithoutReceiverNestedInput
+  jobSubmissions?: Prisma.JobSubmissionsUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type UserCreateWithoutSessionsInput = {
@@ -664,10 +776,14 @@ export type UserCreateWithoutSessionsInput = {
   password: string
   role?: string
   coins?: number
+  stripe_account_id?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   jobs?: Prisma.JobCreateNestedManyWithoutEmployerInput
   jobsAsEmployee?: Prisma.JobCreateNestedManyWithoutEmployeesInput
   transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  sentCoins?: Prisma.TransactionCreateNestedManyWithoutSenderInput
+  receivedCoins?: Prisma.TransactionCreateNestedManyWithoutReceiverInput
+  jobSubmissions?: Prisma.JobSubmissionsCreateNestedManyWithoutEmployeeInput
 }
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -679,10 +795,14 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   password: string
   role?: string
   coins?: number
+  stripe_account_id?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutEmployerInput
   jobsAsEmployee?: Prisma.JobUncheckedCreateNestedManyWithoutEmployeesInput
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  sentCoins?: Prisma.TransactionUncheckedCreateNestedManyWithoutSenderInput
+  receivedCoins?: Prisma.TransactionUncheckedCreateNestedManyWithoutReceiverInput
+  jobSubmissions?: Prisma.JobSubmissionsUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -710,10 +830,14 @@ export type UserUpdateWithoutSessionsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
+  stripe_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   jobs?: Prisma.JobUpdateManyWithoutEmployerNestedInput
   jobsAsEmployee?: Prisma.JobUpdateManyWithoutEmployeesNestedInput
   transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  sentCoins?: Prisma.TransactionUpdateManyWithoutSenderNestedInput
+  receivedCoins?: Prisma.TransactionUpdateManyWithoutReceiverNestedInput
+  jobSubmissions?: Prisma.JobSubmissionsUpdateManyWithoutEmployeeNestedInput
 }
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -725,10 +849,14 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
+  stripe_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutEmployerNestedInput
   jobsAsEmployee?: Prisma.JobUncheckedUpdateManyWithoutEmployeesNestedInput
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  sentCoins?: Prisma.TransactionUncheckedUpdateManyWithoutSenderNestedInput
+  receivedCoins?: Prisma.TransactionUncheckedUpdateManyWithoutReceiverNestedInput
+  jobSubmissions?: Prisma.JobSubmissionsUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type UserCreateWithoutJobsInput = {
@@ -740,10 +868,14 @@ export type UserCreateWithoutJobsInput = {
   password: string
   role?: string
   coins?: number
+  stripe_account_id?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   jobsAsEmployee?: Prisma.JobCreateNestedManyWithoutEmployeesInput
   transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  sentCoins?: Prisma.TransactionCreateNestedManyWithoutSenderInput
+  receivedCoins?: Prisma.TransactionCreateNestedManyWithoutReceiverInput
+  jobSubmissions?: Prisma.JobSubmissionsCreateNestedManyWithoutEmployeeInput
 }
 
 export type UserUncheckedCreateWithoutJobsInput = {
@@ -755,10 +887,14 @@ export type UserUncheckedCreateWithoutJobsInput = {
   password: string
   role?: string
   coins?: number
+  stripe_account_id?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   jobsAsEmployee?: Prisma.JobUncheckedCreateNestedManyWithoutEmployeesInput
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  sentCoins?: Prisma.TransactionUncheckedCreateNestedManyWithoutSenderInput
+  receivedCoins?: Prisma.TransactionUncheckedCreateNestedManyWithoutReceiverInput
+  jobSubmissions?: Prisma.JobSubmissionsUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type UserCreateOrConnectWithoutJobsInput = {
@@ -775,10 +911,14 @@ export type UserCreateWithoutJobsAsEmployeeInput = {
   password: string
   role?: string
   coins?: number
+  stripe_account_id?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   jobs?: Prisma.JobCreateNestedManyWithoutEmployerInput
   transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  sentCoins?: Prisma.TransactionCreateNestedManyWithoutSenderInput
+  receivedCoins?: Prisma.TransactionCreateNestedManyWithoutReceiverInput
+  jobSubmissions?: Prisma.JobSubmissionsCreateNestedManyWithoutEmployeeInput
 }
 
 export type UserUncheckedCreateWithoutJobsAsEmployeeInput = {
@@ -790,10 +930,14 @@ export type UserUncheckedCreateWithoutJobsAsEmployeeInput = {
   password: string
   role?: string
   coins?: number
+  stripe_account_id?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutEmployerInput
   transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  sentCoins?: Prisma.TransactionUncheckedCreateNestedManyWithoutSenderInput
+  receivedCoins?: Prisma.TransactionUncheckedCreateNestedManyWithoutReceiverInput
+  jobSubmissions?: Prisma.JobSubmissionsUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type UserCreateOrConnectWithoutJobsAsEmployeeInput = {
@@ -821,10 +965,14 @@ export type UserUpdateWithoutJobsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
+  stripe_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   jobsAsEmployee?: Prisma.JobUpdateManyWithoutEmployeesNestedInput
   transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  sentCoins?: Prisma.TransactionUpdateManyWithoutSenderNestedInput
+  receivedCoins?: Prisma.TransactionUpdateManyWithoutReceiverNestedInput
+  jobSubmissions?: Prisma.JobSubmissionsUpdateManyWithoutEmployeeNestedInput
 }
 
 export type UserUncheckedUpdateWithoutJobsInput = {
@@ -836,10 +984,14 @@ export type UserUncheckedUpdateWithoutJobsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
+  stripe_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   jobsAsEmployee?: Prisma.JobUncheckedUpdateManyWithoutEmployeesNestedInput
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  sentCoins?: Prisma.TransactionUncheckedUpdateManyWithoutSenderNestedInput
+  receivedCoins?: Prisma.TransactionUncheckedUpdateManyWithoutReceiverNestedInput
+  jobSubmissions?: Prisma.JobSubmissionsUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type UserUpsertWithWhereUniqueWithoutJobsAsEmployeeInput = {
@@ -870,6 +1022,7 @@ export type UserScalarWhereInput = {
   password?: Prisma.StringFilter<"User"> | string
   role?: Prisma.StringFilter<"User"> | string
   coins?: Prisma.IntFilter<"User"> | number
+  stripe_account_id?: Prisma.StringNullableFilter<"User"> | string | null
 }
 
 export type UserCreateWithoutTransactionsInput = {
@@ -881,10 +1034,14 @@ export type UserCreateWithoutTransactionsInput = {
   password: string
   role?: string
   coins?: number
+  stripe_account_id?: string | null
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
   jobs?: Prisma.JobCreateNestedManyWithoutEmployerInput
   jobsAsEmployee?: Prisma.JobCreateNestedManyWithoutEmployeesInput
+  sentCoins?: Prisma.TransactionCreateNestedManyWithoutSenderInput
+  receivedCoins?: Prisma.TransactionCreateNestedManyWithoutReceiverInput
+  jobSubmissions?: Prisma.JobSubmissionsCreateNestedManyWithoutEmployeeInput
 }
 
 export type UserUncheckedCreateWithoutTransactionsInput = {
@@ -896,15 +1053,105 @@ export type UserUncheckedCreateWithoutTransactionsInput = {
   password: string
   role?: string
   coins?: number
+  stripe_account_id?: string | null
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutEmployerInput
   jobsAsEmployee?: Prisma.JobUncheckedCreateNestedManyWithoutEmployeesInput
+  sentCoins?: Prisma.TransactionUncheckedCreateNestedManyWithoutSenderInput
+  receivedCoins?: Prisma.TransactionUncheckedCreateNestedManyWithoutReceiverInput
+  jobSubmissions?: Prisma.JobSubmissionsUncheckedCreateNestedManyWithoutEmployeeInput
 }
 
 export type UserCreateOrConnectWithoutTransactionsInput = {
   where: Prisma.UserWhereUniqueInput
   create: Prisma.XOR<Prisma.UserCreateWithoutTransactionsInput, Prisma.UserUncheckedCreateWithoutTransactionsInput>
+}
+
+export type UserCreateWithoutSentCoinsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  emailVerified?: Date | string | null
+  image?: string | null
+  password: string
+  role?: string
+  coins?: number
+  stripe_account_id?: string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  jobs?: Prisma.JobCreateNestedManyWithoutEmployerInput
+  jobsAsEmployee?: Prisma.JobCreateNestedManyWithoutEmployeesInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  receivedCoins?: Prisma.TransactionCreateNestedManyWithoutReceiverInput
+  jobSubmissions?: Prisma.JobSubmissionsCreateNestedManyWithoutEmployeeInput
+}
+
+export type UserUncheckedCreateWithoutSentCoinsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  emailVerified?: Date | string | null
+  image?: string | null
+  password: string
+  role?: string
+  coins?: number
+  stripe_account_id?: string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  jobs?: Prisma.JobUncheckedCreateNestedManyWithoutEmployerInput
+  jobsAsEmployee?: Prisma.JobUncheckedCreateNestedManyWithoutEmployeesInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  receivedCoins?: Prisma.TransactionUncheckedCreateNestedManyWithoutReceiverInput
+  jobSubmissions?: Prisma.JobSubmissionsUncheckedCreateNestedManyWithoutEmployeeInput
+}
+
+export type UserCreateOrConnectWithoutSentCoinsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutSentCoinsInput, Prisma.UserUncheckedCreateWithoutSentCoinsInput>
+}
+
+export type UserCreateWithoutReceivedCoinsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  emailVerified?: Date | string | null
+  image?: string | null
+  password: string
+  role?: string
+  coins?: number
+  stripe_account_id?: string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  jobs?: Prisma.JobCreateNestedManyWithoutEmployerInput
+  jobsAsEmployee?: Prisma.JobCreateNestedManyWithoutEmployeesInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  sentCoins?: Prisma.TransactionCreateNestedManyWithoutSenderInput
+  jobSubmissions?: Prisma.JobSubmissionsCreateNestedManyWithoutEmployeeInput
+}
+
+export type UserUncheckedCreateWithoutReceivedCoinsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  emailVerified?: Date | string | null
+  image?: string | null
+  password: string
+  role?: string
+  coins?: number
+  stripe_account_id?: string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  jobs?: Prisma.JobUncheckedCreateNestedManyWithoutEmployerInput
+  jobsAsEmployee?: Prisma.JobUncheckedCreateNestedManyWithoutEmployeesInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  sentCoins?: Prisma.TransactionUncheckedCreateNestedManyWithoutSenderInput
+  jobSubmissions?: Prisma.JobSubmissionsUncheckedCreateNestedManyWithoutEmployeeInput
+}
+
+export type UserCreateOrConnectWithoutReceivedCoinsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutReceivedCoinsInput, Prisma.UserUncheckedCreateWithoutReceivedCoinsInput>
 }
 
 export type UserUpsertWithoutTransactionsInput = {
@@ -927,10 +1174,14 @@ export type UserUpdateWithoutTransactionsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
+  stripe_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   jobs?: Prisma.JobUpdateManyWithoutEmployerNestedInput
   jobsAsEmployee?: Prisma.JobUpdateManyWithoutEmployeesNestedInput
+  sentCoins?: Prisma.TransactionUpdateManyWithoutSenderNestedInput
+  receivedCoins?: Prisma.TransactionUpdateManyWithoutReceiverNestedInput
+  jobSubmissions?: Prisma.JobSubmissionsUpdateManyWithoutEmployeeNestedInput
 }
 
 export type UserUncheckedUpdateWithoutTransactionsInput = {
@@ -942,10 +1193,204 @@ export type UserUncheckedUpdateWithoutTransactionsInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
+  stripe_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutEmployerNestedInput
   jobsAsEmployee?: Prisma.JobUncheckedUpdateManyWithoutEmployeesNestedInput
+  sentCoins?: Prisma.TransactionUncheckedUpdateManyWithoutSenderNestedInput
+  receivedCoins?: Prisma.TransactionUncheckedUpdateManyWithoutReceiverNestedInput
+  jobSubmissions?: Prisma.JobSubmissionsUncheckedUpdateManyWithoutEmployeeNestedInput
+}
+
+export type UserUpsertWithoutSentCoinsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutSentCoinsInput, Prisma.UserUncheckedUpdateWithoutSentCoinsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutSentCoinsInput, Prisma.UserUncheckedCreateWithoutSentCoinsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutSentCoinsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutSentCoinsInput, Prisma.UserUncheckedUpdateWithoutSentCoinsInput>
+}
+
+export type UserUpdateWithoutSentCoinsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  coins?: Prisma.IntFieldUpdateOperationsInput | number
+  stripe_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  jobs?: Prisma.JobUpdateManyWithoutEmployerNestedInput
+  jobsAsEmployee?: Prisma.JobUpdateManyWithoutEmployeesNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  receivedCoins?: Prisma.TransactionUpdateManyWithoutReceiverNestedInput
+  jobSubmissions?: Prisma.JobSubmissionsUpdateManyWithoutEmployeeNestedInput
+}
+
+export type UserUncheckedUpdateWithoutSentCoinsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  coins?: Prisma.IntFieldUpdateOperationsInput | number
+  stripe_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  jobs?: Prisma.JobUncheckedUpdateManyWithoutEmployerNestedInput
+  jobsAsEmployee?: Prisma.JobUncheckedUpdateManyWithoutEmployeesNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  receivedCoins?: Prisma.TransactionUncheckedUpdateManyWithoutReceiverNestedInput
+  jobSubmissions?: Prisma.JobSubmissionsUncheckedUpdateManyWithoutEmployeeNestedInput
+}
+
+export type UserUpsertWithoutReceivedCoinsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutReceivedCoinsInput, Prisma.UserUncheckedUpdateWithoutReceivedCoinsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutReceivedCoinsInput, Prisma.UserUncheckedCreateWithoutReceivedCoinsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutReceivedCoinsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutReceivedCoinsInput, Prisma.UserUncheckedUpdateWithoutReceivedCoinsInput>
+}
+
+export type UserUpdateWithoutReceivedCoinsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  coins?: Prisma.IntFieldUpdateOperationsInput | number
+  stripe_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  jobs?: Prisma.JobUpdateManyWithoutEmployerNestedInput
+  jobsAsEmployee?: Prisma.JobUpdateManyWithoutEmployeesNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  sentCoins?: Prisma.TransactionUpdateManyWithoutSenderNestedInput
+  jobSubmissions?: Prisma.JobSubmissionsUpdateManyWithoutEmployeeNestedInput
+}
+
+export type UserUncheckedUpdateWithoutReceivedCoinsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  coins?: Prisma.IntFieldUpdateOperationsInput | number
+  stripe_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  jobs?: Prisma.JobUncheckedUpdateManyWithoutEmployerNestedInput
+  jobsAsEmployee?: Prisma.JobUncheckedUpdateManyWithoutEmployeesNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  sentCoins?: Prisma.TransactionUncheckedUpdateManyWithoutSenderNestedInput
+  jobSubmissions?: Prisma.JobSubmissionsUncheckedUpdateManyWithoutEmployeeNestedInput
+}
+
+export type UserCreateWithoutJobSubmissionsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  emailVerified?: Date | string | null
+  image?: string | null
+  password: string
+  role?: string
+  coins?: number
+  stripe_account_id?: string | null
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput
+  jobs?: Prisma.JobCreateNestedManyWithoutEmployerInput
+  jobsAsEmployee?: Prisma.JobCreateNestedManyWithoutEmployeesInput
+  transactions?: Prisma.TransactionCreateNestedManyWithoutUserInput
+  sentCoins?: Prisma.TransactionCreateNestedManyWithoutSenderInput
+  receivedCoins?: Prisma.TransactionCreateNestedManyWithoutReceiverInput
+}
+
+export type UserUncheckedCreateWithoutJobSubmissionsInput = {
+  id?: string
+  name?: string | null
+  email: string
+  emailVerified?: Date | string | null
+  image?: string | null
+  password: string
+  role?: string
+  coins?: number
+  stripe_account_id?: string | null
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput
+  jobs?: Prisma.JobUncheckedCreateNestedManyWithoutEmployerInput
+  jobsAsEmployee?: Prisma.JobUncheckedCreateNestedManyWithoutEmployeesInput
+  transactions?: Prisma.TransactionUncheckedCreateNestedManyWithoutUserInput
+  sentCoins?: Prisma.TransactionUncheckedCreateNestedManyWithoutSenderInput
+  receivedCoins?: Prisma.TransactionUncheckedCreateNestedManyWithoutReceiverInput
+}
+
+export type UserCreateOrConnectWithoutJobSubmissionsInput = {
+  where: Prisma.UserWhereUniqueInput
+  create: Prisma.XOR<Prisma.UserCreateWithoutJobSubmissionsInput, Prisma.UserUncheckedCreateWithoutJobSubmissionsInput>
+}
+
+export type UserUpsertWithoutJobSubmissionsInput = {
+  update: Prisma.XOR<Prisma.UserUpdateWithoutJobSubmissionsInput, Prisma.UserUncheckedUpdateWithoutJobSubmissionsInput>
+  create: Prisma.XOR<Prisma.UserCreateWithoutJobSubmissionsInput, Prisma.UserUncheckedCreateWithoutJobSubmissionsInput>
+  where?: Prisma.UserWhereInput
+}
+
+export type UserUpdateToOneWithWhereWithoutJobSubmissionsInput = {
+  where?: Prisma.UserWhereInput
+  data: Prisma.XOR<Prisma.UserUpdateWithoutJobSubmissionsInput, Prisma.UserUncheckedUpdateWithoutJobSubmissionsInput>
+}
+
+export type UserUpdateWithoutJobSubmissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  coins?: Prisma.IntFieldUpdateOperationsInput | number
+  stripe_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
+  jobs?: Prisma.JobUpdateManyWithoutEmployerNestedInput
+  jobsAsEmployee?: Prisma.JobUpdateManyWithoutEmployeesNestedInput
+  transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  sentCoins?: Prisma.TransactionUpdateManyWithoutSenderNestedInput
+  receivedCoins?: Prisma.TransactionUpdateManyWithoutReceiverNestedInput
+}
+
+export type UserUncheckedUpdateWithoutJobSubmissionsInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  email?: Prisma.StringFieldUpdateOperationsInput | string
+  emailVerified?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  password?: Prisma.StringFieldUpdateOperationsInput | string
+  role?: Prisma.StringFieldUpdateOperationsInput | string
+  coins?: Prisma.IntFieldUpdateOperationsInput | number
+  stripe_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
+  jobs?: Prisma.JobUncheckedUpdateManyWithoutEmployerNestedInput
+  jobsAsEmployee?: Prisma.JobUncheckedUpdateManyWithoutEmployeesNestedInput
+  transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  sentCoins?: Prisma.TransactionUncheckedUpdateManyWithoutSenderNestedInput
+  receivedCoins?: Prisma.TransactionUncheckedUpdateManyWithoutReceiverNestedInput
 }
 
 export type UserUpdateWithoutJobsAsEmployeeInput = {
@@ -957,10 +1402,14 @@ export type UserUpdateWithoutJobsAsEmployeeInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
+  stripe_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput
   jobs?: Prisma.JobUpdateManyWithoutEmployerNestedInput
   transactions?: Prisma.TransactionUpdateManyWithoutUserNestedInput
+  sentCoins?: Prisma.TransactionUpdateManyWithoutSenderNestedInput
+  receivedCoins?: Prisma.TransactionUpdateManyWithoutReceiverNestedInput
+  jobSubmissions?: Prisma.JobSubmissionsUpdateManyWithoutEmployeeNestedInput
 }
 
 export type UserUncheckedUpdateWithoutJobsAsEmployeeInput = {
@@ -972,10 +1421,14 @@ export type UserUncheckedUpdateWithoutJobsAsEmployeeInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
+  stripe_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput
   jobs?: Prisma.JobUncheckedUpdateManyWithoutEmployerNestedInput
   transactions?: Prisma.TransactionUncheckedUpdateManyWithoutUserNestedInput
+  sentCoins?: Prisma.TransactionUncheckedUpdateManyWithoutSenderNestedInput
+  receivedCoins?: Prisma.TransactionUncheckedUpdateManyWithoutReceiverNestedInput
+  jobSubmissions?: Prisma.JobSubmissionsUncheckedUpdateManyWithoutEmployeeNestedInput
 }
 
 export type UserUncheckedUpdateManyWithoutJobsAsEmployeeInput = {
@@ -987,6 +1440,7 @@ export type UserUncheckedUpdateManyWithoutJobsAsEmployeeInput = {
   password?: Prisma.StringFieldUpdateOperationsInput | string
   role?: Prisma.StringFieldUpdateOperationsInput | string
   coins?: Prisma.IntFieldUpdateOperationsInput | number
+  stripe_account_id?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -1000,6 +1454,9 @@ export type UserCountOutputType = {
   jobs: number
   jobsAsEmployee: number
   transactions: number
+  sentCoins: number
+  receivedCoins: number
+  jobSubmissions: number
 }
 
 export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1008,6 +1465,9 @@ export type UserCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.I
   jobs?: boolean | UserCountOutputTypeCountJobsArgs
   jobsAsEmployee?: boolean | UserCountOutputTypeCountJobsAsEmployeeArgs
   transactions?: boolean | UserCountOutputTypeCountTransactionsArgs
+  sentCoins?: boolean | UserCountOutputTypeCountSentCoinsArgs
+  receivedCoins?: boolean | UserCountOutputTypeCountReceivedCoinsArgs
+  jobSubmissions?: boolean | UserCountOutputTypeCountJobSubmissionsArgs
 }
 
 /**
@@ -1055,6 +1515,27 @@ export type UserCountOutputTypeCountTransactionsArgs<ExtArgs extends runtime.Typ
   where?: Prisma.TransactionWhereInput
 }
 
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountSentCoinsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TransactionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountReceivedCoinsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.TransactionWhereInput
+}
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountJobSubmissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  where?: Prisma.JobSubmissionsWhereInput
+}
+
 
 export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1065,11 +1546,15 @@ export type UserSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = r
   password?: boolean
   role?: boolean
   coins?: boolean
+  stripe_account_id?: boolean
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   jobs?: boolean | Prisma.User$jobsArgs<ExtArgs>
   jobsAsEmployee?: boolean | Prisma.User$jobsAsEmployeeArgs<ExtArgs>
   transactions?: boolean | Prisma.User$transactionsArgs<ExtArgs>
+  sentCoins?: boolean | Prisma.User$sentCoinsArgs<ExtArgs>
+  receivedCoins?: boolean | Prisma.User$receivedCoinsArgs<ExtArgs>
+  jobSubmissions?: boolean | Prisma.User$jobSubmissionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["user"]>
 
@@ -1082,6 +1567,7 @@ export type UserSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   password?: boolean
   role?: boolean
   coins?: boolean
+  stripe_account_id?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
@@ -1093,6 +1579,7 @@ export type UserSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensio
   password?: boolean
   role?: boolean
   coins?: boolean
+  stripe_account_id?: boolean
 }, ExtArgs["result"]["user"]>
 
 export type UserSelectScalar = {
@@ -1104,15 +1591,19 @@ export type UserSelectScalar = {
   password?: boolean
   role?: boolean
   coins?: boolean
+  stripe_account_id?: boolean
 }
 
-export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "password" | "role" | "coins", ExtArgs["result"]["user"]>
+export type UserOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "email" | "emailVerified" | "image" | "password" | "role" | "coins" | "stripe_account_id", ExtArgs["result"]["user"]>
 export type UserInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>
   jobs?: boolean | Prisma.User$jobsArgs<ExtArgs>
   jobsAsEmployee?: boolean | Prisma.User$jobsAsEmployeeArgs<ExtArgs>
   transactions?: boolean | Prisma.User$transactionsArgs<ExtArgs>
+  sentCoins?: boolean | Prisma.User$sentCoinsArgs<ExtArgs>
+  receivedCoins?: boolean | Prisma.User$receivedCoinsArgs<ExtArgs>
+  jobSubmissions?: boolean | Prisma.User$jobSubmissionsArgs<ExtArgs>
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type UserIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1126,6 +1617,9 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     jobs: Prisma.$JobPayload<ExtArgs>[]
     jobsAsEmployee: Prisma.$JobPayload<ExtArgs>[]
     transactions: Prisma.$TransactionPayload<ExtArgs>[]
+    sentCoins: Prisma.$TransactionPayload<ExtArgs>[]
+    receivedCoins: Prisma.$TransactionPayload<ExtArgs>[]
+    jobSubmissions: Prisma.$JobSubmissionsPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -1136,6 +1630,7 @@ export type $UserPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs =
     password: string
     role: string
     coins: number
+    stripe_account_id: string | null
   }, ExtArgs["result"]["user"]>
   composites: {}
 }
@@ -1535,6 +2030,9 @@ export interface Prisma__UserClient<T, Null = never, ExtArgs extends runtime.Typ
   jobs<T extends Prisma.User$jobsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$jobsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   jobsAsEmployee<T extends Prisma.User$jobsAsEmployeeArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$jobsAsEmployeeArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   transactions<T extends Prisma.User$transactionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$transactionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  sentCoins<T extends Prisma.User$sentCoinsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$sentCoinsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  receivedCoins<T extends Prisma.User$receivedCoinsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$receivedCoinsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$TransactionPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
+  jobSubmissions<T extends Prisma.User$jobSubmissionsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.User$jobSubmissionsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$JobSubmissionsPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -1572,6 +2070,7 @@ export interface UserFieldRefs {
   readonly password: Prisma.FieldRef<"User", 'String'>
   readonly role: Prisma.FieldRef<"User", 'String'>
   readonly coins: Prisma.FieldRef<"User", 'Int'>
+  readonly stripe_account_id: Prisma.FieldRef<"User", 'String'>
 }
     
 
@@ -2077,6 +2576,78 @@ export type User$transactionsArgs<ExtArgs extends runtime.Types.Extensions.Inter
   take?: number
   skip?: number
   distinct?: Prisma.TransactionScalarFieldEnum | Prisma.TransactionScalarFieldEnum[]
+}
+
+/**
+ * User.sentCoins
+ */
+export type User$sentCoinsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Transaction
+   */
+  select?: Prisma.TransactionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Transaction
+   */
+  omit?: Prisma.TransactionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TransactionInclude<ExtArgs> | null
+  where?: Prisma.TransactionWhereInput
+  orderBy?: Prisma.TransactionOrderByWithRelationInput | Prisma.TransactionOrderByWithRelationInput[]
+  cursor?: Prisma.TransactionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TransactionScalarFieldEnum | Prisma.TransactionScalarFieldEnum[]
+}
+
+/**
+ * User.receivedCoins
+ */
+export type User$receivedCoinsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the Transaction
+   */
+  select?: Prisma.TransactionSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the Transaction
+   */
+  omit?: Prisma.TransactionOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.TransactionInclude<ExtArgs> | null
+  where?: Prisma.TransactionWhereInput
+  orderBy?: Prisma.TransactionOrderByWithRelationInput | Prisma.TransactionOrderByWithRelationInput[]
+  cursor?: Prisma.TransactionWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.TransactionScalarFieldEnum | Prisma.TransactionScalarFieldEnum[]
+}
+
+/**
+ * User.jobSubmissions
+ */
+export type User$jobSubmissionsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
+  /**
+   * Select specific fields to fetch from the JobSubmissions
+   */
+  select?: Prisma.JobSubmissionsSelect<ExtArgs> | null
+  /**
+   * Omit specific fields from the JobSubmissions
+   */
+  omit?: Prisma.JobSubmissionsOmit<ExtArgs> | null
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.JobSubmissionsInclude<ExtArgs> | null
+  where?: Prisma.JobSubmissionsWhereInput
+  orderBy?: Prisma.JobSubmissionsOrderByWithRelationInput | Prisma.JobSubmissionsOrderByWithRelationInput[]
+  cursor?: Prisma.JobSubmissionsWhereUniqueInput
+  take?: number
+  skip?: number
+  distinct?: Prisma.JobSubmissionsScalarFieldEnum | Prisma.JobSubmissionsScalarFieldEnum[]
 }
 
 /**

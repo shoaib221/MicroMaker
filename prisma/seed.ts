@@ -80,7 +80,7 @@ const userData: Prisma.UserCreateInput[] = [
 
 
 
-const jobTypeData: Prisma.JobTypeCreateInput[] = [
+const jobCategoryData: Prisma.JobCategoryCreateInput[] = [
     {
         name: "Software Engineering",
     },
@@ -130,8 +130,8 @@ export async function main() {
     for (const u of userData) {
         await prisma.user.create({ data: u });
     }
-    for (const j of jobTypeData) {
-        await prisma.jobType.create({ data: j });
+    for (const j of jobCategoryData) {
+        await prisma.jobCategory.create({ data: j });
     }
     for (const t of testData) {
         await prisma.test.create({ data: t });

@@ -3,18 +3,13 @@
 import { useEffect, useState } from "react";
 import { useAuthContext } from "@/library/auth/context";
 import axios from "axios";
+import { Transaction, User } from "@/prisma/generated/client";
 
 
-function Home() {
-    return (
-        <div>
-            total worker,
-            total buyer,
-            total available coin(sum of all users coin ),
-            total payments.
-        </div>
-    );
+type TransactionWithSender = Transaction & {
+    sender: User;
 }
+
 
 
 function UserCard( { user, onDelete }: { user: { id: string; name: string; email: string; role: string }, onDelete: (userId: string) => void } ) {
@@ -40,7 +35,7 @@ function UserCard( { user, onDelete }: { user: { id: string; name: string; email
     }
 
     return (
-        <div key={user.id} className="shadow1 rounded-lg p-2 mb-2 flex justify-between" >
+        <div key={user.id} className="shadow1 rounded-lg gap-4 p-2 mb-2 flex justify-between" >
             <div>
                 <p>Name: {user.name}</p>
                 <p>Email: {user.email}</p>
@@ -53,10 +48,10 @@ function UserCard( { user, onDelete }: { user: { id: string; name: string; email
                 </p>
             </div>
 
-            <div className="flex flex-col" >
+            <div className="flex flex-col gap-2" >
                 {/* Action buttons like Edit, Delete can be added here */}
-                <button onClick={handleUpdate} className="px-2 py-1 rounded" >Update</button>
-                <button onClick={handleDelete} className="bg-red-500 text-white px-2 py-1 rounded" >Delete</button>
+                <button onClick={handleUpdate} className="button-2" >Update</button>
+                <button onClick={handleDelete} className="bg-(--color6) text-white px-2 py-1 rounded-lg hover:opacity-70" >Delete</button>
             </div>
 
         </div>
@@ -64,7 +59,7 @@ function UserCard( { user, onDelete }: { user: { id: string; name: string; email
 }
 
 
-function ManageUsers() {
+export function ManageUsers() {
     const { myProfile } = useAuthContext()
     const [users, setUsers] = useState<Array<{ id: string; name: string; email: string; role: string }>>([]);
 
@@ -98,35 +93,3 @@ function ManageUsers() {
         </div>
     );
 }
-
-
-function ManageTasks() {
-    return (
-        <div>
-            <h2>Manage Tasks</h2>
-            {/* Task management content goes here */}
-        </div>
-    );
-}
-
-
-export function AdminDashboard() {
-    const [path, setPath] = useState('home')
-
-    return (
-        <div className="cen-ver grow relative flex mx-auto gap-4" >
-            <div className="flex flex-col gap-4 w-80" >
-                <div onClick={() => setPath("home")} className={`path-1 ${path === "home" ? "active" : ""}`} >Home</div>
-                <div onClick={() => setPath("manage-users")} className={`path-1 ${path === "manage-users" ? "active" : ""}`} >Manage Users</div>
-                <div onClick={() => setPath("manage-tasks")} className={`path-1 ${path === "manage-tasks" ? "active" : ""}`} >Manage Tasks</div>
-            </div>
-
-            <div>
-                {path === "home" && <Home />}
-                {path === "manage-users" && <ManageUsers />}
-                {path === "manage-tasks" && <ManageTasks />}
-            </div>
-        </div>
-    );
-}
-

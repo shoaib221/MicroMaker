@@ -8,20 +8,24 @@ datasource db {
 }
 
 model User {
-  id             String    @id @default(cuid())
-  name           String?
-  email          String    @unique
-  emailVerified  DateTime?
-  image          String?
-  password       String
-  role           String    @default("worker")
-  coins          Int       @default(0)
-  accounts       Account[]
-  sessions       Session[]
-  jobs           Job[]     @relation("employer")
-  jobsAsEmployee Job[]     @relation("JobAsEmployee")
+  id                String    @id @default(cuid())
+  name              String?
+  email             String    @unique
+  emailVerified     DateTime?
+  image             String?
+  password          String
+  role              String    @default("worker")
+  coins             Int       @default(0)
+  stripe_account_id String?   @unique
+  accounts          Account[]
+  sessions          Session[]
+  jobs              Job[]     @relation("employer")
+  jobsAsEmployee    Job[]     @relation("JobAsEmployee")
 
-  transactions Transaction[]
+  transactions   Transaction[]
+  sentCoins      Transaction[]    @relation("Sender")
+  receivedCoins  Transaction[]    @relation("Receiver")
+  jobSubmissions JobSubmissions[]
 }
 
 model Account {
@@ -64,27 +68,51 @@ model Test {
 }
 
 model Job {
-  id          String  @id @default(cuid())
-  title       String
-  description String?
-  status      String  @default("pending")
-  salary      Int
-  employerId  String
-  employer    User    @relation("employer", fields: [employerId], references: [id], onDelete: Cascade)
-
-  employees          User[]   @relation("JobAsEmployee")
-  required_employees Int      @default(1)
+  id                 String           @id @default(cuid())
+  title              String
+  description        String?
+  salary             Int
+  employerId         String
+  employer           User             @relation("employer", fields: [employerId], references: [id], onDelete: Cascade)
+  employees          User[]           @relation("JobAsEmployee")
+  required_employees Int              @default(1)
   deadline           DateTime
   submission_info    String?
   imageUrl           String?
+  submissions        JobSubmissions[]
+  categoryId         String
+  category           JobCategory      @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+}
+
+model JobCategory {
+  id   String @id @default(cuid())
+  name String @unique
+  jobs Job[]
 }
 
 model Transaction {
-  id                String  @id @default(cuid())
+  id                String   @id @default(cuid())
   amount            Int
-  userId            String
-  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
-  type              String  @default("cashin")
-  stripe_session_id String? @default(cuid())
-  createdAt       DateTime @default(now())
+  userId            String?
+  user              User?    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type              String   @default("cashin")
+  senderId          String?
+  receiverId        String?
+  status            String?  @default("pending")
+  sender            User?    @relation("Sender", fields: [senderId], references: [id], onDelete: Cascade)
+  receiver          User?    @relation("Receiver", fields: [receiverId], references: [id], onDelete: Cascade)
+  stripe_session_id String?  @unique
+  createdAt         DateTime @default(now())
+}
+
+model JobSubmissions {
+  id         String   @id @default(cuid())
+  jobId      String
+  employeeId String
+  credential String
+  createdAt  DateTime @default(now())
+  status     String   @default("pending")
+
+  job      Job  @relation(fields: [jobId], references: [id], onDelete: Cascade)
+  employee User @relation(fields: [employeeId], references: [id], onDelete: Cascade)
 }

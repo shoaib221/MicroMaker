@@ -390,7 +390,9 @@ export const ModelName = {
   VerificationToken: 'VerificationToken',
   Test: 'Test',
   Job: 'Job',
-  Transaction: 'Transaction'
+  JobCategory: 'JobCategory',
+  Transaction: 'Transaction',
+  JobSubmissions: 'JobSubmissions'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -406,7 +408,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "account" | "session" | "verificationToken" | "test" | "job" | "transaction"
+    modelProps: "user" | "account" | "session" | "verificationToken" | "test" | "job" | "jobCategory" | "transaction" | "jobSubmissions"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -854,6 +856,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    JobCategory: {
+      payload: Prisma.$JobCategoryPayload<ExtArgs>
+      fields: Prisma.JobCategoryFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.JobCategoryFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobCategoryPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.JobCategoryFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobCategoryPayload>
+        }
+        findFirst: {
+          args: Prisma.JobCategoryFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobCategoryPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.JobCategoryFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobCategoryPayload>
+        }
+        findMany: {
+          args: Prisma.JobCategoryFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobCategoryPayload>[]
+        }
+        create: {
+          args: Prisma.JobCategoryCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobCategoryPayload>
+        }
+        createMany: {
+          args: Prisma.JobCategoryCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.JobCategoryCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobCategoryPayload>[]
+        }
+        delete: {
+          args: Prisma.JobCategoryDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobCategoryPayload>
+        }
+        update: {
+          args: Prisma.JobCategoryUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobCategoryPayload>
+        }
+        deleteMany: {
+          args: Prisma.JobCategoryDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.JobCategoryUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.JobCategoryUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobCategoryPayload>[]
+        }
+        upsert: {
+          args: Prisma.JobCategoryUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobCategoryPayload>
+        }
+        aggregate: {
+          args: Prisma.JobCategoryAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateJobCategory>
+        }
+        groupBy: {
+          args: Prisma.JobCategoryGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JobCategoryGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.JobCategoryCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JobCategoryCountAggregateOutputType> | number
+        }
+      }
+    }
     Transaction: {
       payload: Prisma.$TransactionPayload<ExtArgs>
       fields: Prisma.TransactionFieldRefs
@@ -928,6 +1004,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    JobSubmissions: {
+      payload: Prisma.$JobSubmissionsPayload<ExtArgs>
+      fields: Prisma.JobSubmissionsFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.JobSubmissionsFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSubmissionsPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.JobSubmissionsFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSubmissionsPayload>
+        }
+        findFirst: {
+          args: Prisma.JobSubmissionsFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSubmissionsPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.JobSubmissionsFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSubmissionsPayload>
+        }
+        findMany: {
+          args: Prisma.JobSubmissionsFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSubmissionsPayload>[]
+        }
+        create: {
+          args: Prisma.JobSubmissionsCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSubmissionsPayload>
+        }
+        createMany: {
+          args: Prisma.JobSubmissionsCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.JobSubmissionsCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSubmissionsPayload>[]
+        }
+        delete: {
+          args: Prisma.JobSubmissionsDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSubmissionsPayload>
+        }
+        update: {
+          args: Prisma.JobSubmissionsUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSubmissionsPayload>
+        }
+        deleteMany: {
+          args: Prisma.JobSubmissionsDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.JobSubmissionsUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.JobSubmissionsUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSubmissionsPayload>[]
+        }
+        upsert: {
+          args: Prisma.JobSubmissionsUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$JobSubmissionsPayload>
+        }
+        aggregate: {
+          args: Prisma.JobSubmissionsAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateJobSubmissions>
+        }
+        groupBy: {
+          args: Prisma.JobSubmissionsGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JobSubmissionsGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.JobSubmissionsCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.JobSubmissionsCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -975,7 +1125,8 @@ export const UserScalarFieldEnum = {
   image: 'image',
   password: 'password',
   role: 'role',
-  coins: 'coins'
+  coins: 'coins',
+  stripe_account_id: 'stripe_account_id'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -1030,16 +1181,24 @@ export const JobScalarFieldEnum = {
   id: 'id',
   title: 'title',
   description: 'description',
-  status: 'status',
   salary: 'salary',
   employerId: 'employerId',
   required_employees: 'required_employees',
   deadline: 'deadline',
   submission_info: 'submission_info',
-  imageUrl: 'imageUrl'
+  imageUrl: 'imageUrl',
+  categoryId: 'categoryId'
 } as const
 
 export type JobScalarFieldEnum = (typeof JobScalarFieldEnum)[keyof typeof JobScalarFieldEnum]
+
+
+export const JobCategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type JobCategoryScalarFieldEnum = (typeof JobCategoryScalarFieldEnum)[keyof typeof JobCategoryScalarFieldEnum]
 
 
 export const TransactionScalarFieldEnum = {
@@ -1047,11 +1206,26 @@ export const TransactionScalarFieldEnum = {
   amount: 'amount',
   userId: 'userId',
   type: 'type',
+  senderId: 'senderId',
+  receiverId: 'receiverId',
+  status: 'status',
   stripe_session_id: 'stripe_session_id',
   createdAt: 'createdAt'
 } as const
 
 export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
+
+
+export const JobSubmissionsScalarFieldEnum = {
+  id: 'id',
+  jobId: 'jobId',
+  employeeId: 'employeeId',
+  credential: 'credential',
+  createdAt: 'createdAt',
+  status: 'status'
+} as const
+
+export type JobSubmissionsScalarFieldEnum = (typeof JobSubmissionsScalarFieldEnum)[keyof typeof JobSubmissionsScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -1240,7 +1414,9 @@ export type GlobalOmitConfig = {
   verificationToken?: Prisma.VerificationTokenOmit
   test?: Prisma.TestOmit
   job?: Prisma.JobOmit
+  jobCategory?: Prisma.JobCategoryOmit
   transaction?: Prisma.TransactionOmit
+  jobSubmissions?: Prisma.JobSubmissionsOmit
 }
 
 /* Types for Logging */

@@ -48,7 +48,17 @@ export type Test = Prisma.TestModel
  */
 export type Job = Prisma.JobModel
 /**
+ * Model JobCategory
+ * 
+ */
+export type JobCategory = Prisma.JobCategoryModel
+/**
  * Model Transaction
  * 
  */
 export type Transaction = Prisma.TransactionModel
+/**
+ * Model JobSubmissions
+ * 
+ */
+export type JobSubmissions = Prisma.JobSubmissionsModel

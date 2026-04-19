@@ -57,7 +57,9 @@ export const ModelName = {
   VerificationToken: 'VerificationToken',
   Test: 'Test',
   Job: 'Job',
-  Transaction: 'Transaction'
+  JobCategory: 'JobCategory',
+  Transaction: 'Transaction',
+  JobSubmissions: 'JobSubmissions'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -84,7 +86,8 @@ export const UserScalarFieldEnum = {
   image: 'image',
   password: 'password',
   role: 'role',
-  coins: 'coins'
+  coins: 'coins',
+  stripe_account_id: 'stripe_account_id'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -139,16 +142,24 @@ export const JobScalarFieldEnum = {
   id: 'id',
   title: 'title',
   description: 'description',
-  status: 'status',
   salary: 'salary',
   employerId: 'employerId',
   required_employees: 'required_employees',
   deadline: 'deadline',
   submission_info: 'submission_info',
-  imageUrl: 'imageUrl'
+  imageUrl: 'imageUrl',
+  categoryId: 'categoryId'
 } as const
 
 export type JobScalarFieldEnum = (typeof JobScalarFieldEnum)[keyof typeof JobScalarFieldEnum]
+
+
+export const JobCategoryScalarFieldEnum = {
+  id: 'id',
+  name: 'name'
+} as const
+
+export type JobCategoryScalarFieldEnum = (typeof JobCategoryScalarFieldEnum)[keyof typeof JobCategoryScalarFieldEnum]
 
 
 export const TransactionScalarFieldEnum = {
@@ -156,11 +167,26 @@ export const TransactionScalarFieldEnum = {
   amount: 'amount',
   userId: 'userId',
   type: 'type',
+  senderId: 'senderId',
+  receiverId: 'receiverId',
+  status: 'status',
   stripe_session_id: 'stripe_session_id',
   createdAt: 'createdAt'
 } as const
 
 export type TransactionScalarFieldEnum = (typeof TransactionScalarFieldEnum)[keyof typeof TransactionScalarFieldEnum]
+
+
+export const JobSubmissionsScalarFieldEnum = {
+  id: 'id',
+  jobId: 'jobId',
+  employeeId: 'employeeId',
+  credential: 'credential',
+  createdAt: 'createdAt',
+  status: 'status'
+} as const
+
+export type JobSubmissionsScalarFieldEnum = (typeof JobSubmissionsScalarFieldEnum)[keyof typeof JobSubmissionsScalarFieldEnum]
 
 
 export const SortOrder = {

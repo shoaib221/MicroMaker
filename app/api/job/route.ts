@@ -1,8 +1,10 @@
-import { NextResponse } from "next/server";
+import { NextRequest, NextResponse } from "next/server";
 import { prisma } from "@/prisma/client";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/authOptions";
 
+
+// create job - employer only
 export async function POST(req: Request) {
     try {
         const session = await getServerSession(authOptions);
@@ -14,9 +16,11 @@ export async function POST(req: Request) {
             );
         }
 
+
         const user = await prisma.user.findUnique({
             where: { email: session.user.email },
         });
+
 
         if (!user) {
             return NextResponse.json(
@@ -24,6 +28,7 @@ export async function POST(req: Request) {
                 { status: 401 }
             );
         }
+
 
         const body = await req.json();
 
@@ -41,6 +46,9 @@ export async function POST(req: Request) {
                 employer: {
                     connect: { id: user.id },
                 },
+                category: {
+                    connect: { id: body.categoryId || "1" },
+                }
             },
         });
 
@@ -80,7 +88,7 @@ export async function POST(req: Request) {
 
 
 
-
+// employer's jobs
 export async function GET(req: Request) {
     try {
 
@@ -109,10 +117,10 @@ export async function GET(req: Request) {
             where: {
                 employerId: user.id,
             },
-            
+
         });
 
-        return NextResponse.json({ jobs }, { status: 200 } );
+        return NextResponse.json({ jobs }, { status: 200 });
 
 
 
@@ -125,4 +133,5 @@ export async function GET(req: Request) {
     }
 
 }
+
 

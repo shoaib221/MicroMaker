@@ -13,6 +13,8 @@ export async function proxy(req: NextRequest) {
         secret: process.env.NEXTAUTH_SECRET,
     });
 
+    console.log("cookies:", req.cookies.getAll());
+
     if(!token) {
         console.log("No token found.", token, process.env.NEXTAUTH_SECRET);
     } else {

@@ -52,7 +52,8 @@ export default function UpdateProfile() {
         <div className="flex flex-col lg:flex-row grow relative mx-auto gap-16 p-8" >
             <div>
                 <div className="text-center" > {myProfile?.email} </div>
-                <br/>
+                
+                <div className="text-center" > { myProfile?.role } </div>
                 <PhotoTag />
                 <br/>
                 <div className="button-1 mx-auto" onClick={() => signOut()} > Sign Out </div>

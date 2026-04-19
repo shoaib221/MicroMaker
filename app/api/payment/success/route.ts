@@ -52,11 +52,11 @@ export async function POST(req: Request) {
 
         const transaction = await prisma.transaction.create({
             data: {
-                amount: parseInt(stripe_session.metadata.amount),
+                amount: parseInt(stripe_session.metadata.amount) * 10,
                 user: {
                     connect: { id: user.id }
                 },
-                type: stripe_session.metadata.type,
+                type: "cashin",
                 stripe_session_id: stripe_session.id
             }
         });
@@ -65,7 +65,7 @@ export async function POST(req: Request) {
             where: { id: user.id },
             data: {
                 coins: {
-                    increment: parseInt(stripe_session.metadata.amount)/10
+                    increment: parseInt(stripe_session.metadata.amount) * 10
                 }
             }
         });
