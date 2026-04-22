@@ -7,33 +7,33 @@ import { ChevronLeft, ChevronRight } from "lucide-react";
 const slides = [
     {
         id: 1,
-        title: "Exploring the Peaks",
-        image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?w=1600&h=900&fit=crop",
-        description: "Discover the breathtaking majesty of the mountain ranges.",
+        title: "AI Services",
+        image: "/ai-banner.jpg",
+        description: "Discover the breathtaking majesty of Artificial Intelligence.",
     },
     {
         id: 2,
-        title: "Serene Ocean Views",
-        image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?w=1600&h=900&fit=crop",
-        description: "Relax by the crystal clear waters of the tropical islands.",
+        title: "Design & Creative",
+        image: "/design.jpg",
+        description: "Experience the peak of creative design",
     },
     {
         id: 3,
-        title: "Urban Nightlife",
-        image: "https://images.unsplash.com/photo-1477959858617-67f85cf4f1df?w=1600&h=900&fit=crop",
-        description: "Experience the vibrant energy of the world's greatest cities.",
+        title: "Sales & Marketing",
+        image: "/sales.webp",
+        description: "Preach your product like never before",
     },
     {
         id: 4,
-        title: "Enchanted Forests",
-        image: "https://images.unsplash.com/photo-1441974231531-c6227db76b6e?w=1600&h=900&fit=crop",
-        description: "Lose yourself in the lush greenery of the ancient woodlands.",
+        title: "Finance & Accounting",
+        image: "/finance.jpg",
+        description: "Manage your accounts like geeks",
     },
     {
         id: 5,
-        title: "Golden Desert",
-        image: "https://images.unsplash.com/photo-1473580044384-7ba9967e16a0?w=1600&h=900&fit=crop",
-        description: "Traverse the vast expanse of the sun-drenched dunes.",
+        title: "Architecture",
+        image: "/archi.jpg",
+        description: "Design your dream with top professionals",
     },
 ];
 

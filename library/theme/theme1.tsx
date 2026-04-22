@@ -3,6 +3,7 @@
 import { useThemeContext } from "./theme";
 import { MdOutlineWbSunny } from "react-icons/md";
 import { IoMoon } from "react-icons/io5";
+import { useEffect } from "react";
 
 
 export function ThemeButton() {
@@ -29,7 +30,15 @@ export function ThemeButton1() {
         const newTheme = theme === 'light' ? 'dark' : 'light';
         document.documentElement.setAttribute('color-theme', newTheme);
         setTheme(newTheme);
+        localStorage.setItem( 'color-theme', newTheme );
     };
+
+
+    useEffect(() => {
+        const newTheme = localStorage.getItem('color-theme') || 'light';
+        document.documentElement.setAttribute('color-theme', newTheme);
+        setTheme(newTheme);
+    }, [setTheme])
 
     return (
         <div className="h-8 w-8 rounded-full bg-cover bg-top cursor-pointer overflow-hidden"  onClick={toggleTheme} >

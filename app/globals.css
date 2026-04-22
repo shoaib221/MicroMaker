@@ -2,9 +2,13 @@
 
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
+
 
 @import '../library/design/design1.css';
+@import '../library/button/button1.css';
+
+@tailwind utilities;
+
 
 @import "tw-animate-css";
 

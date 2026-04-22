@@ -4,7 +4,7 @@ import {  useState } from "react";
 import { FaRegSmile } from "react-icons/fa";
 import { GrUploadOption } from "react-icons/gr";
 import axios from "axios";
-import { uploadFile } from "./cloudinary-upload";
+import { uploadFile, uploadToCloudinary } from "./cloudinary-upload";
 
 
 
@@ -24,7 +24,7 @@ export const useMyImage = ({ url = "https://i.ibb.co.com/7tmkDpb6/Screenshot-202
             if (!imageFile) {
                 return null;
             }
-            const url = await uploadFile(imageFile);
+            const url = await uploadToCloudinary(imageFile);
             setPhoto(url);
             return url;
         } catch (error) {

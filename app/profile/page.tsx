@@ -9,6 +9,8 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { Button1 } from "@/library/button/button1";
 import "@/library/button/button1.css";
+import { toast } from "react-toastify";
+import { IoExit, IoExitOutline } from "react-icons/io5";
 
 
 export default function UpdateProfile() {
@@ -31,9 +33,10 @@ export default function UpdateProfile() {
                 image: image || myProfile?.image || "",
             });
             console.log("Profile updated:", response.data);
-            alert("Profile updated successfully!");
+            toast.success("Profile updated successfully!");
         } catch (error) {
             console.error("Error updating profile:", error);
+            toast.error("Sorry! Something is wrong")
         }
     }
 
@@ -51,17 +54,20 @@ export default function UpdateProfile() {
     return (
         <div className="flex flex-col lg:flex-row grow relative mx-auto gap-16 p-8" >
             <div>
-                <div className="text-center" > {myProfile?.email} </div>
                 
-                <div className="text-center" > { myProfile?.role } </div>
+                
+                
                 <PhotoTag />
                 <br/>
-                <div className="button-1 mx-auto" onClick={() => signOut()} > Sign Out </div>
-                <br />
-                { myProfile?.coins } Coins Available
+                
+                
+                
             </div>
 
             <div>
+                
+                
+
                 {/* Name */}
                 <div>
                     <label className="block mb-1">Name</label>
@@ -83,8 +89,29 @@ export default function UpdateProfile() {
 
                 <br/>
 
-                <button className="button-1" onClick={handleSubmit(UpdateProfile)}  >
+                <button className="button-2" onClick={handleSubmit(UpdateProfile)}  >
                     Update
+                </button>
+
+                <br/> <br/>
+
+                <div className="" >  <span className="font-bold text-(--color3)" >Role: </span> { myProfile?.role } </div>
+                <div>
+                    <span className="font-bold text-(--color3)" >Coins Available: </span>
+                    { myProfile?.coins } 
+                </div>
+
+
+                <div className="text-center" > 
+                    <span className="font-bold text-(--color3)" >Contact: </span>
+                    {myProfile?.email} 
+                </div>
+
+                <br/>
+
+                <button className="button-2 flex justify-between items-center gap-4"  style={{ backgroundColor: 'var(--color6)' }} onClick={() => signOut()} > 
+                    Sign Out 
+                    
                 </button>
 
             </div>

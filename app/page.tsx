@@ -15,28 +15,28 @@ export default function Home() {
 
 			
 
-			<br />
-			<h6 className="text-center text-4xl" >Find Jobs</h6>
+			<br /><br/>
+			<h6 className="header-1" >Find Jobs</h6>
 			<Grid1 />
 
-			<br /><br />
+			<br /><br /><br/>
 
-			<h6 className="text-center text-4xl" >Accomplishments</h6>
+			<h6 className="header-1" >Accomplishments</h6>
 			<Grid2 />
 
-			<br /> <br />
+			<br /> <br /><br/>
 
-			<h6 className="text-center text-4xl" >Best Workers</h6>
+			<h6 className="header-1" >Best Workers</h6>
 			<Slide2 />
 
-			<br /><br />
+			<br /><br /><br/>
 
-			<h6 className="text-center text-4xl" >User Feedback</h6>
+			<h6 className="header-1" >User Feedback</h6>
 			<Slide21 />
 
 			<br /><br />
 
-			<h6 className="text-center text-4xl" >Trusted By</h6>
+			<h6 className="header-1" >Trusted By</h6>
 
 			<Slide20 />
 

@@ -95,15 +95,15 @@ export function Slide2() {
 const trustedItems = [
     {
         name: "Microsoft",
-        photo: "https://platform.theverge.com/wp-content/uploads/sites/2/chorus/uploads/chorus_asset/file/3468188/DSCF1179.0.jpg?quality=90&strip=all&crop=0,21.465968586387,100,78.534031413613"
+        photo: "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTDiQXGMUd-boRykgZmJXW-MG1JD2x8GHwIyw&s"
     },
     {
         name: "Google",
-        photo: "https://play-lh.googleusercontent.com/1-hPxafOxdYpYZEOKzNIkSP43HXCNftVJVttoo4ucl7rsMASXW3Xr6GlXURCubE1tA=w3840-h2160-rw"
+        photo: "https://media.wired.com/photos/5926ffe47034dc5f91bed4e8/master/pass/google-logo.jpg"
     },
     {
         name: "Amazon",
-        photo: "https://www.tfe.agency/wp-content/uploads/2022/03/amazon.png"
+        photo: "https://static.vecteezy.com/system/resources/thumbnails/019/766/223/small_2x/amazon-logo-amazon-icon-transparent-free-png.png"
     },
     {
         name: "Apple",
@@ -115,7 +115,7 @@ const trustedItems = [
     },
     {
         name: "IBM",
-        photo: "https://images.crunchbase.com/image/upload/c_pad,f_auto,q_auto:eco,dpr_1/d4c2niwf9htmk2sp1vli?ik-sanitizeSvg=true"
+        photo: "https://res.cloudinary.com/jerrick/image/upload/d_642250b563292b35f27461a7.png,f_jpg,fl_progressive,q_auto,w_1024/69861232304b5d001d1029fd.png"
     }
     
 
@@ -145,8 +145,8 @@ export function Slide20() {
             {trustedItems.map((item) => (
                 <SwiperSlide key={item.name}>
                     <div className="h-40 flex flex-col items-center justify-center rounded">
-                        <div className="h-20 w-20 rounded-full border-2" style={{ backgroundImage: `url(${item.photo})`, backgroundSize: 'cover' }} ></div>
-                        <div> {item.name    } </div>
+                        <div className="bg-cover bg-center my-4 h-20 w-20 rounded-full" style={{ backgroundImage: `url(${item.photo})` }} ></div>
+                        <div className="font-bold text-lg" > {item.name    } </div>
                     </div>
                 </SwiperSlide>
             ))}
@@ -159,61 +159,61 @@ export function Slide20() {
 const items = [
     {
         "name": "Arafat Hossain",
-        "photo": "https://avatars.githubusercontent.com/u/107314630?v=4",
+        "photo": "https://pps.services.adobe.com/api/profile/05DB6D5C5B9AB33F0A495E23@AdobeID/image/542d96f8-c3b6-4c85-90b2-5868567a718a/276",
         "profession": "Student",
         "feedback": "The platform is easy to use and helps me earn some extra money in my free time."
     },
     {
         "name": "Rahim Uddin",
-        "photo": "https://avatars.githubusercontent.com/u/107314630?v=4",
+        "photo": "https://i1.sndcdn.com/avatars-000522793086-q0pyb3-t240x240.jpg",
         "profession": "Software Developer",
         "feedback": "Task verification process could be faster, but overall the system works smoothly."
     },
     {
         "name": "Mina Akter",
-        "photo": "https://avatars.githubusercontent.com/u/107314630?v=4",
+        "photo": "https://www.communitycare.co.uk/media/oqxfcfp1/singeta-kalhan-gregory.jpg?width=525&height=295&bgcolor=White&v=1dc0776a2d67010",
         "profession": "Graphic Designer",
         "feedback": "I like the variety of tasks available, especially creative ones."
     },
     {
         "name": "Jalal Sheikh",
-        "photo": "https://avatars.githubusercontent.com/u/107314630?v=4",
+        "photo": "https://i1.sndcdn.com/avatars-8yp4fsfsdf4Vd3zV-1y3e3A-t1080x1080.jpg",
         "profession": "Farmer",
         "feedback": "Simple tasks and mobile-friendly design make it accessible for everyone."
     },
     {
         "name": "Fatema Begum",
-        "photo": "https://avatars.githubusercontent.com/u/107314630?v=4",
+        "photo": "https://parkroyaldental.co.uk/wp-content/uploads/2025/01/Sara-1-scaled-e1738755396385-929x1024.jpg",
         "profession": "Homemaker",
         "feedback": "Great way to earn a little income while managing household responsibilities."
     },
     {
         "name": "Ali Hasan",
-        "photo": "https://avatars.githubusercontent.com/u/107314630?v=4",
+        "photo": "https://www.healthhubalfuttaim.com/wp-content/uploads/sites/34/2025/12/shared-image-2.jpg",
         "profession": "Digital Marketer",
         "feedback": "Good platform, but task rewards should be a bit higher."
     },
     {
         "name": "Nasim Ahmed",
-        "photo": "https://avatars.githubusercontent.com/u/107314630?v=4",
+        "photo": "https://www.terry.uga.edu/wp-content/uploads/nasim-ahmed-2025.jpg",
         "profession": "Content Writer",
         "feedback": "The content-related tasks are interesting and well-described."
     },
     {
         "name": "Sakib Rahman",
-        "photo": "https://avatars.githubusercontent.com/u/107314630?v=4",
+        "photo": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSifxhc5xufyVtUoyNvjShswnNHUtlZn7cYew&s",
         "profession": "IT Support Specialist",
         "feedback": "Sometimes the website loads slowly, needs performance improvement."
     },
     {
         "name": "Rupa Das",
-        "photo": "https://avatars.githubusercontent.com/u/107314630?v=4",
+        "photo": "https://media.licdn.com/dms/image/v2/D5603AQEZsshjyTVQtQ/profile-displayphoto-scale_400_400/B56ZstY3k3JwAg-/0/1765993053455?e=2147483647&v=beta&t=k_eA49kdjvmXtHAage3e6gnKezp69IfNyxGqLAoHJ-E",
         "profession": "College Student",
         "feedback": "Very helpful for students looking for part-time earning opportunities."
     },
     {
         "name": "Kamal Hossain",
-        "photo": "https://avatars.githubusercontent.com/u/107314630?v=4",
+        "photo": "https://static.just.edu.bd/public/ca_1555324054186_genesys.jpg",
         "profession": "Small Business Owner",
         "feedback": "I use it both for earning and promoting my business tasks. Very useful!"
     }
@@ -293,7 +293,7 @@ export function Slide21() {
                             <div className="p-10 text-center rounded-xl">
                                 <div className="font-bold text-lg">{item.name}</div>
                                 <div className="text-sm">{item.profession}</div>
-                                <div className="h-20 w-20 rounded-full border-2 mx-auto" style={{ backgroundImage: `url(${item.photo})`, backgroundSize: 'cover' }} > </div>
+                                <div className="h-20 w-20 rounded-full my-4 mx-auto bg-cover bg-center" style={{ backgroundImage: `url(${item.photo})` }} > </div>
                                 <div className="mt-2">{item.feedback}</div>
 
                             </div>

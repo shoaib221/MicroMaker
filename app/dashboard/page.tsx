@@ -14,17 +14,10 @@ import { WorkerDashboard } from "./workerdash/workerdash";
 export default function Dashboard() {
     const { myProfile } = useAuthContext();
 
-    return (
-        <div className="cen-ver grow relative mx-auto p-4" >
-            <div>
-                
-            </div>
+    if (myProfile?.role === "buyer") return <BuyerDashboard />
 
-            {myProfile?.role === "buyer" && <BuyerDashboard />}
-            {myProfile?.role === "worker" && <WorkerDashboard />}
-            {myProfile?.role === "admin" && <AdminDashboard />}
+    if (myProfile?.role === "worker") return <WorkerDashboard />
+    if (myProfile?.role === "admin") return <AdminDashboard />
 
-        </div>
-    );
 }
 

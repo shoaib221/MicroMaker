@@ -43,7 +43,7 @@ function TaskList() {
 
     return (
         <div className="grow" >
-            
+
             <div className="gap-4 flex flex-col" >
                 {tasks.map((task) => (
                     <div key={task.id} className="box-13 w-full flex justify-between max-w-150" onClick={() => router.push(`/job/${task.id}`)}  >
@@ -68,7 +68,7 @@ function TaskList() {
 
 function Submissions() {
     const [submissions, setSubmissions] = useState<SubmissionWithJob[]>([]);
-    
+
 
     useEffect(() => {
         async function fetchSubmissions() {
@@ -91,14 +91,14 @@ function Submissions() {
             {
                 submissions.length > 0 && submissions.map((submission) => (
                     <div key={submission.id} className="box-13 flex justify-between max-w-150" >
-                        
+
                         <div>
                             <div className="text-xl font-bold" >{submission.job?.title}</div>
                             <div> Submitted at <DateDisplay date={submission.createdAt} /> </div>
                             <p>Status: {submission.status}</p>
                         </div>
 
-                        <div className="w-20 h-20 rounded-lg bg-cover"  style={{ backgroundImage: `url(${ submission.job.imageUrl })` }} >
+                        <div className="w-20 h-20 rounded-lg bg-cover" style={{ backgroundImage: `url(${submission.job.imageUrl})` }} >
 
                         </div>
                     </div>
@@ -134,34 +134,37 @@ function Withdrawals() {
                 <div>Coins Available For Withdrawal </div>
             </div>
 
-            <br/> <br/> 
+            <br /> <br />
 
             <div className="text-xl font-bold text-(--color3)" >Withdrawal Form</div>
-            <br/>
+            <br />
 
             <form>
                 <div>Coin to Withdraw</div>
 
                 <input type="number" placeholder="How much to withdraw..." className="p-2 input1"
-                    value={amount}  onChange={ (e) => setAmount( parseInt(e.target.value) ) } />
-                
-                <div> { amount/20 } BDT to Withdraw</div>
+                    value={amount} onChange={(e) => setAmount(parseInt(e.target.value))} />
+
+                <div> {amount / 20} BDT to Withdraw</div>
                 <br />
-                
+
                 <select>
                     <option>Select Payment System</option>
                     <option>Stripe</option>
                 </select>
 
-                <br /> <br/>
+                <br /> <br />
 
-                
 
-                { myProfile?.coins && myProfile?.coins >= amount ? <button className="button-2"  onClick={ handleOnboard } >
+
+                {myProfile?.coins && myProfile?.coins >= amount ? <button className="button-2" onClick={handleOnboard} >
                     Withdraw
                 </button> : <button disabled>
                     Insufficient Coins
-                </button> }
+                </button>}
+
+
+                
             </form>
 
             {/* <button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" onClick={handleOnboard}>
@@ -172,20 +175,23 @@ function Withdrawals() {
 }
 
 
+
+
+
 export function WorkerDashboard() {
     const [path, setPath] = useState("home");
 
 
     return (
-        <div className="cen-ver grow relative flex  mx-auto gap-4" >
+        <div className="flex flex-col lg:flex-row gap-4 min-h-[80vh]" >
 
-            <div className="flex flex-col gap-4 min-w-60" >
+
+            <div className="flex flex-row lg:flex-col lg:min-w-60 gap-2" >
                 <div onClick={() => setPath("home")} className={`path-1 ${path === "home" ? "active" : ""}`} >Home</div>
                 <div onClick={() => setPath("taskList")} className={`path-1 ${path === "taskList" ? "active" : ""}`} >Task List</div>
                 <div onClick={() => setPath("submissions")} className={`path-1 ${path === "submissions" ? "active" : ""}`} >My Submissions</div>
                 <div onClick={() => setPath("withdrawals")} className={`path-1 ${path === "withdrawals" ? "active" : ""}`} >Withdrawals</div>
             </div>
-
 
 
 

@@ -82,6 +82,7 @@ model Job {
   submissions        JobSubmissions[]
   categoryId         String
   category           JobCategory      @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  createdAt          DateTime  @default(now())
 }
 
 model JobCategory {

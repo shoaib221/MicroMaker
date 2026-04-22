@@ -1,9 +1,9 @@
 
 'use client';
 
-import { useRouter } from "next/navigation";
+import { useRouter, usePathname } from "next/navigation";
 import Link from 'next/link';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { ThemeButton, ThemeButton1 } from '@/library/theme/theme1';
 import { useAuthContext } from '../auth/context';
 import { SiTask } from "react-icons/si";
@@ -26,8 +26,8 @@ export function AppLogo() {
     return (
         <div className="flex items-center gap-2">
             <ThemeButton1 />
-            <Link href="/" className="text-xl font-bold flex items-center gap-2">
-                <SiTask className="text-(--color4)" size={24} />
+            <Link href="/" className="text-xl font-bold flex items-center gap-2 text-(--color3)">
+                <SiTask className="text-(--color3)" size={24} />
                 MicroMaker
             </Link>
         </div>
@@ -40,6 +40,15 @@ export function Navbar() {
     const [isOpen, setIsOpen] = useState(false);
     const { myProfile } = useAuthContext();
     const router = useRouter();
+    const pathName = usePathname()
+    const [path, setPath] = useState( '/' )
+
+    useEffect(() => {
+
+        if(pathName.includes('dashboard')) setPath('/dashboard');
+        else setPath('/');
+
+    }, [pathName])
 
     return (
         <nav className="w-full border-b">
@@ -66,7 +75,7 @@ export function Navbar() {
                         <Link
                             key={item.href}
                             href={item.href}
-                            className="text-gray-700 hover:text-black transition"
+                            className={`${ path === item.href ? 'text-(--color3) font-bold' : '' }  hover:opacity-70 transition`}
                         >
                             {item.label}
                         </Link>
@@ -74,7 +83,7 @@ export function Navbar() {
                 </div>
 
                 {myProfile ? (
-                    <div className="cursor-pointer  h-8 w-8 rounded-full right-4 top-4 flex items-center space-x-2 bg-cover bg-top" style={{ backgroundImage: `url(${myProfile.image})` }} onClick={() => router.push('/profile')} >
+                    <div title={ `${ myProfile.name }` } className="cursor-pointer  h-8 w-8 rounded-full right-4 top-4 flex items-center space-x-2 bg-cover bg-top" style={{ backgroundImage: `url(${myProfile.image})` }} onClick={() => router.push('/profile')} >
                         
                     </div>
                 ) :

@@ -74,7 +74,7 @@ export function Footer () {
 
 
     return (
-        <div className="w-full p-4" >
+        <div className="w-full p-4 mt-16" >
 
             <div className="flex flex-col lg:flex-row justify-evenly" >
 
