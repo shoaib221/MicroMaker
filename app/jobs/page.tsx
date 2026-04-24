@@ -42,7 +42,7 @@ export default function Page() {
 
 
     return (
-        <div>
+        <div className="px-2" >
             <div className="bg-(--color3) text-(--color1) w-full max-w-[700px] mx-auto px-2 items-center my-4 flex rounded-2xl gap-2 border-2 border-(--color3)" >
                 <select value={searchBy} onChange={(e) => setSearchBy(e.target.value)}
                     className="bg-(--color3) text-(--color1)" >
@@ -80,18 +80,18 @@ export default function Page() {
 
             {/* Pagination */}
             { data.length > 0 ? <div className="flex gap-4 mx-auto justify-center items-center my-4" >
-                {page > 1 && <div  className={`button-2`}
+                {page > 1 && <div  className={`button-3`}
                     onClick={() => setPage(page - 1)} >
                     Previous
                 </div>}
 
                 {[...Array(pages).keys()].map((__, _) => (
-                    <div key={_} className={`${page === _ + 1 && 'button-2'} hover:opacity-70 font-bold px-2 cursor-pointer`} onClick={() => setPage(_ + 1)} >
+                    <div key={_} className={`${page === _ + 1 && 'button-3'} hover:opacity-70 font-bold px-2 cursor-pointer`} onClick={() => setPage(_ + 1)} >
                         {_ + 1}
                     </div>
                 ))}
 
-                {page < pages && <div className={`button-2`}
+                {page < pages && <div className={`button-3`}
                     onClick={() => setPage(page + 1)} >
                     Next
                 </div>}

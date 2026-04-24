@@ -54,6 +54,9 @@ export async function GET(req: Request) {
                 userId: user.id,
                 type: 'cashout'
             },
+            orderBy: {
+                createdAt: 'desc'
+            },
             skip: (page - 1) * limit,
             take: limit,
         });

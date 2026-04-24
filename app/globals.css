@@ -16,9 +16,33 @@
 
 @custom-variant dark (&:is(.dark *));
 
+html {
+	font-size: 10px;
+}
+
 body {
 	background: var(--color1);
 	color: var(--color2);
+}
+
+@media screen and ( min-width: 640px ) {
+
+	html {
+		font-size: 13px;
+	}
+
+}
+
+
+@media screen and (min-width: 1024px) {
+	
+	html {
+		font-size: 16px;
+		
+	}
+
+	
+
 }
 
 

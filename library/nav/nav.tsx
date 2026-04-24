@@ -7,6 +7,8 @@ import { useEffect, useState } from 'react';
 import { ThemeButton, ThemeButton1 } from '@/library/theme/theme1';
 import { useAuthContext } from '../auth/context';
 import { SiTask } from "react-icons/si";
+import { IoMdMenu } from "react-icons/io";
+import { RxCross1 } from "react-icons/rx";
 
 
 type NavItem = {
@@ -48,7 +50,7 @@ export function Navbar() {
 
         if(pathName.includes('dashboard')) setPath('/dashboard');
         else if( pathName.includes('jobs') ) setPath( '/jobs' )
-        else if( !pathName.includes( 'profile' ) ) setPath('/');
+        else if( !pathName.includes( 'profile' ) && !pathName.includes( 'register' ) && !pathName.includes( 'api' )  ) setPath('/');
         else setPath('')
 
     }, [pathName])
@@ -60,10 +62,10 @@ export function Navbar() {
 
                 <button
                     onClick={() => setIsOpen(!isOpen)}
-                    className="md:hidden text-gray-700"
+                    className="md:hidden text-(--color3)"
                     aria-label="Toggle menu"
                 >
-                    ☰
+                    { isOpen ? <RxCross1 /> : <IoMdMenu /> }
                 </button>
 
                 <AppLogo />
@@ -91,7 +93,7 @@ export function Navbar() {
                     </div>
                 ) :
                     (<div className="right-4 top-4">
-                        <Link href="/register" className="text-sm text-gray-700 hover:text-black">
+                        <Link href="/register" className="button-4">
                             Register
                         </Link>
                     </div>)
@@ -100,13 +102,13 @@ export function Navbar() {
 
             {/* Mobile Menu */}
             {isOpen && (
-                <div className="md:hidden border-t px-4 py-3 space-y-2">
+                <div className="md:hidden flex-col flex gap-2 border-t px-4 py-3 space-y-2">
                     {navItems.map((item) => (
                         <Link
                             key={item.href}
                             href={item.href}
                             onClick={() => setIsOpen(false)}
-                            className="block text-gray-700 hover:text-black"
+                            className={`${ path === item.href ? 'text-(--color3) font-bold' : '' }  hover:opacity-70 transition`}
                         >
                             {item.label}
                         </Link>

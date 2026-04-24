@@ -49,7 +49,7 @@ export function usePagination1<T>({ url, perPage= 10 }: { url: string, perPage?:
                 
 
                 {[...Array(pages).keys()].map((__, _) => (
-                    <div key={_} className={`${page === _ + 1 && 'button-2'} hover:opacity-70 font-bold px-2 cursor-pointer`} onClick={() => setPage(_ + 1)} >
+                    <div key={_} className={`${page === _ + 1 && 'button-3'} hover:opacity-70 font-bold px-2 cursor-pointer`} onClick={() => setPage(_ + 1)} >
                         {_ + 1}
                     </div>
                 ))}
@@ -66,6 +66,6 @@ export function usePagination1<T>({ url, perPage= 10 }: { url: string, perPage?:
         )
     }
 
-    return { data, PageTag }
+    return { data, PageTag, refetch: fetchData }
 
 }

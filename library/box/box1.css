@@ -12,6 +12,7 @@
     border-radius: .5rem;
     border: 2px solid var(--color1);
     cursor: pointer;
+    transition: all 0.6s;
 }
 
 
@@ -24,24 +25,25 @@
     padding: .5rem;
     border-radius: .5rem;
     cursor: pointer;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 0px 5px var(--color1a);
+    transition: all 0.6s;
 }
 
 .box-12:hover {
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.8);
+    box-shadow: 0px 0px 5px var(--color2);
 }
 
 
 .box-13 {
     padding: .5rem;
     border-radius: .5rem;
-    
+    transition: all 0.6s;
     cursor: pointer;
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.4);
+    box-shadow: 0px 0px 5px var(--color1a);
 }
 
 .box-13:hover {
-    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.8);
+    box-shadow: 0px 0px 5px var(--color2);
 }
 
 .box-14 {
@@ -49,6 +51,7 @@
     font-weight: 700;
     padding: .5rem;
     border-radius: .5rem;
+    transition: all 0.6s;
 }
 
 .box-14:hover {

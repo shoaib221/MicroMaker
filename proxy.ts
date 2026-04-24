@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 import { getToken } from "next-auth/jwt";
 import type { NextRequest } from "next/server";
 
-const privateRoutes = ["/dashboard", "/profile"];
+const privateRoutes = ["/dashboard", "/profile", "/job/"];
 
 const UnauthorizedRoutes = ["/register", "/api/auth/signin"];
 
@@ -37,6 +37,6 @@ export async function proxy(req: NextRequest) {
 
 
 export const config = {
-    matcher: ["/dashboard/:path*", "/profile/:path*", "/register/:path*", "/api/auth/signin/:path*" ],
+    matcher: ["/dashboard/:path*", "/profile/:path*", "/register/:path*", "/api/auth/signin/:path*", "/job/:path*" ],
 };
 

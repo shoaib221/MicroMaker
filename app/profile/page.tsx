@@ -114,7 +114,7 @@ export default function UpdateProfile() {
 
                 <br />
 
-                <button className="button-2 flex justify-between items-center gap-4" style={{ backgroundColor: 'var(--color6)' }} onClick={() => signOut()} >
+                <button className="button-2 flex justify-between items-center gap-4" style={{ backgroundColor: 'var(--color6)', color: 'white' }} onClick={() => signOut()} >
                     Sign Out
 
                 </button>

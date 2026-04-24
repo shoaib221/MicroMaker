@@ -21,7 +21,7 @@ export function useSubmissionDetail({ submission }: { submission: any }) {
         try {
             await axios.post("/api/job/submissions/feedback", { jobId: detail.job?.id || "", submissionId: detail.id, feedback: action });
             toast.success(`Submission ${action}ed successfully`);
-
+            setShow(false)
         }
         catch (error) {
             console.error(`Error ${action}ing submission:`, error);
@@ -35,7 +35,7 @@ export function useSubmissionDetail({ submission }: { submission: any }) {
         if (show) return (
             <div className="z-30 fixed inset-0 bg-black/50" >
 
-                <div className="max-w-150 mx-auto bg-white m-8 p-4 relative" >
+                <div className="max-w-150 mx-auto bg-(--color1) text-(--color2) m-8 p-4 relative" >
                     
 
                     <ImCross  className="absolute top-2 right-2 text-(--color3) rounded-lg hover:opacity-70" onClick={() => setShow(false)} />

@@ -55,6 +55,9 @@ export async function GET(req: Request) {
             include: {
                 job: true
             },
+            orderBy: {
+                createdAt: 'desc'
+            },
             skip: (page - 1) * limit,
             take: limit,
 

@@ -105,7 +105,7 @@ export function AddTask() {
 
             <div>
                 <label className="text-xl font-bold" >Category: </ label> 
-                <select  {...register("categoryId", { required: "Category is required" })} >
+                <select  {...register("categoryId", { required: "Category is required" })} className="bg-(--color1) text-(--color2)" >
                     <option value={""} >Select a category</option>
                     {
                         categories.length > 0 && categories.map(elem => (

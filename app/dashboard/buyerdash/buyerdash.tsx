@@ -85,7 +85,7 @@ function PurchaseCoin() {
     }
 
     return (
-        <div className="grid grid-cols-3 gap-4 p-4" >
+        <div className="grid grid-cols-[1fr] sm:grid-cols-[1fr_1fr] lg:grid-cols-[1fr_1fr_1fr] gap-4 p-4" >
             <div className="box-12 flex flex-col justify-center items-center" onClick={() => handlePurchase(1000)} >
                 <div>100 BDT</div>
                 <div className="h-20 w-20 bg-contain rounded-full" style={{ backgroundImage: `url(/coin.png)` }}  >  </div>
@@ -162,14 +162,15 @@ export function BuyerDashboard() {
     const [path, setPath] = useState("home");
 
     return (
-        <div className="cen-ver grow relative flex mx-auto gap-4" >
+        <div className="cen-ver grow relative flex flex-col lg:flex-row mx-auto gap-4" >
 
-            <div className="flex flex-col gap-4 min-w-60 lg:sticky lg:top-0 self-start" >
-                <div onClick={() => setPath("home")} className={`path-1 ${path === "home" ? "active" : ""}`} >Home</div>
-                <div onClick={() => setPath("add")} className={`path-1 ${path === "add" ? "active" : ""}`} >Add new Tasks</div>
-                <div onClick={() => setPath("mytasks")} className={`path-1 ${path === "mytasks" ? "active" : ""}`} >My Tasks</div>
-                <div onClick={() => setPath("purchase")} className={`path-1 ${path === "purchase" ? "active" : ""}`} >Purchase Coin</div>
-                <div onClick={() => setPath("payment")} className={`path-1 ${path === "payment" ? "active" : ""}`} >Payment history</div>
+            <div className="flex flex-row lg:flex-col gap-4 w-full lg:w-60 lg:min-w-60 lg:sticky lg:top-0 lg:self-start overflow-auto" >
+                <div onClick={() => setPath("home")} className={`path-1 min-w-40 ${path === "home" ? "active" : ""}`} >Home</div>
+                <div onClick={() => setPath("add")} className={`path-1 min-w-40 ${path === "add" ? "active" : ""}`} >Add new Tasks</div>
+                <div onClick={() => setPath("mytasks")} className={`path-1 min-w-40 ${path === "mytasks" ? "active" : ""}`} >My Tasks</div>
+                <div onClick={() => setPath("purchase")} className={`path-1 min-w-40 ${path === "purchase" ? "active" : ""}`} >Purchase Coin</div>
+                <div onClick={() => setPath("payment")} className={`path-1 min-w-40 ${path === "payment" ? "active" : ""}`} >Payment history</div>
+                
             </div>
 
             <div className="grow" >

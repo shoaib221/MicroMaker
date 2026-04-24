@@ -13,14 +13,14 @@ type TransactionWithSender = Transaction & {
 
 
 
-function UserCard({ user, onDelete }: { user: User, onDelete: (userId: string) => void }) {
+function UserCard({ user, onDelete }: { user: User, onDelete: () => void }) {
     const [role, setRole] = useState(user.role);
 
     async function handleDelete() {
         try {
             await axios.delete(`/api/user/${user.id}`);
             //alert('successfully deleted')
-            onDelete(user.id);
+            onDelete();
         } catch (err) {
             console.error("Error deleting user:", err);
         }
@@ -36,7 +36,7 @@ function UserCard({ user, onDelete }: { user: User, onDelete: (userId: string) =
     }
 
     return (
-        <div key={user.id} className="shadow1 rounded-lg gap-4 p-2 mb-2 flex flex-col lg:flex-row justify-between" >
+        <div key={user.id} className="box-13 flex flex-col lg:flex-row justify-between" >
             <div>
                 <p>Name: {user.name}</p>
                 <p>Email: {user.email}</p>
@@ -52,8 +52,8 @@ function UserCard({ user, onDelete }: { user: User, onDelete: (userId: string) =
 
             <div className="flex flex-row lg:flex-col  gap-2" >
                 {/* Action buttons like Edit, Delete can be added here */}
-                <button onClick={handleUpdate} className="button-2" >Update</button>
-                <button onClick={handleDelete} className="bg-(--color6) text-white px-2 py-1 rounded-lg hover:opacity-70" >Delete</button>
+                <button onClick={handleUpdate} className="button-4" >Update</button>
+                <button onClick={handleDelete} className="button-4" style={{ backgroundColor: 'var(--color6)' }} >Delete</button>
             </div>
 
         </div>
@@ -91,11 +91,7 @@ export function ManageUsers() {
 
     }, [myProfile?.role, page, userType])
 
-    function handleDelete(userId: string) {
-        // Implement user deletion logic here
-        // After successful deletion, update the users state to remove the deleted user
-        setUsers(prevUsers => prevUsers.filter(user => user.id !== userId));
-    }
+    
 
 
     const PageTag = () => {
@@ -104,7 +100,7 @@ export function ManageUsers() {
 
         if (users && users.length > 0) return (
             <div className="flex gap-4 mx-auto justify-center items-center my-4" >
-                {page > 1 && <div className={`button-2`}
+                {page > 1 && <div className={`button-3`}
                     onClick={() => setPage(page - 1)} >
                     Previous
                 </div>}
@@ -112,12 +108,12 @@ export function ManageUsers() {
 
 
                 {[...Array(pages).keys()].map((__, _) => (
-                    <div key={_} className={`${page === _ + 1 && 'button-2'} hover:opacity-70 font-bold px-2 cursor-pointer`} onClick={() => setPage(_ + 1)} >
+                    <div key={_} className={`${page === _ + 1 && 'button-3'} hover:opacity-70 font-bold px-2 cursor-pointer`} onClick={() => setPage(_ + 1)} >
                         {_ + 1}
                     </div>
                 ))}
 
-                {page < pages && <div className={`button-2`}
+                {page < pages && <div className={`button-3`}
                     onClick={() => setPage(page + 1)} >
                     Next
                 </div>}
@@ -144,7 +140,7 @@ export function ManageUsers() {
             </div>
 
             <div className="flex flex-col gap-4 p-4" >
-                {users && users.length > 0 && users.map(user => <UserCard key={user.id} user={user} onDelete={() => handleDelete(user.id)} />)}
+                {users && users.length > 0 && users.map(user => <UserCard key={user.id} user={user} onDelete={FetchUsers} />)}
             </div>
 
             <PageTag />

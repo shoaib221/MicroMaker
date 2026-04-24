@@ -5,7 +5,7 @@
 
 .input1 {
     padding: 0.5rem;
-    border: 1px solid #ccc;
+    border: 1px solid var(--color1a);
     border-radius: 4px;
     width: 100%;
     max-width: 500px;
@@ -21,4 +21,17 @@
     font-size: 2rem;
     font-weight: 700;
     color: var(--color3);
+}
+
+
+/* Remove arrows in Chrome, Safari, Edge */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Remove arrows in Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
 }

@@ -113,14 +113,13 @@ export function WorkerDashboard() {
 
 
     return (
-        <div className="flex flex-col lg:flex-row gap-4" >
+        <div className="cen-ver grow relative flex flex-col lg:flex-row mx-auto gap-4" >
 
-
-            <div className="flex flex-row lg:flex-col lg:min-w-60 gap-2 lg:sticky lg:top-0 self-start" >
-                <div onClick={() => setPath("home")} className={`path-1 ${path === "home" ? "active" : ""}`} >Home</div>
+            <div className="flex flex-row lg:flex-col gap-4 w-full lg:w-60 lg:min-w-60 lg:sticky lg:top-0 lg:self-start overflow-auto" >
+                <div onClick={() => setPath("home")} className={`path-1 min-w-40 ${path === "home" ? "active" : ""}`} >Home</div>
                 
-                <div onClick={() => setPath("submissions")} className={`path-1 ${path === "submissions" ? "active" : ""}`} >My Submissions</div>
-                <div onClick={() => setPath("withdrawals")} className={`path-1 ${path === "withdrawals" ? "active" : ""}`} >Withdrawals</div>
+                <div onClick={() => setPath("submissions")} className={`path-1 min-w-40 ${path === "submissions" ? "active" : ""}`} >My Submissions</div>
+                <div onClick={() => setPath("withdrawals")} className={`path-1 min-w-40 ${path === "withdrawals" ? "active" : ""}`} >Withdrawals</div>
             </div>
 
 
