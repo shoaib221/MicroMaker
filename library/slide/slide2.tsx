@@ -46,7 +46,9 @@ export function Slide2() {
         async function fetchWorkers() {
             try {
                 const response = await axios.get("/api/best-workers");
-                setWorkers(response.data.workers);
+                let data = response.data.workers;
+                data.length = 6;
+                setWorkers(data);
                 console.log("Best Workers:", response.data.workers);
             } catch (error) {
                 console.error("Error fetching best workers:", error);
@@ -81,9 +83,9 @@ export function Slide2() {
             {workers && workers.map((item, _) => (
                 <SwiperSlide key={_}>
                     <div className="h-40 flex flex-col items-center justify-center rounded">
-                        <div> {item.name} </div>
-                        <div className="h-20 w-20 rounded-full border-2" style={{ backgroundImage: `url(${item.image})` }} ></div>
-                        <div> {item.coins} </div>
+                        <div className="font-bold text-(--color3) text-lg" > {item.name} </div>
+                        <div className="h-20 w-20 rounded-full  my-4 bg-cover bg-top" style={{ backgroundImage: `url(${item.image})` }} ></div>
+                        <div> {item.coins} Coins </div>
                     </div>
                 </SwiperSlide>
             ))}
@@ -146,7 +148,7 @@ export function Slide20() {
                 <SwiperSlide key={item.name}>
                     <div className="h-40 flex flex-col items-center justify-center rounded">
                         <div className="bg-cover bg-center my-4 h-20 w-20 rounded-full" style={{ backgroundImage: `url(${item.photo})` }} ></div>
-                        <div className="font-bold text-lg" > {item.name    } </div>
+                        <div className="font-bold text-lg text-(--color3)" > {item.name    } </div>
                     </div>
                 </SwiperSlide>
             ))}
@@ -291,7 +293,7 @@ export function Slide21() {
                             style={{ width: `${100 / visibleCount}%` }}
                         >
                             <div className="p-10 text-center rounded-xl">
-                                <div className="font-bold text-lg">{item.name}</div>
+                                <div className="font-bold text-lg text-(--color3)">{item.name}</div>
                                 <div className="text-sm">{item.profession}</div>
                                 <div className="h-20 w-20 rounded-full my-4 mx-auto bg-cover bg-center" style={{ backgroundImage: `url(${item.photo})` }} > </div>
                                 <div className="mt-2">{item.feedback}</div>

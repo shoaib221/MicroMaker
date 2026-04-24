@@ -26,7 +26,8 @@ export default function Home() {
 
 			<br /> <br /><br/>
 
-			<h6 className="header-1" >Best Workers</h6>
+			<h6 className="header-1" >Top Workers</h6>
+			<br/>
 			<Slide2 />
 
 			<br /><br /><br/>

@@ -29,12 +29,23 @@ export async function POST(req: Request) {
             );
         }
 
+        const body = await req.json();
+
+        await prisma.transaction.create({
+            data: {
+                status: 'pending',
+                type: 'cashout',
+                amount: body.amount,
+                userId: user.id,
+            }
+        })
+
         console.log("Initiating Stripe onboarding process...");
 
         let accountId = "";
 
         if (!user.stripe_account_id) {
-            
+
             const account = await stripe.accounts.create({
                 type: "express",
             });
@@ -46,21 +57,21 @@ export async function POST(req: Request) {
                 data: { stripe_account_id: accountId },
             });
 
+            const accountLink = await stripe.accountLinks.create({
+                account: accountId,
+                refresh_url: "http://localhost:3000/reauth",
+                return_url: `http://localhost:3000/dashboard`,
+                type: "account_onboarding",
+            });
+
+            return NextResponse.json({ url: accountLink.url }, { status: 200 });
+
         }
-        else {
-            accountId = user.stripe_account_id;
-        }
 
-        const body = await req.json();
 
-        const accountLink = await stripe.accountLinks.create({
-            account: accountId,
-            refresh_url: "http://localhost:3000/reauth",
-            return_url: `http://localhost:3000/payout?amount=${body.amount}`,
-            type: "account_onboarding",
-        });
+        return NextResponse.json( { url: null }, { status: 200 } )
 
-        return NextResponse.json({ url: accountLink.url }, { status: 200 });
+
     } catch (error: any) {
         console.error("Error initiating Stripe onboarding:", error);
         return NextResponse.json({ error: error.message }, { status: 500 });

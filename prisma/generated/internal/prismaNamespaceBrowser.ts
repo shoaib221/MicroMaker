@@ -148,7 +148,8 @@ export const JobScalarFieldEnum = {
   deadline: 'deadline',
   submission_info: 'submission_info',
   imageUrl: 'imageUrl',
-  categoryId: 'categoryId'
+  categoryId: 'categoryId',
+  createdAt: 'createdAt'
 } as const
 
 export type JobScalarFieldEnum = (typeof JobScalarFieldEnum)[keyof typeof JobScalarFieldEnum]

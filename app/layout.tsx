@@ -49,7 +49,7 @@ export default function RootLayout({
 	return (
 		<html lang="en" color-theme="light" className="bg-(--color1) text-(--color2)" >
 			<body
-				className={`${ merienda.className } antialiased bg-(--color1) text-(--color2)`}
+				className={`${ merienda.className }  bg-(--color1) text-(--color2)`}
 			>
 				<ToastProvider />
 

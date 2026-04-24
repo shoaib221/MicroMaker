@@ -12,7 +12,7 @@ export async function GET(req: Request) {
         const searchBy = searchParams.get("searchBy");
         const searchFor = searchParams.get("searchFor");
         const page = parseInt(searchParams.get("page") || "1");
-        const limit = parseInt(searchParams.get("limit") || "1");
+        const limit = parseInt(searchParams.get("limit") || "10");
 
         const allowedFields = ["title", "description", "category"];
 
@@ -30,7 +30,7 @@ export async function GET(req: Request) {
             where: filter
         })
 
-        pages = (pages + limit -1)/limit;
+        pages = Math.ceil( pages / limit );
 
         const jobs = await prisma.job.findMany({
             where: filter,
@@ -39,7 +39,7 @@ export async function GET(req: Request) {
             
         });
 
-        return NextResponse.json({ jobs, pages }, { status: 200 });
+        return NextResponse.json({ data: jobs, pages }, { status: 200 });
 
     } catch (error) {
         console.error("Error fetching jobs:", error);

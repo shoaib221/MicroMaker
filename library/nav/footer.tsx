@@ -55,7 +55,7 @@ function SubFooter ( { elem } : { elem: { title: string, elements: string[] } } 
 
     return (
         <div  className="my-4" >
-            <div className="font-bold flex justify-between cursor-pointer" onClick={ handleClick } >
+            <div className="font-bold text-lg text-(--color3) flex justify-between cursor-pointer" onClick={ handleClick } >
                 {elem.title} 
 
                 { screen.width < 1024 && <> { opener ? <IoIosArrowUp /> : <IoIosArrowDown /> } </> }

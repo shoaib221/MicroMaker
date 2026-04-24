@@ -18,6 +18,7 @@ type NavItem = {
 const navItems: NavItem[] = [
     { label: 'Home', href: '/' },
     { label: 'Dashboard', href: '/dashboard' },
+    { label: 'Jobs', href: '/jobs' }
 ];
 
 
@@ -46,7 +47,9 @@ export function Navbar() {
     useEffect(() => {
 
         if(pathName.includes('dashboard')) setPath('/dashboard');
-        else setPath('/');
+        else if( pathName.includes('jobs') ) setPath( '/jobs' )
+        else if( !pathName.includes( 'profile' ) ) setPath('/');
+        else setPath('')
 
     }, [pathName])
 

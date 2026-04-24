@@ -7,6 +7,7 @@ import { Job } from "@/prisma/generated/client";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { DateDisplay } from "@/library/miscel/date";
+import { Loading } from "@/library/miscel/loading";
 
 
 export default function Page() {
@@ -15,16 +16,15 @@ export default function Page() {
     const [pages, setPages] = useState(1)
     const [searchBy, setSearchBy] = useState("")
     const [searchFor, setSearchFor] = useState("")
-    const [limit, setLimit] = useState(3)
+    const [limit, setLimit] = useState(10)
     const router = useRouter();
 
     async function fetchData() {
         try {
             const res = await axios.get(`/api/job/all?searchBy=${searchBy}&searchFor=${searchFor}&page=${page}&limit=${limit}`)
-            setData(res.data.jobs)
+            setData(res.data.data)
             setPages(res.data.pages)
-            toast.success("data fetched");
-            console.log(res.data)
+            //toast.success('Seccessfully Fetched')
         } catch (err) {
             console.error(err)
             alert("error")
@@ -76,10 +76,10 @@ export default function Page() {
 
             </div>
 
-
+            
 
             {/* Pagination */}
-            <div className="flex gap-4 mx-auto justify-center items-center my-4" >
+            { data.length > 0 ? <div className="flex gap-4 mx-auto justify-center items-center my-4" >
                 {page > 1 && <div  className={`button-2`}
                     onClick={() => setPage(page - 1)} >
                     Previous
@@ -95,7 +95,8 @@ export default function Page() {
                     onClick={() => setPage(page + 1)} >
                     Next
                 </div>}
-            </div>
+            </div>: 
+            <Loading />}
 
 
         </div>

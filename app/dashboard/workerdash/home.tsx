@@ -1,4 +1,5 @@
 import { DateDisplay } from "@/library/miscel/date";
+import { usePagination1 } from "@/library/miscel/pagination";
 import { Job, JobSubmissions } from "@/prisma/generated/client";
 import axios from "axios";
 import { useEffect, useState } from "react";
@@ -16,7 +17,8 @@ export function Home() {
         
     });
 
-    const [approvedSubmissions, setApprovedSubmissions] = useState< SubmissionWithJob []>([])
+    
+    const { data: approvedSubmissions, PageTag } = usePagination1<SubmissionWithJob>( { url: "/api/job/submissions/approved" } )
 
 
     useEffect(() => {
@@ -24,7 +26,6 @@ export function Home() {
             try {
                 const response = await axios.get("/api/stats/worker");
                 setStats({...response.data});
-                setApprovedSubmissions( response.data.approvedSubmissions )
                 console.log("Fetched stats:", response.data);
             } catch (error) {
                 console.error("Error fetching stats:", error);
@@ -63,7 +64,7 @@ export function Home() {
 
             <div className="flex flex-col gap-4" >
                 {
-                    approvedSubmissions.length > 0 ? approvedSubmissions.map((submission) => (
+                    approvedSubmissions.length > 0 && approvedSubmissions.map((submission) => (
                         <div key={submission.id} className="box-13" >
                             <div className="text-lg font-bold" >
                                 {submission.job.title}
@@ -77,11 +78,11 @@ export function Home() {
                                 Submitted at: <DateDisplay date={submission.createdAt} />
                             </div>
                         </div>
-                    )) : <div className="text-center" >
-                        No approved submissions yet.
-                    </div>
+                    )) 
                 }
             </div>
+
+            <PageTag />
         </div>
     )
 }

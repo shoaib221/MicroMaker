@@ -21,7 +21,7 @@ export async function POST(req: Request) {
             where: { email: session.user.email },
         });
 
-        if (!user || !user.stripe_account_id)  {
+        if (!user ||  user.role !== 'admin' ) {
             return NextResponse.json(
                 { message: "Unauthorized" },
                 { status: 401 }
@@ -30,29 +30,56 @@ export async function POST(req: Request) {
 
         const body = await req.json();
 
-        const transfer = await stripe.transfers.create({
-            amount: body.amount * 100 / 20, // Convert to smallest currency unit
-            currency: "BDT",
-            destination:    user.stripe_account_id,
-        });
+        if(body.action === 'reject' ) {
+            await prisma.transaction.update({
+                where: {
+                    id: body.transactionId
+                },
+                data: {
+                    status: 'rejected'
+                }
+            })
 
+            return NextResponse.json( { message: "rejected" }, {status: 200} )
+        }
 
-        await prisma.transaction.create({
-            data: {
-                amount: body.amount * 1,
-                type: "cashout",
-                userId: user.id,
-                status: "completed",
-                stripe_session_id: transfer.id
-
+        const transaction = await prisma.transaction.findUnique({
+            where: {
+                id: body.transactionId
+            },
+            include : {
+                user: true
             }
+        })
+
+        if( !transaction || !transaction.user || !transaction.amount || !transaction.user.stripe_account_id ) {
+            return NextResponse.json(
+                { message: "Transaction or user stripe account not found" },
+                { status: 400 }
+            );
+        }
+
+        let amount =  ( transaction.amount || 0 )  ; 
+        console.log(amount)
+
+        const transfer = await stripe.transfers.create({
+            amount: Math.ceil(transaction.amount / 2000 ), 
+            currency: "USD",
+            destination: transaction.user.stripe_account_id,
         });
+
+        console.log(transfer);
+
+        await prisma.transaction.update({
+            where : { id: transaction.id },
+            data: { status: 'accepted', stripe_session_id: transfer.id }
+        })
 
         await prisma.user.update({
-            where: { email: session.user.email },
+            where: { email: transaction.user.email },
             data: {
                 coins: {
-                    decrement: body.amount * 1
+                    decrement: transaction.amount
                 }
             }
         });

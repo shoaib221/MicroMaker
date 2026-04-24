@@ -3,7 +3,7 @@ import { prisma } from "@/prisma/client";
 import { getServerSession } from "next-auth";
 import { authOptions } from "@/app/api/auth/authOptions";
 
-export async function GET() {
+export async function GET( req: Request ) { 
 
     try {
 
@@ -63,14 +63,43 @@ export async function GET() {
 
         const totalPayments = q2._sum.amount || 0;
 
+        const { searchParams } = new URL(req.url);
+
+        
+        const page = parseInt(searchParams.get("page") || "1");
+        const limit = parseInt(searchParams.get("limit") || "10");
+
+        
+
+        
+            
+
+        let pages = await prisma.transaction.count({
+            where: {
+                type: "cashout",
+                status: "pending",
+            },
+        })
+
+        pages = Math.ceil( pages / limit );
+
+        
+
+
         const withdrawalRequests = await prisma.transaction.findMany({
             where: {
                 type: "cashout",
                 status: "pending",
             },
             include: {
-                sender: true,
+                user: true,
             },
+            orderBy : {
+                createdAt: "asc"
+            },
+            skip: (  page - 1) * limit,
+            take: limit,
+            
         });
 
         return NextResponse.json({
@@ -78,6 +107,7 @@ export async function GET() {
             totalBuyers,
             totalCoins, totalPayments,
             withdrawalRequests,
+            pages
         }, { status: 200 });
 
     } catch (error) {

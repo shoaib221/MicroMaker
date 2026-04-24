@@ -39,7 +39,7 @@ export async function POST(req: Request) {
                 {
                     price_data: {
                         currency: 'BDT',
-                        unit_amount: amount * 100, // Convert to smallest currency unit
+                        unit_amount: amount / 10 * 100, // Convert to smallest currency unit
                         product_data: {
                             name: `MicroMaker Cash In`,
                         }

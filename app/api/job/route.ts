@@ -112,6 +112,18 @@ export async function GET(req: Request) {
             );
         }
 
+        const { searchParams } = new URL(req.url);
+        const page = parseInt(searchParams.get("page") || "1");
+        const limit = parseInt(searchParams.get("limit") || "1");
+
+        let pages = await prisma.job.count({
+            where: {
+                employerId: user.id
+            }
+        })
+
+        pages = Math.ceil( pages / limit )
+
 
         const jobs = await prisma.job.findMany({
             where: {
@@ -120,7 +132,7 @@ export async function GET(req: Request) {
 
         });
 
-        return NextResponse.json({ jobs }, { status: 200 });
+        return NextResponse.json({ data: jobs, pages }, { status: 200 });
 
 
 

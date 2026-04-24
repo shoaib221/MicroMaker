@@ -30,6 +30,12 @@ export async function POST(req: Request) {
             );
         }
 
+        const { searchParams } = new URL(req.url);
+
+
+        const page = parseInt(searchParams.get("page") || "1");
+        const limit = parseInt(searchParams.get("limit") || "10");
+
 
         const submissions = await prisma.jobSubmissions.findMany({
             where: {
@@ -97,6 +103,20 @@ export async function GET(req: Request) {
             );
         }
 
+        const { searchParams } = new URL(req.url);
+
+
+        const page = parseInt(searchParams.get("page") || "1");
+        const limit = parseInt(searchParams.get("limit") || "10");
+
+        let pages = await prisma.jobSubmissions.count({
+            where: {
+                employeeId: user.id,
+            },
+        });
+
+        pages = Math.ceil( pages / limit );
+
 
         const submissions = await prisma.jobSubmissions.findMany({
             where: {
@@ -105,13 +125,15 @@ export async function GET(req: Request) {
             include: {
                 job: true,
             },
+            skip: (page-1) * limit,
+            take: limit,
             orderBy: {
                 createdAt: "desc",
             }
 
         });
 
-        return NextResponse.json({ submissions }, { status: 200 });
+        return NextResponse.json({ data: submissions, pages }, { status: 200 });
 
 
 

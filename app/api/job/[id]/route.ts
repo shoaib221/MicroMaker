@@ -44,6 +44,11 @@ export async function GET  (req: Request, context: { params: Promise<{ id: strin
                         id: true,
                     },
                 },
+                category: {
+                    select: {
+                        name: true
+                    }
+                }
             },
         });
 

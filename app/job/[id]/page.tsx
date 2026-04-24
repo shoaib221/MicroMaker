@@ -1,9 +1,11 @@
 "use client"
 
 
+import { useAuthContext } from "@/library/auth/context";
 import { DateDisplay } from "@/library/miscel/date";
 import { Loading } from "@/library/miscel/loading";
 import { Job } from "@/prisma/generated/browser";
+import { JobCategory } from "@/prisma/generated/client";
 import axios from "axios";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -13,6 +15,8 @@ type JobWithEmployer = Job & {
     employer: {
         name: string;
     };
+} & {
+    category: JobCategory
 };
 
 
@@ -20,6 +24,7 @@ export default function Page() {
     const id = useParams().id;
     const [job, setJob] = useState<JobWithEmployer | null>(null);
     const [credential, setCredential] = useState<string>("");
+    const { myProfile } = useAuthContext()
 
     useEffect(() => {
         if (!id) return;
@@ -69,14 +74,20 @@ export default function Page() {
                     <span className="font-bold text-(--color3)" >{job.employer.name}</span>
                 </div>
 
+                <div>
+
+                    Category:
+                    <span className="font-bold text-(--color3)" > {job.category.name}</span>
+                </div>
+
                 <br/>
 
                 <div className="text-xl font-bold text-(--color3)" >Description</div>
                 <p>{job.description}</p>
                 <br/>
 
-                <p className="text-xl font-bold text-(--color3)" >Salary Per Person</p>
-                <p  >{job.salary} BDT</p>
+                <p className="text-xl font-bold text-(--color3)" >Salary</p>
+                <p  >{job.salary} coins per task</p>
                 <br/>
 
 
@@ -92,7 +103,8 @@ export default function Page() {
                 <p  >{job.required_employees} persons</p>
 
                 <br/>
-                <div className="text-xl font-bold text-(--color3)" >
+
+                { myProfile?.role === 'worker' && <> <div className="text-xl font-bold text-(--color3)" >
                     Submit Your Credentials
                 </div>
 
@@ -103,6 +115,8 @@ export default function Page() {
                 <br/><br/>
 
                 <button className="button-2" onClick={() => handleSubmit() } >Submit</button>
+
+                </>}
 
             </div>
         </div>

@@ -54,19 +54,20 @@ export default function UpdateProfile() {
     return (
         <div className="flex flex-col lg:flex-row grow relative mx-auto gap-16 p-8" >
             <div>
-                
-                
-                
+
+
+                <div className="lg:sticky lg:top-2 self-start" >
                 <PhotoTag />
-                <br/>
-                
-                
-                
+                </div>
+                <br />
+
+
+
             </div>
 
             <div>
-                
-                
+
+
 
                 {/* Name */}
                 <div>
@@ -87,31 +88,35 @@ export default function UpdateProfile() {
                     )}
                 </div>
 
-                <br/>
+                <br />
 
                 <button className="button-2" onClick={handleSubmit(UpdateProfile)}  >
                     Update
                 </button>
 
-                <br/> <br/>
+                <br /> <br />
 
-                <div className="" >  <span className="font-bold text-(--color3)" >Role: </span> { myProfile?.role } </div>
-                <div>
-                    <span className="font-bold text-(--color3)" >Coins Available: </span>
-                    { myProfile?.coins } 
-                </div>
-
-
-                <div className="text-center" > 
-                    <span className="font-bold text-(--color3)" >Contact: </span>
-                    {myProfile?.email} 
-                </div>
+                <div className="font-bold text-(--color3)" >Role: </div> 
+                <div> {myProfile?.role} </div>
 
                 <br/>
 
-                <button className="button-2 flex justify-between items-center gap-4"  style={{ backgroundColor: 'var(--color6)' }} onClick={() => signOut()} > 
-                    Sign Out 
-                    
+                <div className="font-bold text-(--color3)" >Coins Available: </div>
+                <div>{myProfile?.coins}</div>
+
+                <br />
+
+
+                
+                    <div className="font-bold text-(--color3)" >Username: </div>
+                    <div> {myProfile?.email} </div>
+                
+
+                <br />
+
+                <button className="button-2 flex justify-between items-center gap-4" style={{ backgroundColor: 'var(--color6)' }} onClick={() => signOut()} >
+                    Sign Out
+
                 </button>
 
             </div>

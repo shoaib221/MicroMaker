@@ -50,7 +50,7 @@ export const useMyImage = ({ url = "https://i.ibb.co.com/7tmkDpb6/Screenshot-202
 
     const Tag = () => {
         return (
-            <div className="bg-contain bg-top h-60 w-full relative  mb-4 mx-auto border-2 border-(--color2)" 
+            <div className="bg-cover bg-center h-80 w-full max-w-[500px] relative  mb-4 rounded-lg border-2 border-(--color2)" 
                 style={{ backgroundImage: `url(${photo})` }} >
 
                 { !photo && <div className="flex flex-col items-center justify-center h-full text-(--color1a) bg-black/30" >

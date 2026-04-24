@@ -16,7 +16,7 @@ export function useDatePicker() {
 
 
 		return (
-			<div className="w-max">
+			<span className="">
 				<Popover>
 					<PopoverTrigger asChild>
 						<Button variant="outline">
@@ -33,7 +33,7 @@ export function useDatePicker() {
 						/>
 					</PopoverContent>
 				</Popover>
-			</div>
+			</span>
 		);
 
 	}

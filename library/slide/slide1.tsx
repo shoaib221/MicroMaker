@@ -136,7 +136,7 @@ export  function Slide11() {
                 </AnimatePresence>
 
                 {/* Navigation Arrows */}
-                <button
+                {/* <button
                     onClick={prevSlide}
                     className="absolute left-8 top-40 z-20 p-4 rounded-full bg-white/10 backdrop-blur-md hover:bg-white/20 transition-all group"
                     aria-label="Previous slide"
@@ -149,7 +149,7 @@ export  function Slide11() {
                     aria-label="Next slide"
                 >
                     <ChevronRight className="w-8 h-8 group-hover:scale-110 transition-transform" />
-                </button>
+                </button> */}
 
                 {/* Pagination Dots */}
                 <div className="absolute bottom-12 z-20 flex space-x-3">
