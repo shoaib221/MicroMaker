@@ -32,6 +32,8 @@ export async function GET(req: Request) {
 
         const data = await prisma.jobCategory.findMany({});
 
+        console.log(data)
+
         return NextResponse.json({ data }, { status: 200 });
 
 
@@ -43,7 +45,6 @@ export async function GET(req: Request) {
             { status: 500 }
         );
     }
-
 }
 
 

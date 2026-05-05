@@ -5,7 +5,7 @@ import axios from "axios";
 import { FaSearch } from "react-icons/fa";
 import { Job } from "@/prisma/generated/client";
 import { toast } from "react-toastify";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { DateDisplay } from "@/library/miscel/date";
 import { Loading } from "@/library/miscel/loading";
 
@@ -18,24 +18,32 @@ export default function Page() {
     const [searchFor, setSearchFor] = useState("")
     const [limit, setLimit] = useState(10)
     const router = useRouter();
+    const searchParams = useSearchParams()
+    const category_id = searchParams.get("category-id") ?? "";
+    const [loading, setLoading] = useState(true)
 
-    async function fetchData() {
+    async function fetchData(  ) {
+        setLoading(true);
         try {
-            const res = await axios.get(`/api/job/all?searchBy=${searchBy}&searchFor=${searchFor}&page=${page}&limit=${limit}`)
+            const res = await axios.get(`/api/job/all?searchBy=${searchBy}&searchFor=${searchFor}&page=${page}&limit=${limit}&category_id=${ category_id }`)
             setData(res.data.data)
             setPages(res.data.pages)
-            //toast.success('Seccessfully Fetched')
+            console.log("success")
         } catch (err) {
-            console.error(err)
+            console.error( "error", err)
             alert("error")
+        } finally {
+            setLoading(false)
         }
     }
 
     useEffect(() => {
 
+        
+
         fetchData();
 
-    }, [page])
+    }, [page, category_id])
 
 
 
@@ -43,7 +51,7 @@ export default function Page() {
 
     return (
         <div className="px-2" >
-            <div className="bg-(--color3) text-(--color1) w-full max-w-[700px] mx-auto px-2 items-center my-4 flex rounded-2xl gap-2 border-2 border-(--color3)" >
+            <div className="bg-(--color3) text-(--color1) w-full max-w-[600px] mx-auto px-2 items-center my-4 flex rounded-2xl gap-2 border-2 border-(--color3)" >
                 <select value={searchBy} onChange={(e) => setSearchBy(e.target.value)}
                     className="bg-(--color3) text-(--color1)" >
                     <option value={""} >Search By</option>
@@ -79,7 +87,7 @@ export default function Page() {
             
 
             {/* Pagination */}
-            { data.length > 0 ? <div className="flex gap-4 mx-auto justify-center items-center my-4" >
+            { loading ? <Loading /> : data?.length >0 ? <div className="flex gap-4 mx-auto justify-center items-center my-4" >
                 {page > 1 && <div  className={`button-3`}
                     onClick={() => setPage(page - 1)} >
                     Previous
@@ -96,7 +104,7 @@ export default function Page() {
                     Next
                 </div>}
             </div>: 
-            <Loading />}
+            <div className="text-center" >No data found</div> }
 
 
         </div>

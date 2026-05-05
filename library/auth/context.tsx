@@ -46,6 +46,8 @@ export function AuthProvider({ children }: AppProviderProps) {
             try {
                 const response = await axios.get("/api/profile");
                 setMyProfile(response.data.profile);
+                if( !response.data.profile ) signOut();
+                console.log("profile", response.data.profile)
             } catch (error) {
                 console.error("Error fetching profile:", error);
             }

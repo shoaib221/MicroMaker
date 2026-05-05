@@ -27,16 +27,19 @@ export type AggregateJobCategory = {
 export type JobCategoryMinAggregateOutputType = {
   id: string | null
   name: string | null
+  photo: string | null
 }
 
 export type JobCategoryMaxAggregateOutputType = {
   id: string | null
   name: string | null
+  photo: string | null
 }
 
 export type JobCategoryCountAggregateOutputType = {
   id: number
   name: number
+  photo: number
   _all: number
 }
 
@@ -44,16 +47,19 @@ export type JobCategoryCountAggregateOutputType = {
 export type JobCategoryMinAggregateInputType = {
   id?: true
   name?: true
+  photo?: true
 }
 
 export type JobCategoryMaxAggregateInputType = {
   id?: true
   name?: true
+  photo?: true
 }
 
 export type JobCategoryCountAggregateInputType = {
   id?: true
   name?: true
+  photo?: true
   _all?: true
 }
 
@@ -132,6 +138,7 @@ export type JobCategoryGroupByArgs<ExtArgs extends runtime.Types.Extensions.Inte
 export type JobCategoryGroupByOutputType = {
   id: string
   name: string
+  photo: string | null
   _count: JobCategoryCountAggregateOutputType | null
   _min: JobCategoryMinAggregateOutputType | null
   _max: JobCategoryMaxAggregateOutputType | null
@@ -158,12 +165,14 @@ export type JobCategoryWhereInput = {
   NOT?: Prisma.JobCategoryWhereInput | Prisma.JobCategoryWhereInput[]
   id?: Prisma.StringFilter<"JobCategory"> | string
   name?: Prisma.StringFilter<"JobCategory"> | string
+  photo?: Prisma.StringNullableFilter<"JobCategory"> | string | null
   jobs?: Prisma.JobListRelationFilter
 }
 
 export type JobCategoryOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  photo?: Prisma.SortOrderInput | Prisma.SortOrder
   jobs?: Prisma.JobOrderByRelationAggregateInput
 }
 
@@ -173,12 +182,14 @@ export type JobCategoryWhereUniqueInput = Prisma.AtLeast<{
   AND?: Prisma.JobCategoryWhereInput | Prisma.JobCategoryWhereInput[]
   OR?: Prisma.JobCategoryWhereInput[]
   NOT?: Prisma.JobCategoryWhereInput | Prisma.JobCategoryWhereInput[]
+  photo?: Prisma.StringNullableFilter<"JobCategory"> | string | null
   jobs?: Prisma.JobListRelationFilter
 }, "id" | "name">
 
 export type JobCategoryOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  photo?: Prisma.SortOrderInput | Prisma.SortOrder
   _count?: Prisma.JobCategoryCountOrderByAggregateInput
   _max?: Prisma.JobCategoryMaxOrderByAggregateInput
   _min?: Prisma.JobCategoryMinOrderByAggregateInput
@@ -190,45 +201,53 @@ export type JobCategoryScalarWhereWithAggregatesInput = {
   NOT?: Prisma.JobCategoryScalarWhereWithAggregatesInput | Prisma.JobCategoryScalarWhereWithAggregatesInput[]
   id?: Prisma.StringWithAggregatesFilter<"JobCategory"> | string
   name?: Prisma.StringWithAggregatesFilter<"JobCategory"> | string
+  photo?: Prisma.StringNullableWithAggregatesFilter<"JobCategory"> | string | null
 }
 
 export type JobCategoryCreateInput = {
   id?: string
   name: string
+  photo?: string | null
   jobs?: Prisma.JobCreateNestedManyWithoutCategoryInput
 }
 
 export type JobCategoryUncheckedCreateInput = {
   id?: string
   name: string
+  photo?: string | null
   jobs?: Prisma.JobUncheckedCreateNestedManyWithoutCategoryInput
 }
 
 export type JobCategoryUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  photo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   jobs?: Prisma.JobUpdateManyWithoutCategoryNestedInput
 }
 
 export type JobCategoryUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  photo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   jobs?: Prisma.JobUncheckedUpdateManyWithoutCategoryNestedInput
 }
 
 export type JobCategoryCreateManyInput = {
   id?: string
   name: string
+  photo?: string | null
 }
 
 export type JobCategoryUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  photo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type JobCategoryUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  photo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type JobCategoryScalarRelationFilter = {
@@ -239,16 +258,19 @@ export type JobCategoryScalarRelationFilter = {
 export type JobCategoryCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  photo?: Prisma.SortOrder
 }
 
 export type JobCategoryMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  photo?: Prisma.SortOrder
 }
 
 export type JobCategoryMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   name?: Prisma.SortOrder
+  photo?: Prisma.SortOrder
 }
 
 export type JobCategoryCreateNestedOneWithoutJobsInput = {
@@ -268,11 +290,13 @@ export type JobCategoryUpdateOneRequiredWithoutJobsNestedInput = {
 export type JobCategoryCreateWithoutJobsInput = {
   id?: string
   name: string
+  photo?: string | null
 }
 
 export type JobCategoryUncheckedCreateWithoutJobsInput = {
   id?: string
   name: string
+  photo?: string | null
 }
 
 export type JobCategoryCreateOrConnectWithoutJobsInput = {
@@ -294,11 +318,13 @@ export type JobCategoryUpdateToOneWithWhereWithoutJobsInput = {
 export type JobCategoryUpdateWithoutJobsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  photo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 export type JobCategoryUncheckedUpdateWithoutJobsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   name?: Prisma.StringFieldUpdateOperationsInput | string
+  photo?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
 }
 
 
@@ -335,6 +361,7 @@ export type JobCategoryCountOutputTypeCountJobsArgs<ExtArgs extends runtime.Type
 export type JobCategorySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  photo?: boolean
   jobs?: boolean | Prisma.JobCategory$jobsArgs<ExtArgs>
   _count?: boolean | Prisma.JobCategoryCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["jobCategory"]>
@@ -342,19 +369,22 @@ export type JobCategorySelect<ExtArgs extends runtime.Types.Extensions.InternalA
 export type JobCategorySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  photo?: boolean
 }, ExtArgs["result"]["jobCategory"]>
 
 export type JobCategorySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
   name?: boolean
+  photo?: boolean
 }, ExtArgs["result"]["jobCategory"]>
 
 export type JobCategorySelectScalar = {
   id?: boolean
   name?: boolean
+  photo?: boolean
 }
 
-export type JobCategoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name", ExtArgs["result"]["jobCategory"]>
+export type JobCategoryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "photo", ExtArgs["result"]["jobCategory"]>
 export type JobCategoryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   jobs?: boolean | Prisma.JobCategory$jobsArgs<ExtArgs>
   _count?: boolean | Prisma.JobCategoryCountOutputTypeDefaultArgs<ExtArgs>
@@ -370,6 +400,7 @@ export type $JobCategoryPayload<ExtArgs extends runtime.Types.Extensions.Interna
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
     name: string
+    photo: string | null
   }, ExtArgs["result"]["jobCategory"]>
   composites: {}
 }
@@ -796,6 +827,7 @@ export interface Prisma__JobCategoryClient<T, Null = never, ExtArgs extends runt
 export interface JobCategoryFieldRefs {
   readonly id: Prisma.FieldRef<"JobCategory", 'String'>
   readonly name: Prisma.FieldRef<"JobCategory", 'String'>
+  readonly photo: Prisma.FieldRef<"JobCategory", 'String'>
 }
     
 

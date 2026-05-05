@@ -1196,7 +1196,8 @@ export type JobScalarFieldEnum = (typeof JobScalarFieldEnum)[keyof typeof JobSca
 
 export const JobCategoryScalarFieldEnum = {
   id: 'id',
-  name: 'name'
+  name: 'name',
+  photo: 'photo'
 } as const
 
 export type JobCategoryScalarFieldEnum = (typeof JobCategoryScalarFieldEnum)[keyof typeof JobCategoryScalarFieldEnum]

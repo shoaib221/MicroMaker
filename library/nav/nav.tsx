@@ -93,9 +93,9 @@ export function Navbar() {
                     </div>
                 ) :
                     (<div className="right-4 top-4">
-                        <Link href="/register" className="button-4">
+                        <div onClick={ () => router.push("/register") }  className="button-4">
                             Register
-                        </Link>
+                        </div>
                     </div>)
                 }
             </div>

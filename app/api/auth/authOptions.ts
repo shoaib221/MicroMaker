@@ -95,7 +95,7 @@ export const authOptions: NextAuthOptions = {
                             name: user.name,
                             image: user.image,
                             password: "", // OAuth users won't have a password
-                            role: "user", // default role
+                            role: "worker", // default role
                         },
                     });
                 }

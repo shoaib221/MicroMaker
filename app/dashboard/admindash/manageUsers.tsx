@@ -5,6 +5,7 @@ import { useAuthContext } from "@/library/auth/context";
 import axios from "axios";
 import { Transaction, User } from "@/prisma/generated/client";
 import { Loading } from "@/library/miscel/loading";
+import { useConfirmer } from "@/library/miscel/confirmer";
 
 
 type TransactionWithSender = Transaction & {
@@ -15,16 +16,27 @@ type TransactionWithSender = Transaction & {
 
 function UserCard({ user, onDelete }: { user: User, onDelete: () => void }) {
     const [role, setRole] = useState(user.role);
+    const { procede: DeleteProcede, Tag: DeleteConfirmer, Init: DeleteInit } = useConfirmer({ message: `Do you want to delete the user named ${ user.name } ?` })
 
-    async function handleDelete() {
-        try {
-            await axios.delete(`/api/user/${user.id}`);
-            //alert('successfully deleted')
-            onDelete();
-        } catch (err) {
-            console.error("Error deleting user:", err);
+
+
+    useEffect(() => {
+
+        if(!DeleteProcede) return;
+
+        async function handleDelete() {
+            try {
+                await axios.delete(`/api/user/${user.id}`);
+                //alert('successfully deleted')
+                onDelete();
+            } catch (err) {
+                console.error("Error deleting user:", err);
+            }
         }
-    }
+
+        handleDelete()
+
+    }, [DeleteProcede])
 
     async function handleUpdate() {
         try {
@@ -37,10 +49,11 @@ function UserCard({ user, onDelete }: { user: User, onDelete: () => void }) {
 
     return (
         <div key={user.id} className="box-13 flex flex-col lg:flex-row justify-between" >
+            <DeleteConfirmer />
             <div>
                 <p>Name: {user.name}</p>
                 <p>Email: {user.email}</p>
-                
+
                 <p>Role:
                     <select value={role} onChange={(e) => setRole(e.target.value)} >
                         <option value="worker">Worker</option>
@@ -53,7 +66,7 @@ function UserCard({ user, onDelete }: { user: User, onDelete: () => void }) {
             <div className="flex flex-row lg:flex-col  gap-2" >
                 {/* Action buttons like Edit, Delete can be added here */}
                 <button onClick={handleUpdate} className="button-4" >Update</button>
-                <button onClick={handleDelete} className="button-4" style={{ backgroundColor: 'var(--color6)' }} >Delete</button>
+                <button onClick={DeleteInit} className="button-4" style={{ backgroundColor: 'var(--color6)', color: "white" }} >Delete</button>
             </div>
 
         </div>
@@ -91,7 +104,7 @@ export function ManageUsers() {
 
     }, [myProfile?.role, page, userType])
 
-    
+
 
 
     const PageTag = () => {

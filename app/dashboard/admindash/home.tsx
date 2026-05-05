@@ -92,7 +92,7 @@ export function Home() {
     return (
         <div className="grow" >
 
-            <div className="flex flex-col lg:flex-row justify-evenly" >
+            <div className="flex flex-col lg:flex-row justify-evenly gap-4" >
                 <div className="text-center" >
                     <div className="text-4xl font-bold text-(--color3)" >{stats.totalWorkers}</div>
                     <div className="font-bold" >Total Workers </div>

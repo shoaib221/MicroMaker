@@ -3,15 +3,62 @@
 import { useEffect, useState } from "react";
 import { useAuthContext } from "@/library/auth/context";
 import axios from "axios";
-import { Job, Transaction, User } from "@/prisma/generated/client";
+import { Job, JobCategory, Transaction, User } from "@/prisma/generated/client";
 import { Home } from "./home";
 import { ManageUsers } from "./manageUsers";
 import { toast } from "react-toastify";
 import { useRouter } from "next/navigation";
 import { usePagination1 } from "@/library/miscel/pagination";
+import { useConfirmer } from "@/library/miscel/confirmer";
+
+
+function Task({ job }: { job: Job }) {
+    const { Tag, procede, Init } = useConfirmer({ message: `Do you want to delete the task named ${job.title}` })
+    const router = useRouter()
+
+    useEffect(() => {
+        if (!procede) return;
+
+        async function DeleteJob() {
 
 
 
+            try {
+                let res = await axios.delete(`/api/job/${job.id}`);
+                toast.success("Job deleted successfully");
+
+            }
+            catch (err) {
+                console.error("Error deleting job:", err);
+            }
+        }
+
+        DeleteJob();
+
+
+    }, [procede])
+
+    return (
+        <>
+            <Tag />
+            <div key={job.id} className="rounded-lg p-2 flex justify-between gap-4 box-13" onClick={() => router.push(`/job/${job.id}`)} >
+
+                <div>
+                    <div className="font-bold text-(--color3) " >Title: {job.title}</div>
+                    <p>Salary: {job.salary} coins per task</p>
+                    <p>Required Employees: {job.required_employees}</p>
+                    <br />
+                    <button className="button-2" style={{ backgroundColor: 'var(--color6)', color: 'white' }} onClick={(e) => { e.stopPropagation(); Init() }} >Delete</button>
+                </div>
+
+                <div style={{ backgroundImage: `url(${job.imageUrl})` }} className="w-30 h-30 rounded-lg bg-cover" onClick={() => router.push(`/job/${job.id}`)} >
+
+                </div>
+            </div>
+        </>
+    )
+
+}
 
 
 
@@ -23,19 +70,7 @@ function ManageTasks() {
 
 
 
-    async function DeleteJob(id: string, e: React.MouseEvent<HTMLButtonElement> ) {
-        e.stopPropagation();
-        
 
-        try {
-            let res = await axios.delete(`/api/job/${id}`);
-            toast.success("Job deleted successfully");
-            refetch();
-        }
-        catch (err) {
-            console.error("Error deleting job:", err);
-        }
-    }
 
 
     return (
@@ -43,21 +78,7 @@ function ManageTasks() {
 
 
             <div className="flex flex-col gap-4 p-4" >
-                {jobs && jobs.length > 0 && jobs.map((job) => (
-                    <div key={job.id} className="rounded-lg p-2 flex justify-between gap-4 box-13" onClick={() => router.push(`/job/${job.id}`)} >
-                        <div>
-                            <div className="font-bold text-(--color3) " >Title: {job.title}</div>
-                            <p>Salary: {job.salary} coins per task</p>
-                            <p>Required Employees: {job.required_employees}</p>
-                            <br />
-                            <button className="button-2" style={{ backgroundColor: 'var(--color6)', color: 'white' }} onClick={(e) => DeleteJob(job.id, e )} >Delete</button>
-                        </div>
-
-                        <div style={{ backgroundImage: `url(${job.imageUrl})` }} className="w-30 h-30 rounded-lg bg-cover" onClick={() => router.push(`/job/${job.id}`)} >
-
-                        </div>
-                    </div>
-                ))}
+                {jobs && jobs.length > 0 && jobs.map((job) => <Task job={job} key={job.id} />)}
             </div>
 
             <PageTag />

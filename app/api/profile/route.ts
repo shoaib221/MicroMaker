@@ -2,29 +2,52 @@ import { NextResponse } from "next/server";
 import { prisma } from "@/prisma/client";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/authOptions";
+import Error from "next/error";
 
 export async function GET() {
 
-    const session = await getServerSession(authOptions);
+    try {
+        const session = await getServerSession(authOptions);
 
-    if (!session || !session.user || !session.user.email) {
-        return NextResponse.json(
-            { message: "Unauthorized" },
-            { status: 401 }
-        );
+        if (!session || !session.user || !session.user.email) {
+            return NextResponse.json(
+                { message: "Unauthorized" },
+                { status: 401 }
+            );
+        }
+
+        console.log(session.user)
+
+        const profile = await prisma.user.findUnique({
+            where: {
+                email: session.user.email
+            }
+        });
+
+        if (!profile) {
+            const response = NextResponse.json({ message: "Logged out" });
+
+            // Clear NextAuth cookies
+            response.cookies.set("next-auth.session-token", "", { maxAge: 0 });
+            response.cookies.set("__Secure-next-auth.session-token", "", { maxAge: 0 });
+        }
+
+
+
+        console.log(profile)
+
+        return NextResponse.json({
+            profile,
+        }, { status: 200 });
+
+    } catch (err: any) {
+        console.log(err)
+        return NextResponse.json({
+            error: err.message
+        }, { status: 200 });
     }
 
-    
 
-    const profile = await prisma.user.findUnique({
-        where: {
-            email: session.user.email,
-        },
-    });
-
-    return NextResponse.json({
-        profile,
-    }, { status: 200 });
 }
 
 

@@ -5,7 +5,7 @@ import { Box11 } from "../box/box1";
 import Image from "next/image";
 
 
-const  jobs =  [
+const jobs = [
     {
         name: "Software Engineering",
     },
@@ -60,77 +60,52 @@ import { FaPeopleGroup } from "react-icons/fa6";
 import { MdArchitecture } from "react-icons/md";
 import { FaPaintBrush } from "react-icons/fa";
 import { FiArrowUpRight } from "react-icons/fi";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { JobCategory } from "@/prisma/generated/client";
+import { toast } from "react-toastify";
 
 
 export function Grid1() {
     const router = useRouter()
+    const [categories, setCategories] = useState<JobCategory[]>([])
+
+    useEffect(() => {
+        async function fetchData() {
+            try {
+                const res = await axios.get(`/api/job/categories`)
+                
+                console.log( res.data.data )
+                setCategories( res.data.data )
+
+                toast.success('Seccessfully Fetched')
+            } catch (err) {
+                console.error(err)
+                alert("error")
+            }
+        }
+
+        fetchData();
+    }, [])
+
 
 
     return (
         <div className="grid grid-cols-[1fr_1fr] sm:grid-cols-[1fr_1fr_1fr] lg:grid-cols-[1fr_1fr_1fr_1fr_1fr_1fr] gap-4 p-4">
-            <Box11 title=""  onClick={ () => router.push('/jobs?searchBy=ai') } >
-                <FaBrain className="text-4xl" />
-                Artificial Intelligence
-            </Box11>
 
-            <Box11 title=""  onClick={ () => router.push('/jobs?searchBy=it') } >
-                <FaGithub className="text-4xl" />
-                Development & IT
-            </Box11>
-
-            <Box11 title=""  onClick={ () => router.push('/jobs?searchBy=design') } >
-                <MdOutlineDesignServices className="text-4xl" />
-                Design & Creative
-            </Box11>
-
-            <Box11 title=""  onClick={ () => router.push('/jobs?searchBy=sales') } >
-                <SiCoinmarketcap  className="text-4xl"  />
-                Sales & Marketing
-            </Box11>
-
-            <Box11 title="" onClick={ () => router.push('/jobs?searchBy=writing') } >
-                <AiOutlineTranslation className="text-4xl" />
-                Writing & Translation
-            </Box11>
-
-            <Box11 title=""  onClick={ () => router.push('/jobs?searchBy=admin') } >
-                <MdAdminPanelSettings className="text-4xl" />
-                Admin & Support
-            </Box11>
-
-            <Box11 title=""  onClick={ () => router.push('/jobs?searchBy=finance') } >
-                <FaMoneyCheckAlt className="text-4xl" />
-                Finance & Accounting
-            </Box11>
-
-            <Box11 title="" onClick={ () => router.push('/jobs?searchBy=legal') }  >
-                <GoLaw className="text-4xl" />
-                Legal
-            </Box11>
-
-            <Box11 title="" onClick={ () => router.push('/jobs?searchBy=hr') }  >
-                <FaPeopleGroup className="text-4xl" />
-                HR & People
-            </Box11>
-
-            <Box11 title="" onClick={ () => router.push('/jobs?searchBy=architecture') } >
-                <MdArchitecture className="text-4xl" />
-                Engineering & Architecture
+            {categories && categories.map((elem, _) => <Box11 key={_} title="" onClick={() => router.push( `/jobs?category-id=${ elem.id }` ) } >
+                <div className="h-20 w-20 bg-center bg-cover rounded-lg" style={{ backgroundImage: `url(${elem.photo})` }} > 
+                    
+                </div>
                 
-            </Box11>
+                {elem.name}
+            </Box11>)}
 
-            <Box11 title="" onClick={ () => router.push('/jobs?searchBy=architecture') } >
-                <FaPaintBrush className="text-4xl" />
-                Fine Arts
-                
-            </Box11>
-
-
-            <Box11 title="" onClick={ () => router.push('/jobs') } >
+            <Box11 title="" onClick={() => router.push('/jobs')} >
                 <FiArrowUpRight className="text-4xl" />
-                All Jobs
+                All
             </Box11>
-            
+
         </div>
     );
 
