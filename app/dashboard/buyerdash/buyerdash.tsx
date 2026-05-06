@@ -143,8 +143,8 @@ function PaymentHistory() {
         <>
             <div className="flex flex-col gap-4 p-4" >
                 {payments && payments.length > 0 && payments.map((payment: any) => (
-                    <div key={payment.id} className="border p-4 rounded-md">
-                        <div> Receiver:  <span className="text-(--color3) font-bold" >{ payment.receiver.name }</span>  </div>
+                    <div key={payment.id} className="p-4 box-15">
+                        <div className="text-(--color3) font-bold" > Receiver:  <span className="" >{ payment.receiver.name }</span>  </div>
                         <h2 className=""> {payment.amount} Coins transferred</h2>
                         Paid at <DateDisplay date={payment.createdAt} />
                     </div>

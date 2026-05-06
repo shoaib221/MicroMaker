@@ -8,7 +8,7 @@ import { ThemeProvider } from "@/library/theme/theme";
 import { AuthProvider } from "@/library/auth/context";
 import { Footer } from "@/library/nav/footer";
 import { NavProvider } from "@/library/nav/context";
-import { Inter, Berkshire_Swash, Google_Sans_Code, Merienda } from "next/font/google";
+import { Inter, Berkshire_Swash, Google_Sans_Code, Merienda, Merriweather } from "next/font/google";
 
 
 
@@ -32,7 +32,11 @@ const berkshireSwash = Berkshire_Swash({
 	subsets: ["latin"],
 });
 
-
+const merriweather = Merriweather({
+	variable: "--font-merriweather",
+	weight: "400",
+	subsets: ["latin"],
+});
 
 
 export const metadata: Metadata = {
@@ -49,7 +53,7 @@ export default function RootLayout({
 	return (
 		<html lang="en" color-theme="light" className="bg-(--color1) text-(--color2)" >
 			<body
-				className={`${ merienda.className }  bg-(--color1) text-(--color2)`}
+				className={`${ merriweather.className } bg-(--color1) text-(--color2)`}
 			>
 				<ToastProvider />
 

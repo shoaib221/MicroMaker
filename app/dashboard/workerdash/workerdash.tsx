@@ -82,10 +82,10 @@ function Submissions() {
             <div className="grow flex flex-col gap-4 mx-auto p-4" >
                 {
                     submissions.length > 0 && submissions.map((submission) => (
-                        <div key={submission.id} className="box-13 flex justify-between max-w-150 mx-auto w-full" >
+                        <div key={submission.id} className="box-15 flex justify-between mx-auto w-full" >
 
                             <div>
-                                <div className="text-xl font-bold" >{submission.job?.title}</div>
+                                <div className="header-3" >{submission.job?.title}</div>
                                 <div> Submitted at <DateDisplay date={submission.createdAt} /> </div>
                                 <p>Status: {submission.status}</p>
                             </div>
@@ -114,6 +114,7 @@ export function WorkerDashboard() {
 
     return (
         <div className="cen-ver grow relative flex flex-col lg:flex-row mx-auto gap-4" >
+            
 
             <div className="flex flex-row lg:flex-col gap-4 w-full lg:w-60 lg:min-w-60 lg:sticky lg:top-0 lg:self-start overflow-auto" >
                 <div onClick={() => setPath("home")} className={`path-1 min-w-40 ${path === "home" ? "active" : ""}`} >Home</div>

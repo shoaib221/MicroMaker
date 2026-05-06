@@ -23,7 +23,7 @@ export default function Home() {
 			
 
 			<br /><br/>
-			<h6 className="header-1" >Search Jobs By Category</h6>
+			<h6 className="header-1" >Search Tasks By Category</h6>
 			<Grid1 />
 
 			<br /><br /><br/>

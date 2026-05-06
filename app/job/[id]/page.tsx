@@ -9,6 +9,7 @@ import { JobCategory } from "@/prisma/generated/client";
 import axios from "axios";
 import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
+import { toast } from "react-toastify";
 
 
 type JobWithEmployer = Job & {
@@ -52,12 +53,12 @@ export default function Page() {
                 credential
             });
 
-            alert("Submission successful!");
+            toast.success("Submission successful!");
             setCredential("");
             
         } catch (error) {
             console.error("Error submitting credentials:", error);
-            alert("Submission failed. Please try again.");
+            toast.error("Submission failed. Please try again.");
         }
     }
 

@@ -6,6 +6,7 @@ import axios from "axios";
 import { Transaction, User } from "@/prisma/generated/client";
 import { Loading } from "@/library/miscel/loading";
 import { useConfirmer } from "@/library/miscel/confirmer";
+import { toast } from "react-toastify";
 
 
 type TransactionWithSender = Transaction & {
@@ -16,13 +17,13 @@ type TransactionWithSender = Transaction & {
 
 function UserCard({ user, onDelete }: { user: User, onDelete: () => void }) {
     const [role, setRole] = useState(user.role);
-    const { procede: DeleteProcede, Tag: DeleteConfirmer, Init: DeleteInit } = useConfirmer({ message: `Do you want to delete the user named ${ user.name } ?` })
+    const { procede: DeleteProcede, Tag: DeleteConfirmer, Init: DeleteInit } = useConfirmer({ message: `Do you want to delete the user named ${user.name} ?` })
 
 
 
     useEffect(() => {
 
-        if(!DeleteProcede) return;
+        if (!DeleteProcede) return;
 
         async function handleDelete() {
             try {
@@ -41,35 +42,38 @@ function UserCard({ user, onDelete }: { user: User, onDelete: () => void }) {
     async function handleUpdate() {
         try {
             let res = await axios.put(`/api/user/${user.id}`, { role });
-            //alert('successfully updated')
+            toast.success('successfully updated')
         } catch (err) {
             console.error("Error updating user:", err);
         }
     }
 
     return (
-        <div key={user.id} className="box-13 flex flex-col lg:flex-row justify-between" >
-            <DeleteConfirmer />
-            <div>
-                <p>Name: {user.name}</p>
-                <p>Email: {user.email}</p>
+        <><DeleteConfirmer />
+            <div key={user.id} className="box-15 flex flex-col lg:flex-row justify-between" >
 
-                <p>Role:
-                    <select value={role} onChange={(e) => setRole(e.target.value)} >
-                        <option value="worker">Worker</option>
-                        <option value="admin">Admin</option>
-                        <option value="buyer">Buyer</option>
-                    </select>
-                </p>
+                <div>
+                    <p className="header-3" >Name: {user.name}</p>
+                    <p>Email: {user.email}</p>
+
+                    <p>Role:
+                        <select value={role} onChange={(e) => setRole(e.target.value)} >
+                            <option value="worker">Worker</option>
+                            <option value="admin">Admin</option>
+                            <option value="buyer">Buyer</option>
+                        </select>
+                    </p>
+                </div>
+                <br/>
+
+                <div className="flex flex-row lg:flex-col  gap-2" >
+                    {/* Action buttons like Edit, Delete can be added here */}
+                    <button onClick={handleUpdate} className="button-4 font-bold" >Update</button>
+                    <button onClick={DeleteInit} className="button-4 font-bold" style={{ color: 'var(--color6)' }} >Delete</button>
+                </div>
+
             </div>
-
-            <div className="flex flex-row lg:flex-col  gap-2" >
-                {/* Action buttons like Edit, Delete can be added here */}
-                <button onClick={handleUpdate} className="button-4" >Update</button>
-                <button onClick={DeleteInit} className="button-4" style={{ backgroundColor: 'var(--color6)', color: "white" }} >Delete</button>
-            </div>
-
-        </div>
+        </>
     );
 }
 

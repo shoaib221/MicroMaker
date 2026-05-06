@@ -91,25 +91,29 @@ export function Home() {
 
     return (
         <div className="grow" >
+            <br />
+
+            <div className="header-1" >Stats</div>
+            <br/>
 
             <div className="flex flex-col lg:flex-row justify-evenly gap-4" >
                 <div className="text-center" >
-                    <div className="text-4xl font-bold text-(--color3)" >{stats.totalWorkers}</div>
+                    <div className="header-2" >{stats.totalWorkers}</div>
                     <div className="font-bold" >Total Workers </div>
                 </div>
 
                 <div className="text-center" >
-                    <div className="text-4xl font-bold text-(--color3)" >{stats.totalBuyers}</div>
+                    <div className="header-2" >{stats.totalBuyers}</div>
                     <div className="font-bold" >Total Buyers </div>
                 </div>
 
                 <div className="text-center" >
-                    <div className="text-4xl font-bold text-(--color3)" >{stats.totalCoins}</div>
+                    <div className="header-2" >{stats.totalCoins}</div>
                     <div className="font-bold" >Total Available Coins</div>
                 </div>
 
                 <div className="text-center" >
-                    <div className="text-4xl font-bold text-(--color3)" >{stats.totalPayments}</div>
+                    <div className="header-2" >{stats.totalPayments}</div>
                     <div className="font-bold" >Total Payments</div>
                 </div>
 
@@ -125,12 +129,13 @@ export function Home() {
                 Withdraw Requests
             </div>
 
-            <div className="flex flex-col gap-4" >
+            <div className="flex flex-col gap-4 p-4" >
                 {withdrawalRequests.length > 0 && withdrawalRequests.map((req) => (
-                    <div key={req.id} className="shadow1 rounded-lg p-2 flex justify-between" >
+                    <div key={req.id} className="box-15 rounded-lg p-2 flex justify-between flex-col lg:flex-row" >
                         <div>
-                            <p>Amount: {req.amount} coins</p>
-                            <p>Withdrawer: {req.user?.name} </p>
+                            <p className="header-3" >Withdrawer: {req.user?.name} </p>
+                            <p  >Amount: {req.amount} coins</p>
+                            
                             <div>
                                 Contact: {req.user?.email}
                             </div>
@@ -139,9 +144,11 @@ export function Home() {
                             </div>
                         </div>
 
+                        <br />
+
                         <div className="flex flex-row lg:flex-col gap-2" >
-                            <button className="button-2" onClick={() => ApproveWithdrawal('accept', req.id)} >Accept</button>
-                            <button className="button-2" onClick={() => ApproveWithdrawal('reject', req.id)} style={{ backgroundColor: 'var(--color6)' }} >Reject</button>
+                            <button className="button-1 font-bold" onClick={() => ApproveWithdrawal('accept', req.id)} >Accept</button>
+                            <button className="button-1 font-bold" onClick={() => ApproveWithdrawal('reject', req.id)} style={{ color: 'var(--color6)' }} >Reject</button>
                         </div>
                     </div>
                 ))}

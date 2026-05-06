@@ -47,8 +47,8 @@ function Task({ job }: { job: Job }) {
                     <div className="font-bold text-(--color3) " >Title: {job.title}</div>
                     <p>Salary: {job.salary} coins per task</p>
                     <p>Required Employees: {job.required_employees}</p>
-                    <br />
-                    <button className="button-2" style={{ backgroundColor: 'var(--color6)', color: 'white' }} onClick={(e) => { e.stopPropagation(); Init() }} >Delete</button>
+                    
+                    <button className="button-1 font-bold" style={{ color: 'var(--color6)'  }} onClick={(e) => { e.stopPropagation(); Init() }} >Delete Task</button>
                 </div>
 
                 <div style={{ backgroundImage: `url(${job.imageUrl})` }} className="w-30 h-30 rounded-lg bg-cover" onClick={() => router.push(`/job/${job.id}`)} >

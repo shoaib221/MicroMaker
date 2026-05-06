@@ -71,7 +71,7 @@ export function AddTask() {
             console.log("Form data to submit:", jobData);
             await axios.post("/api/job", jobData);
             reset();
-            resetPhoto(null);
+            resetPhoto();
             setDate(undefined);
             toast.success("Task added successfully");
         } catch (err) {

@@ -35,7 +35,7 @@ export function useSubmissionDetail({ submission }: { submission: any }) {
         if (show) return (
             <div className="z-30 fixed inset-0 bg-black/50" >
 
-                <div className="max-w-150 mx-auto bg-(--color1) text-(--color2) m-8 p-4 relative" >
+                <div className="max-w-150 mx-auto bg-(--color1) text-(--color2) m-8 p-4 relative rounded-lg" >
                     
 
                     <ImCross  className="absolute top-2 right-2 text-(--color3) rounded-lg hover:opacity-70" onClick={() => setShow(false)} />
@@ -68,9 +68,9 @@ export function useSubmissionDetail({ submission }: { submission: any }) {
                     <br/><br/><br/>
 
                     <div className="gap-4 justify-center items-center flex" >
-                        <button className="button-1" style={{ backgroundColor: 'var(--color5)', color: 'white' }} onClick={() => handleFeedback("accept")} >Accept</button>
+                        <button className="button-1 font-bold" style={{ color: 'var(--color5)' }} onClick={() => handleFeedback("accept")} >Accept</button>
 
-                        <button className="button-1" style={{ backgroundColor: 'var(--color6)', color: 'white' }}   onClick={() => handleFeedback("reject")} >Reject</button>
+                        <button className="button-1 font-bold" style={{ color: 'var(--color6)' }}   onClick={() => handleFeedback("reject")} >Reject</button>
                     </div>
 
                     

@@ -4,6 +4,7 @@
 import { signIn, signOut, useSession } from "next-auth/react";
 import { useForm } from "react-hook-form";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 
 const api = axios.create({
@@ -32,6 +33,7 @@ export default function RegisterForm() {
         handleSubmit,
         watch,
         setError,
+        reset,
         formState: { errors, isSubmitting },
     } = useForm<RegisterFormInputs>();
 
@@ -49,6 +51,10 @@ export default function RegisterForm() {
             });
 
             console.log("API Response:", response.data);
+            toast.success("Registration successful! Please log in.");
+            reset();
+            signIn();
+
         } catch (error: Error | any) {
             console.error("API Error:", error.response ? error.response.data : error.message);
             setError("email", {

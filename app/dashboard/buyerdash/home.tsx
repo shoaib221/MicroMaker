@@ -100,20 +100,23 @@ export function Home() {
     return (
         <div>
             <Tag />
+            <br />
+            <div className="header-1" >Stats</div>
+            <br/>
             <div className="flex gap-4 flex-col lg:flex-row justify-evenly" >
 
                 <div className="text-center" >
-                    <div className="text-4xl font-bold text-(--color3)" >{stats.totalTasks}</div>
+                    <div className="header-2" >{stats.totalTasks}</div>
                     <div> My Total Jobs </div>
                 </div>
 
                 <div className="text-center" >
-                    <div className="text-4xl font-bold text-(--color3)" >{stats.pendingTasks}</div>
+                    <div className="header-2" >{stats.pendingTasks}</div>
                     <div> Incomplete Jobs </div>
                 </div>
 
                 <div className="text-center" >
-                    <div className="text-4xl font-bold text-(--color3)" >{stats.totalPayment}</div>
+                    <div className="header-2" >{stats.totalPayment}</div>
                     <div> Coins Paid </div>
                 </div>
 
@@ -128,14 +131,14 @@ export function Home() {
             <div className="flex flex-col gap-4 p-4" >
                 {
                     submissions.length > 0 && submissions.map((submission) => (
-                        <div key={submission.id} className="box-13 flex justify-between items-center" >
+                        <div key={submission.id} className="box-15 flex justify-between items-center" >
                             <div>
                                 <div className="text-xl font-bold text-(--color3)" >{submission.job?.title}</div>
                                 <div>Submitted By: {submission.employee?.name || "Unknown"}</div>
                                 <div>{submission.job?.salary} Coins to be paid </div>
                             </div>
 
-                            <div onClick={() => Show(submission)} className="box-14" >View Detail </div>
+                            <div onClick={() => Show(submission)} className="button-1" >View Detail </div>
 
 
 

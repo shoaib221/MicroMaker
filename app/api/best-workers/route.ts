@@ -4,20 +4,26 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "../auth/authOptions";
 
 export async function GET() {
+    try {
+        const workers = await prisma.user.findMany({
+            where: {
+                role: "worker",
+            },
+            orderBy: {
+                coins: "desc",
+            },
+            take: 10,
+        });
 
-
-    const workers = await prisma.user.findMany({
-        where: {
-            role: "worker",
-        },
-        orderBy: {
-            coins: "desc",
-        },        
-        take: 10,
-    });
-
-    return NextResponse.json({
-        workers,
-    }, { status: 200 });
+        return NextResponse.json({
+            workers,
+        }, { status: 200 });
+    }
+    catch(err) {
+        console.error("Error fetching best workers:", err);
+        return NextResponse.json({
+            error: "Failed to fetch best workers",
+        }, { status: 500 });
+    }
 }
 

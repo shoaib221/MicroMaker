@@ -78,7 +78,7 @@ export function Grid1() {
                 console.log( res.data.data )
                 setCategories( res.data.data )
 
-                toast.success('Seccessfully Fetched')
+                
             } catch (err) {
                 console.error(err)
                 alert("error")

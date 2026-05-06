@@ -38,35 +38,38 @@ export function Home() {
 
     return (
         <div className="grow" >
-            <div className="flex flex-col lg:flex-row justify-evenly" >
+            <br/>
+            <div className="header-1" >Stats</div>
+            <br/>
+            <div className="flex flex-col lg:flex-row justify-evenly gap-4" >
                 <div>
-                    <div className="text-4xl font-bold text-center text-(--color3)" >{stats.totalSubmissions}</div>
+                    <div className="header-2" >{stats.totalSubmissions}</div>
                     <div className="text-lg text-center" >Total Submissions</div>
                 </div>
 
                 <div>
-                    <div className="text-4xl font-bold text-center text-(--color3)" >{stats.pendingSubmissions}</div>
+                    <div className="header-2" >{stats.pendingSubmissions}</div>
                     <div className="text-lg text-center" >Pending Submissions</div>                    
                 </div>
 
                 <div>
-                    <div className="text-4xl font-bold text-center text-(--color3)" >{stats.totalEarnings}</div>
+                    <div className="header-2" >{stats.totalEarnings}</div>
                     <div className="text-lg text-center" >Coins Earned</div>
                 </div>
 
             </div>
 
             <br /> <br /> <br/>
-            <div className="text-center text-xl font-bold text-(--color3)" >
+            <div className="header-1" >
                 Approved Submissions
             </div>
             <br/>
 
-            <div className="flex flex-col gap-4" >
+            <div className="flex flex-col gap-4 p-4" >
                 {
                     approvedSubmissions.length > 0 && approvedSubmissions.map((submission) => (
-                        <div key={submission.id} className="box-13" >
-                            <div className="text-lg font-bold" >
+                        <div key={submission.id} className="box-15" >
+                            <div className="header-3" >
                                 {submission.job.title}
                             </div>
                             

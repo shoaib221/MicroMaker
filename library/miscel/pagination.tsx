@@ -62,7 +62,7 @@ export function usePagination1<T>({ url, perPage= 10 }: { url: string, perPage?:
         )
 
         return (
-            <div className="font-bold text-(--color3)" >Not Data Found</div>
+            <div className="font-bold text-center" >Not Data Found</div>
         )
     }
 
