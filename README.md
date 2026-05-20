@@ -42,6 +42,8 @@ A full-stack  web app for hunting micro-tasks around the world.
 - react-toastify
 - framer motion
 
+## 📦 Deployment
+- Vercel
 
 ## 🧑‍💻 Setup Instructions
 
