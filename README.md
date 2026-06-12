@@ -28,20 +28,9 @@ A full-stack  web app for hunting micro-tasks around the world.
 **Backend:**
 - Node.js  
 - PostgreSql & Supabase
-
-**Authentication:**
-- NextAuth  
-
-**Deployment:**
-- Vercel
+- NextAuth
 
 ---
-
-## 📦 Packages Used
-- swiper
-- react-toastify
-- framer motion
-
 
 ## 🧑‍💻 Setup Instructions
 
