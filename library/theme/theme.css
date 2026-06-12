@@ -11,6 +11,7 @@
 [color-theme="light"] {
     --color1: #ffffff;
     --color1a: #a8a7a7;
+    --color1b: #e2dfdf;
     --color2: #000000;
     --color3: #010168;
     --color4: #3838fb;
@@ -22,6 +23,7 @@
 [color-theme="dark"] {
     --color1: #010147;
     --color1a: #010181;
+    --color1b: #010447;
     --color2: #b3b1b1;
     --color3: white;
     --color5: #00a82a;

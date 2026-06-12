@@ -47,7 +47,7 @@ export function Slide2() {
             try {
                 const response = await axios.get("/api/best-workers");
                 let data = response.data.workers;
-                data.length = 6;
+                if( data.length > 6 ) data.length = 6;
                 setWorkers(data);
                 console.log("Best Workers:", response.data.workers);
             } catch (error) {

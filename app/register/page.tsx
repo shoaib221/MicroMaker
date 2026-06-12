@@ -70,139 +70,149 @@ export default function RegisterForm() {
 
     return (
         <div className="w-full bg-cover bg-center p-4" style={{ backgroundImage: `url(https://t4.ftcdn.net/jpg/09/02/53/81/360_F_902538150_JCEcejSQkRHHR7d5jE1nbmfhXHdcd9E3.jpg)` }} >
-            <form
-                onSubmit={handleSubmit(onSubmit)}
-                className="max-w-[500px] mx-auto p-6 space-y-4 shadow rounded bg-(--color1) text-(--color2) opacity-80"
-            >
-                <h2 className="header-1">Register</h2>
 
-                {/* Name */}
-                <div>
-                    <label className="block mb-1">Name</label>
-                    <input
-                        type="text"
-                        {...register("name", {
-                            required: "Name is required",
-                            minLength: {
-                                value: 3,
-                                message: "Name must be at least 3 characters",
-                            },
-                        })}
-                        className="input1"
-                        placeholder="Type your name ..."
-                    />
-                    {errors.name && (
-                        <p className="text-red-500 text-sm">{errors.name.message}</p>
-                    )}
-                </div>
-
-                {/* Avatar URL */}
-                <div>
-                    <label className="block mb-1">Image URL</label>
-                    <input
-                        type="text"
-                        {...register("image", {
-                            required: false,
-                        })}
-                        className="input1"
-                        placeholder="Your Image URL ..."
-                    />
-                    {errors.image && (
-                        <p className="text-red-500 text-sm">{errors.image.message}</p>
-                    )}
+            <div className="max-w-[500px] mx-auto p-6 space-y-4 shadow rounded bg-(--color1) text-(--color2) opacity-90" >
 
 
-                </div>
+                <form
+                    onSubmit={handleSubmit(onSubmit)}
 
-                {/* Email */}
-                <div>
-                    <label className="block mb-1">Email</label>
-                    <input
-                        type="email"
-                        {...register("email", {
-                            required: "Email is required",
-                            pattern: {
-                                value: /^\S+@\S+$/i,
-                                message: "Invalid email address",
-                            },
-                        })}
-                        className="input1"
-                        placeholder="Your email ..."
-                    />
-                    {errors.email && (
-                        <p className="text-red-500 text-sm">{errors.email.message}</p>
-                    )}
-                </div>
-
-                {/* Role */}
-                <div>
-                    <label>Role</label>
-                    <select
-                        {...register("role", { required: "Role is required" })}
-                        className="input1"
-
-                    >
-                        <option value="">Select role</option>
-                        <option value="worker">Worker</option>
-                        <option value="buyer">Buyer</option>
-
-                    </select>
-
-                    {errors.role && (
-                        <p className="text-red-500 text-sm">
-                            {errors.role.message as string}
-                        </p>
-                    )}
-                </div>
-
-                {/* Password */}
-                <div>
-                    <label className="block mb-1">Password</label>
-                    <input
-                        type="password"
-                        {...register("password", {
-                            required: "Password is required",
-                            minLength: {
-                                value: 6,
-                                message: "Password must be at least 6 characters",
-                            },
-                        })}
-                        className="input1"
-                        placeholder="Provide strong password ..."
-                    />
-                    {errors.password && (
-                        <p className="text-red-500 text-sm">{errors.password.message}</p>
-                    )}
-                </div>
-
-                {/* Confirm Password */}
-                <div>
-                    <label className="block mb-1">Confirm Password</label>
-                    <input
-                        type="password"
-                        {...register("confirmPassword", {
-                            required: "Please confirm your password",
-                            validate: (value) =>
-                                value === password || "Passwords do not match",
-                        })}
-                        className="input1"
-                        placeholder="Confirm your password ..."
-                    />
-                    {errors.confirmPassword && (
-                        <p className="text-red-500 text-sm">
-                            {errors.confirmPassword.message}
-                        </p>
-                    )}
-                </div>
-
-                {/* Submit Button */}
-                <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="button-2 mx-auto text-center block"
                 >
-                    {isSubmitting ? "Registering..." : "Register"}
-                </button>
+                    <h2 className="header-1">Register</h2>
+
+                    {/* Name */}
+                    <div>
+                        <label className="block mb-1">Name</label>
+                        <input
+                            type="text"
+                            {...register("name", {
+                                required: "Name is required",
+                                minLength: {
+                                    value: 3,
+                                    message: "Name must be at least 3 characters",
+                                },
+                            })}
+                            className="input1"
+                            placeholder="Type your name ..."
+                        />
+                        {errors.name && (
+                            <p className="text-red-500 text-sm">{errors.name.message}</p>
+                        )}
+                    </div>
+
+                    {/* Avatar URL */}
+                    <div>
+                        <label className="block mb-1">Image URL</label>
+                        <input
+                            type="text"
+                            {...register("image", {
+                                required: false,
+                            })}
+                            className="input1"
+                            placeholder="Your Image URL ..."
+                        />
+                        {errors.image && (
+                            <p className="text-red-500 text-sm">{errors.image.message}</p>
+                        )}
+
+
+                    </div>
+
+                    {/* Email */}
+                    <div>
+                        <label className="block mb-1">Email</label>
+                        <input
+                            type="email"
+                            {...register("email", {
+                                required: "Email is required",
+                                pattern: {
+                                    value: /^\S+@\S+$/i,
+                                    message: "Invalid email address",
+                                },
+                            })}
+                            className="input1"
+                            placeholder="Your email ..."
+                        />
+                        {errors.email && (
+                            <p className="text-red-500 text-sm">{errors.email.message}</p>
+                        )}
+                    </div>
+
+                    {/* Role */}
+                    <div>
+                        <label>Role</label>
+                        <select
+                            {...register("role", { required: "Role is required" })}
+                            className="input1"
+
+                        >
+                            <option value="">Select role</option>
+                            <option value="worker">Worker</option>
+                            <option value="buyer">Buyer</option>
+
+                        </select>
+
+                        {errors.role && (
+                            <p className="text-red-500 text-sm">
+                                {errors.role.message as string}
+                            </p>
+                        )}
+                    </div>
+
+                    {/* Password */}
+                    <div>
+                        <label className="block mb-1">Password</label>
+                        <input
+                            type="password"
+                            {...register("password", {
+                                required: "Password is required",
+                                minLength: {
+                                    value: 6,
+                                    message: "Password must be at least 6 characters",
+                                },
+                            })}
+                            className="input1"
+                            placeholder="Provide strong password ..."
+                        />
+                        {errors.password && (
+                            <p className="text-red-500 text-sm">{errors.password.message}</p>
+                        )}
+                    </div>
+
+                    {/* Confirm Password */}
+                    <div>
+                        <label className="block mb-1">Confirm Password</label>
+                        <input
+                            type="password"
+                            {...register("confirmPassword", {
+                                required: "Please confirm your password",
+                                validate: (value) =>
+                                    value === password || "Passwords do not match",
+                            })}
+                            className="input1"
+                            placeholder="Confirm your password ..."
+                        />
+
+                        {errors.confirmPassword && (
+                            <p className="text-red-500 text-sm">
+                                {errors.confirmPassword.message}
+                            </p>
+                        )}
+                    </div>
+
+                    <div className="min-h-4"></div>
+
+                    {/* Submit Button */}
+                    <button
+                        type="submit"
+                        disabled={isSubmitting}
+                        className="button-2 mx-auto text-center block bg-(--color3) opacity-100"
+                    >
+                        {isSubmitting ? "Registering..." : "Register"}
+                    </button>
+
+
+                </form>
 
                 <div className="text-center font-bold" >
                     Already have an account?
@@ -213,7 +223,8 @@ export default function RegisterForm() {
                         Sign In
                     </button>
                 </div>
-            </form>
+
+            </div>
 
 
 

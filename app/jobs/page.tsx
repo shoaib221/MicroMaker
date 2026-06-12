@@ -88,7 +88,7 @@ export default function Page() {
 
             {/* Pagination */}
             { loading ? <Loading /> : data?.length >0 ? <div className="flex gap-4 mx-auto justify-center items-center my-4" >
-                {page > 1 && <div  className={`button-3`}
+                {page > 1 && <div  className={`hover:opacity-70 font-bold px-2 cursor-pointer`}
                     onClick={() => setPage(page - 1)} >
                     Previous
                 </div>}
@@ -99,7 +99,7 @@ export default function Page() {
                     </div>
                 ))}
 
-                {page < pages && <div className={`button-3`}
+                {page < pages && <div className={`hover:opacity-70 font-bold px-2 cursor-pointer`}
                     onClick={() => setPage(page + 1)} >
                     Next
                 </div>}

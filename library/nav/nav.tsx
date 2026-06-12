@@ -93,7 +93,7 @@ export function Navbar() {
                     </div>
                 ) :
                     (<div className="right-4 top-4">
-                        <div onClick={ () => router.push("/register") }  className="button-4">
+                        <div onClick={ () => router.push("/register") }  className="button-4 cursor-pointer">
                             Register
                         </div>
                     </div>)

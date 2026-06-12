@@ -10,25 +10,25 @@ import { authOptions } from "../../auth/authOptions";
 export async function GET(req: Request) {
     try {
 
-        const session = await getServerSession(authOptions);
+        // const session = await getServerSession(authOptions);
 
-        if (!session || !session.user || !session.user.email) {
-            return NextResponse.json(
-                { message: "Unauthorized" },
-                { status: 401 }
-            );
-        }
+        // if (!session || !session.user || !session.user.email) {
+        //     return NextResponse.json(
+        //         { message: "Unauthorized" },
+        //         { status: 401 }
+        //     );
+        // }
 
-        const user = await prisma.user.findUnique({
-            where: { email: session.user.email },
-        });
+        // const user = await prisma.user.findUnique({
+        //     where: { email: session.user.email },
+        // });
 
-        if (!user) {
-            return NextResponse.json(
-                { message: "Unauthorized" },
-                { status: 401 }
-            );
-        }
+        // if (!user) {
+        //     return NextResponse.json(
+        //         { message: "Unauthorized" },
+        //         { status: 401 }
+        //     );
+        // }
 
         const data = await prisma.jobCategory.findMany({});
 
